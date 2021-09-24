@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="2px"
+    android:background="@drawable/shape_border"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    >
+
+    <TextView
+        android:id="@+id/item_meeting_tv_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/icon_room"
+        android:textSize="24sp"
+        android:layout_margin="12dp"
+        android:text="A"
+        android:gravity="center"
+        android:importantForAccessibility="no" />
+
+
+    <TextView
+        android:id="@+id/item_meeting_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
+        android:layout_marginLeft="65dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="Titre réunion"
+        />
+
+    <TextView
+        android:id="@+id/item_meeting_tv_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/item_meeting_tv_title"
+        app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
+        android:layout_marginLeft="65dp"
+        tools:text="Réunion avec bob, bobby et robert\nA 13h"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

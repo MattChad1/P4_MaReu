@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.addMeeting.AddMeetingActivity">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:text="Ajouter une réunion"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        android:paddingHorizontal="15dp"
+        android:layout_marginTop="30dp"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_sujet"
+        style="@style/edittext_add_reu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sujet de la réunion">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_participants"
+        style="@style/edittext_add_reu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Participants">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_salle"
+        style="@style/edittext_add_reu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Salle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_heure_debut"
+        style="@style/edittext_add_reu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Débute à ...">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+</LinearLayout>
