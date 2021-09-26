@@ -19,14 +19,12 @@ public class MeetingRepository {
 
 
     private final MutableLiveData<List<Meeting>> meetingsLiveData = new MutableLiveData<>();
-private String TAG = "Meeting Repository";
+    private String TAG = "Meeting Repository";
 
     public MeetingRepository(BuildConfigResolver buildConfigResolver) {
         // At startup, when creating repo, if we're in debug mode, add random Meetings
         if (buildConfigResolver.isDebug()) {
-            Log.i(TAG, "appel generateRandomMeetings");
             generateRandomMeetings();
-            Log.i(TAG, meetingsLiveData.toString());
         }
     }
 

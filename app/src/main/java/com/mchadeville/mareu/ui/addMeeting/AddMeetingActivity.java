@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,11 +25,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         TextInputLayout editTopic = binding.editSujet;
         TextInputLayout editParticipants = binding.editParticipants;
         TextInputLayout editSalle = binding.editSalle;
         TextInputLayout editHeureDebut = binding.editHeureDebut;
+        Button save = binding.btnSave;
 
 
         editHeureDebut.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +52,9 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
         AddMeetingViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(AddMeetingViewModel.class);
+
+        save.setOnClickListener(v-> viewModel.addMeetingLiveData(editTopic.getEditText().getText().toString(), editSalle.getEditText().getText().toString(), editParticipants.getEditText().getText().toString(), editHeureDebut.getEditText().getText().toString()));
+
 
 
     }

@@ -34,7 +34,6 @@ public class MainViewModel extends ViewModel {
                                     meeting.getTopic(),
                                     "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getBeginningTime(),
                                     meeting.getPlace()
-
                             )
                     );
                 }

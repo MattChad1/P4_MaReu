@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         viewModel.getMeetingViewStateItemsLiveData().observe(this, meetingsViewStateItems -> {
+            datas.clear();
             datas.addAll(meetingsViewStateItems);
             adapter.notifyDataSetChanged();
             Log.i(TAG, "onCreate: view model");

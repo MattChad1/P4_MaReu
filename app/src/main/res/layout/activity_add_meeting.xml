@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.addMeeting.AddMeetingActivity">
+
+
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -36,7 +39,10 @@
         style="@style/edittext_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:hint="Sujet de la réunion">
+
+        <!--        app:error="@{viewModel.topicValidator.error}"-->
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -88,10 +94,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
-
-
+<Button
+    android:id="@+id/btn_save"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:layout_marginRight="25dp"
+    android:text="Sauvegarder"
+    android:layout_gravity="right"
+    android:onClick="@{(v) -> viewmodel.onClick(v)}"
+    />
 
 </LinearLayout>
