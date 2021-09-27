@@ -51,8 +51,7 @@ public class AddMeetingViewModel extends ViewModel {
 
     public void onClick(View view) {
         Log.i(TAG, "onClick: " + topicLiveData.getValue());
-        //LoginUser loginUser = new LoginUser(EmailAddress.getValue(), Password.getValue());
-        //userMutableLiveData.setValue(loginUser);
+
 
 
 

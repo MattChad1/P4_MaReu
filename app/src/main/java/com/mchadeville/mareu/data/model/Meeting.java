@@ -2,15 +2,14 @@ package com.mchadeville.mareu.data.model;
 
 
 public class Meeting {
-
-    String place;
     String topic;
+    String place;
     String participants;
     String beginningTime;
 
-    public Meeting(String lieu, String topic, String participants, String heureDebut) {
-        this.place = lieu;
+    public Meeting( String topic, String lieu,String participants, String heureDebut) {
         this.topic = topic;
+        this.place = lieu;
         this.participants = participants;
         this.beginningTime = heureDebut;
     }

@@ -39,10 +39,25 @@
         style="@style/edittext_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:hint="Sujet de la réunion">
 
         <!--        app:error="@{viewModel.topicValidator.error}"-->
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_sujet2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_salle"
+        style="@style/edittext_add_reu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Salle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -57,21 +72,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Participants">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_salle"
-        style="@style/edittext_add_reu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Salle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -102,7 +102,6 @@
     android:layout_marginRight="25dp"
     android:text="Sauvegarder"
     android:layout_gravity="right"
-    android:onClick="@{(v) -> viewmodel.onClick(v)}"
     />
 
 </LinearLayout>

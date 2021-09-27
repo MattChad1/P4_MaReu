@@ -30,8 +30,8 @@ public class MeetingRepository {
 
 
     public void addMeeting (
-            String place,
             String topic,
+            String place,
             String participants,
             String time
     ) {
@@ -44,8 +44,8 @@ public class MeetingRepository {
 
         meetings.add(
                 new Meeting(
-                        place,
                         topic,
+                        place,
                         participants,
                         time
                        )

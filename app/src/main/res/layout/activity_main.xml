@@ -41,8 +41,7 @@
     android:src="@drawable/ic_add"
     android:backgroundTint="@color/colorAccent"
     app:tint="@android:color/white"
-
-    />
+    android:contentDescription="@string/ajouter_une_reunion" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
