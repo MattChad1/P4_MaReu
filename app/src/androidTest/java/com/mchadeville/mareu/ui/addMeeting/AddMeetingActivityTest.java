@@ -19,6 +19,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.mchadeville.mareu.ui.main.MainActivityTest.childAtPosition;
 import static com.mchadeville.mareu.utils.TestUtils.nthChildOf;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertFalse;
 
 import androidx.test.rule.ActivityTestRule;
@@ -71,6 +72,7 @@ public class AddMeetingActivityTest {
 
     }
 
+    @Test
     public void addMeeting_WithFormIncomplete () {
         String topicOK = "";
         String placeOK = "Salle rouge";
@@ -88,7 +90,7 @@ public class AddMeetingActivityTest {
                 .perform(replaceText(beginningHourOK));
 
         onView(withId(R.id.btn_save)).perform(click());
-        onView(withId(R.id.edit_sujet)).check(matches(hasErrorText("")));
+        onView(withText(activity.getString(R.string.error_empty_topic))).check(matches(isDisplayed()));
 
     }
 }

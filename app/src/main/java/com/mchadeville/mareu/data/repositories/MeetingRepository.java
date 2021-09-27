@@ -50,8 +50,6 @@ public class MeetingRepository {
                         time
                        )
         );
-
-        Log.i(TAG, "add meeting : " + topic);
         meetingsLiveData.setValue(meetings);
     }
 
@@ -72,14 +70,14 @@ public class MeetingRepository {
 
     private void generateRandomMeetings() {
         addMeeting(
-                "Room blue",
                 "Faut-il changer la machine à café?",
+                "Room blue",
                 "Moi et toi",
                 "13:00"
         );
         addMeeting(
-                "Room red",
                 "Pour ou contre les PowerPoints",
+                "Room red",
                 "Lui et moi",
                 "16:00"
         );

@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
@@ -27,35 +28,97 @@ public class AddMeetingViewModel extends ViewModel {
         this.meetingRepository = meetingRepository;
     }
 
-    public MutableLiveData<String> topicLiveData = new MutableLiveData<>();
-    public MutableLiveData<String> placeLiveData = new MutableLiveData<>();
+    public MutableLiveData<Boolean> validTopic = new MutableLiveData<>();
+    public MutableLiveData<Boolean> validPlace = new MutableLiveData<>();
+    public MutableLiveData<Boolean> validPartipants = new MutableLiveData<>();
+    public MutableLiveData<Boolean> validTime = new MutableLiveData<>();
+    public MutableLiveData<Boolean> validGeneral = new MutableLiveData<>();
 
-    public Boolean testTopic (String value) {
-        return value != null && !value.isEmpty();
+    public MutableLiveData<Boolean> getValidTopic() {return validTopic;}
+    public MutableLiveData<Boolean> getValidPlace() {return validPlace;}
+    public MutableLiveData<Boolean> getValidParticipants() {return validPartipants;}
+    public MutableLiveData<Boolean> getValidTime() {return validTime;}
+    public MutableLiveData<Boolean> getValidGeneral() {return validGeneral;}
+
+
+    public Boolean validForm (String topic, String place, String participants, String beginningTime) {
+        boolean valid = true;
+        if (topic == null || topic.isEmpty()){
+            validTopic.setValue(false);
+            valid = false;
+        }
+        else validTopic.setValue(true);
+        if (place == null || place.isEmpty()){
+            validPlace.setValue(false);
+            valid = false;
+        }
+        else validPlace.setValue(true);
+        if (participants == null || participants.isEmpty()){
+            validPartipants.setValue(false);
+            valid = false;
+        }
+        else validPartipants.setValue(true);
+        if (beginningTime == null || beginningTime.isEmpty()){
+            validTime.setValue(false);
+            valid = false;
+        }
+        else validTime.setValue(true);
+        validGeneral.setValue(valid);
+        return valid;
+
     }
 
-    public Boolean testPlace (String value) {
-        return value != null && !value.isEmpty();
-    }
 
+//    public Boolean testTopic (String value) {
+//        if (value == null || value.isEmpty()){
+//            validTopic.setValue(false);
+//            return false;
+//        }
+//        else {
+//            validTopic.setValue(true);
+//            return true;
+//        }
+//    }
+//
+//    public Boolean testPlace (String value) {
+//        if (value == null || value.isEmpty()){
+//            validPlace.setValue(false);
+//            return false;
+//        }
+//        else {
+//            validPlace.setValue(true);
+//            return true;
+//        }
+//    }
+//
+//    public Boolean testParticipants (String value) {
+//        if (value == null || value.isEmpty()){
+//            validPartipants.setValue(false);
+//            return false;
+//        }
+//        else {
+//            validPartipants.setValue(true);
+//            return true;
+//        }
+//    }
+//
+//    public Boolean testTime (String value) {
+//        if (value == null || value.isEmpty()){
+//            validTime.setValue(false);
+//            return false;
+//        }
+//        else {
+//            validTime.setValue(true);
+//            return true;
+//        }
+//    }
 
 
     public void addMeetingLiveData(String topic, String place, String participants, String beginningTime) {
-        if (testPlace(place) && testTopic(topic)) {
-            meetingRepository.addMeeting(topic, place, participants, beginningTime );
-        }
+        if (validForm(topic, place, participants, beginningTime)) meetingRepository.addMeeting(topic, place, participants, beginningTime );
     }
 
 
-
-
-    public void onClick(View view) {
-        Log.i(TAG, "onClick: " + topicLiveData.getValue());
-
-
-
-
-    }
 
 
 

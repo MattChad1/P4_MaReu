@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MaRéu</string>
     <string name="ajouter_une_reunion">Ajouter une réunion</string>
+    <string name="error_empty_topic">Vous devez préciser le sujet de la réunion</string>
 </resources>

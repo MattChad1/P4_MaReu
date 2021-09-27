@@ -28,8 +28,12 @@ public class FormTests {
 
     @Test
     public void testTopicEntry() {
-        String value = "";
-        assertFalse(viewModel.testTopic(value));
+        String topic = "";
+        String place = "Salle Rouge";
+        String participants = "bob@gmail.com";
+        String time = "12:00";
+
+        assertFalse(viewModel.validForm(topic, place, participants, time));
 
 
 
