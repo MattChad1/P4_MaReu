@@ -69,54 +69,12 @@ public class AddMeetingViewModel extends ViewModel {
     }
 
 
-//    public Boolean testTopic (String value) {
-//        if (value == null || value.isEmpty()){
-//            validTopic.setValue(false);
-//            return false;
-//        }
-//        else {
-//            validTopic.setValue(true);
-//            return true;
-//        }
-//    }
-//
-//    public Boolean testPlace (String value) {
-//        if (value == null || value.isEmpty()){
-//            validPlace.setValue(false);
-//            return false;
-//        }
-//        else {
-//            validPlace.setValue(true);
-//            return true;
-//        }
-//    }
-//
-//    public Boolean testParticipants (String value) {
-//        if (value == null || value.isEmpty()){
-//            validPartipants.setValue(false);
-//            return false;
-//        }
-//        else {
-//            validPartipants.setValue(true);
-//            return true;
-//        }
-//    }
-//
-//    public Boolean testTime (String value) {
-//        if (value == null || value.isEmpty()){
-//            validTime.setValue(false);
-//            return false;
-//        }
-//        else {
-//            validTime.setValue(true);
-//            return true;
-//        }
-//    }
-
 
     public void addMeetingLiveData(String topic, String place, String participants, String beginningTime) {
         if (validForm(topic, place, participants, beginningTime)) meetingRepository.addMeeting(topic, place, participants, beginningTime );
     }
+
+
 
 
 

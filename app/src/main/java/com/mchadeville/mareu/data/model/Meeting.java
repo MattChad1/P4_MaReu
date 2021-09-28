@@ -3,32 +3,32 @@ package com.mchadeville.mareu.data.model;
 
 public class Meeting {
     String topic;
-    String place;
+    String room;
     String participants;
-    String beginningTime;
+    String startTime;
 
-    public Meeting( String topic, String lieu,String participants, String heureDebut) {
+    public Meeting( String topic, String room,String participants, String startTime) {
         this.topic = topic;
-        this.place = lieu;
+        this.room = room;
         this.participants = participants;
-        this.beginningTime = heureDebut;
+        this.startTime = startTime;
     }
 
 
-    public String getPlace() {
-        return place;
+    public String getRoom() {
+        return room;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setRoom(String room) {
+        this.room = room;
     }
 
     public String getTopic() {
         return topic;
     }
 
-    public void setTopic(String sujet) {
-        this.topic = sujet;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getParticipants() {
@@ -39,11 +39,11 @@ public class Meeting {
         this.participants = participants;
     }
 
-    public String getBeginningTime() {
-        return beginningTime;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setBeginningTime(String beginningTime) {
-        this.beginningTime = beginningTime;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 }

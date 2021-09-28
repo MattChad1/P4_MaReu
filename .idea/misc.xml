@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mchad/AndroidStudioProjects/MaReu/app/src/main/res/drawable/ic_filter.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/mchad/AndroidStudioProjects/MaReu/app/src/main/res/drawable/icon_room.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/mchad/AndroidStudioProjects/MaReu/app/src/main/res/drawable/shape_border.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/mchad/AndroidStudioProjects/MaReu/app/src/main/res/layout/activity_add_meeting.xml" value="0.36666666666666664" />
@@ -10,6 +11,7 @@
         <entry key="..\:/Users/mchad/AndroidStudioProjects/MaReu/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/mchad/AndroidStudioProjects/MaReu/app/src/main/res/layout/item_meet.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mchad/AndroidStudioProjects/MaReu/app/src/main/res/layout/item_reu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/mchad/AndroidStudioProjects/MaReu/app/src/main/res/menu/menu_toolbar.xml" value="0.16770833333333332" />
       </map>
     </option>
   </component>

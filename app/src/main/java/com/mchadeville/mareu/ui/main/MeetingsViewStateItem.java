@@ -7,14 +7,15 @@ public class MeetingsViewStateItem {
 
     private final String title;
     private final String description;
-    private final String place;
+    private final String room;
 
 
 
-    public MeetingsViewStateItem(String title, String description, String place) {
+
+    public MeetingsViewStateItem(String title, String description, String room) {
         this.title = title;
         this.description = description;
-        this.place = place;
+        this.room = room;
     }
 
     public String getTitle() {
@@ -25,7 +26,7 @@ public class MeetingsViewStateItem {
         return description;
     }
 
-    public String getPlace() {
-        return place;
+    public String getRoom() {
+        return room;
     }
 }

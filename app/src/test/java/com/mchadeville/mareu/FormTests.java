@@ -29,11 +29,11 @@ public class FormTests {
     @Test
     public void testTopicEntry() {
         String topic = "";
-        String place = "Salle Rouge";
+        String room = "Room Red";
         String participants = "bob@gmail.com";
-        String time = "12:00";
+        String startTime = "12:00";
 
-        assertFalse(viewModel.validForm(topic, place, participants, time));
+        assertFalse(viewModel.validForm(topic, room, participants, startTime));
 
 
 

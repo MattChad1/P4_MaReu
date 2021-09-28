@@ -6,4 +6,7 @@
     <color name="colorAccent">#CE0A24</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="blue">#06B3E1</color>
+    <color name="red">#E10617</color>
+    <color name="purple">#BD06E1</color>
 </resources>

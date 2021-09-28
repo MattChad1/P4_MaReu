@@ -30,14 +30,15 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        TextInputLayout editTopic = binding.editSujet;
+        TextInputLayout editTopic = binding.editTopic;
         TextInputLayout editParticipants = binding.editParticipants;
-        TextInputLayout editSalle = binding.editSalle;
-        TextInputLayout editHeureDebut = binding.editHeureDebut;
+        TextInputLayout editRoom = binding.editRoom;
+        TextInputLayout editStartTime = binding.editStartTime;
         Button save = binding.btnSave;
 
 
-        editHeureDebut.setOnClickListener(new View.OnClickListener() {
+        // TODO : ne marche pas
+        editStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar cldr = Calendar.getInstance();
@@ -48,7 +49,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                editHeureDebut.getEditText().setText(sHour + ":" + sMinute);
+                                editStartTime.getEditText().setText(sHour + ":" + sMinute);
                             }
                         }, hour, minutes, true);
                 picker.show();
@@ -58,21 +59,17 @@ public class AddMeetingActivity extends AppCompatActivity {
         AddMeetingViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(AddMeetingViewModel.class);
 
         save.setOnClickListener(v ->{
-
-            Log.i("save.setOnClickListener", textFromTextInputLayout(editTopic) +"/" + textFromTextInputLayout(editSalle) +"/" + textFromTextInputLayout(editParticipants) +"/" + textFromTextInputLayout(editHeureDebut));
-            viewModel.addMeetingLiveData(textFromTextInputLayout(editTopic), textFromTextInputLayout(editSalle), textFromTextInputLayout(editParticipants), textFromTextInputLayout(editHeureDebut));
+            viewModel.addMeetingLiveData(textFromTextInputLayout(editTopic), textFromTextInputLayout(editRoom), textFromTextInputLayout(editParticipants), textFromTextInputLayout(editStartTime));
             viewModel.getValidGeneral().observe(this, res -> {
                 Log.i("res ", res.toString());
                 if (!res) { // Test si au moins une erreur dans le formulaire
                     viewModel.getValidTopic().observe(this, vTopic -> { if (!vTopic) editTopic.setError(getString(R.string.error_empty_topic));else editTopic.setError(null);});
-                    viewModel.getValidPlace().observe(this, vPlace -> { if (!vPlace) editSalle.setError("Vous devez préciser le lieu de la réunion");else editSalle.setError(null);});
-                    viewModel.getValidParticipants().observe(this, vParticipants -> { if (!vParticipants) editParticipants.setError("Vous devez préciser qui participe");else editParticipants.setError(null);});
-                    viewModel.getValidTime().observe(this, vTime -> { if (!vTime) editHeureDebut.setError("Vous devez préciser l'heure de la réunion");else editHeureDebut.setError(null);});
-                    Log.i("save.setOnClickListener", "error");
+                    viewModel.getValidPlace().observe(this, vPlace -> { if (!vPlace) editRoom.setError(getString(R.string.error_editRoom_empty));else editRoom.setError(null);});
+                    viewModel.getValidParticipants().observe(this, vParticipants -> { if (!vParticipants) editParticipants.setError(getString(R.string.error_editParticipants_empty));else editParticipants.setError(null);});
+                    viewModel.getValidTime().observe(this, vTime -> { if (!vTime) editStartTime.setError(getString(R.string.error_editTime_empty));else editStartTime.setError(null);});
                 }
                 else {
                     startActivity(new Intent(this, MainActivity.class));
-                    Log.i("save.setOnClickListener", "ok");
                 }
             });
         });

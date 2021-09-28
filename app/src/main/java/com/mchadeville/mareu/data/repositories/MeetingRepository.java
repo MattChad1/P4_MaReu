@@ -1,17 +1,13 @@
 package com.mchadeville.mareu.data.repositories;
 
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 
 import com.mchadeville.mareu.config.BuildConfigResolver;
 import com.mchadeville.mareu.data.model.Meeting;
 
-import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +18,6 @@ public class MeetingRepository {
     private String TAG = "Meeting Repository";
 
     public MeetingRepository(BuildConfigResolver buildConfigResolver) {
-        // At startup, when creating repo, if we're in debug mode, add random Meetings
         if (buildConfigResolver.isDebug()) {
             generateRandomMeetings();
         }
@@ -31,9 +26,9 @@ public class MeetingRepository {
 
     public void addMeeting (
             String topic,
-            String place,
+            String room,
             String participants,
-            String time
+            String startTime
     ) {
 
         List<Meeting> meetings = meetingsLiveData.getValue();
@@ -45,9 +40,9 @@ public class MeetingRepository {
         meetings.add(
                 new Meeting(
                         topic,
-                        place,
+                        room,
                         participants,
-                        time
+                        startTime
                        )
         );
         meetingsLiveData.setValue(meetings);
@@ -59,27 +54,31 @@ public class MeetingRepository {
     }
 
 
-//    public LiveData<Meeting> getMeetingLiveData() {
-//
-//    }
-
-
-
-
-
 
     private void generateRandomMeetings() {
         addMeeting(
                 "Faut-il changer la machine à café?",
-                "Room blue",
+                "A",
                 "Moi et toi",
                 "13:00"
         );
         addMeeting(
                 "Pour ou contre les PowerPoints",
-                "Room red",
+                "B",
                 "Lui et moi",
                 "16:00"
+        );
+        addMeeting(
+                "Préparer la prochaine réunion",
+                "C",
+                "Qui veut",
+                "09:00"
+        );
+        addMeeting(
+                "Au fait, c'est qui le patron ici?",
+                "A",
+                "Tout le monde",
+                "08:00"
         );
 
     }

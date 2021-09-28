@@ -3,14 +3,14 @@ package com.mchadeville.mareu.ui.addMeeting;
 
 
 public class AddMeetingViewStateItem {
-    private String place;
+    private String room;
     private String topic;
     private String participants;
-    private String beginningTime;
+    private String startTime;
 
 
-    public String getPlace() {
-        return place;
+    public String getRoom() {
+        return room;
     }
 
     public String getTopic() {
@@ -21,19 +21,19 @@ public class AddMeetingViewStateItem {
         return participants;
     }
 
-    public String getBeginningTime() {
-        return beginningTime;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public AddMeetingViewStateItem(String place, String topic, String participants, String beginningTime) {
-        this.place = place;
+    public AddMeetingViewStateItem(String room, String topic, String participants, String startTime) {
+        this.room = room;
         this.topic = topic;
         this.participants = participants;
-        this.beginningTime = beginningTime;
+        this.startTime = startTime;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setRoom(String room) {
+        this.room = room;
     }
 
     public void setTopic(String topic) {
@@ -44,7 +44,7 @@ public class AddMeetingViewStateItem {
         this.participants = participants;
     }
 
-    public void setBeginningTime(String beginningTime) {
-        this.beginningTime = beginningTime;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 }

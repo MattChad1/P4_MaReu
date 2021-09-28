@@ -1,26 +1,15 @@
 package com.mchadeville.mareu.ui.addMeeting;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.supportsInputMethods;
-import static androidx.test.espresso.matcher.ViewMatchers.withChild;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import static com.mchadeville.mareu.ui.main.MainActivityTest.childAtPosition;
-import static com.mchadeville.mareu.utils.TestUtils.nthChildOf;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertFalse;
 
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -57,13 +46,13 @@ public class AddMeetingActivityTest {
         String beginningHourOK = "13:00";
 
 
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_sujet))))
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_topic))))
                 .perform(replaceText(topicOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_salle))))
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_room))))
                 .perform(replaceText(placeOK));
         onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_participants))))
                 .perform(replaceText(participantsOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_heure_debut))))
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_start_time))))
                 .perform(replaceText(beginningHourOK));
 
         onView(withId(R.id.btn_save)).perform(click());
@@ -80,13 +69,13 @@ public class AddMeetingActivityTest {
         String beginningHourOK = "13:00";
 
 
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_sujet))))
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_topic))))
                 .perform(replaceText(topicOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_salle))))
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_room))))
                 .perform(replaceText(placeOK));
         onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_participants))))
                 .perform(replaceText(participantsOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_heure_debut))))
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_start_time))))
                 .perform(replaceText(beginningHourOK));
 
         onView(withId(R.id.btn_save)).perform(click());

@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@id/item_meeting_tv_title"
         app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
         android:layout_marginLeft="65dp"
-        tools:text="Réunion avec bob, bobby et robert\nA 13h"
+        tools:text="Réunion avec bob et bobby\nA 13h00"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

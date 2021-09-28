@@ -1,14 +1,19 @@
 package com.mchadeville.mareu.ui.main;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
 import com.mchadeville.mareu.adapters.CustomAdapter;
 import com.mchadeville.mareu.databinding.ActivityMainBinding;
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private List<MeetingsViewStateItem> datas = new ArrayList();
     private String TAG = "MainActivity";
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(v -> startActivity(new Intent(this, AddMeetingActivity.class)));
 
 
-        rv = binding.listeReu;
+        rv = binding.listeMeetings;
         MainViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(MainViewModel.class);
 
-        CustomAdapter adapter = new CustomAdapter(datas);
+        CustomAdapter adapter = new CustomAdapter(this, datas);
 
         rv.setAdapter(adapter);
 
@@ -46,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
             datas.addAll(meetingsViewStateItems);
             adapter.notifyDataSetChanged();
             Log.i(TAG, "onCreate: view model");
+        });
+
+        ActionMenuItemView btnFilter = binding.appBar.findViewById(R.id.btn_filter);
+        btnFilter.setOnClickListener (v -> {
+            Log.i("btnFilter", "ok1");
+            datas.clear();
+            viewModel.getMeetingsFiltered().observe(this, meetingsViewStateItems -> {
+                Log.i("btnFilter", "ok2");
+                        datas.addAll(meetingsViewStateItems);
+                        adapter.notifyDataSetChanged();
+                    }
+            );
         });
 
     }

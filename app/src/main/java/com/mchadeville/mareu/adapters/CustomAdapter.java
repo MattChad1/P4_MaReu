@@ -1,25 +1,23 @@
 package com.mchadeville.mareu.adapters;
 
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.mchadeville.mareu.R;
-import com.mchadeville.mareu.data.model.Meeting;
 import com.mchadeville.mareu.ui.main.MeetingsViewStateItem;
 
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
+    private final Context ctx;
     private final List<MeetingsViewStateItem> listMeetings;
 
     /**
@@ -40,28 +38,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             tvDetails = (TextView) view.findViewById(R.id.item_meeting_tv_details);
         }
 
-//        public TextView getTextView() {
-//            return tvTitle;
-//        }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used
-     * by RecyclerView.
-     */
-    public CustomAdapter(List<MeetingsViewStateItem> dataSet) {
-
+    public CustomAdapter(Context ctx, List<MeetingsViewStateItem> dataSet) {
+        this.ctx = ctx;
         listMeetings = dataSet;
-
     }
 
-    // Create new views (invoked by the layout manager)
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_meet, viewGroup, false);
 
@@ -72,15 +59,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
         MeetingsViewStateItem meet = listMeetings.get(position);
-
         viewHolder.tvTitle.setText(meet.getTitle());
         viewHolder.tvDetails.setText(meet.getDescription());
+        viewHolder.tvIcon.setText(meet.getRoom().substring(0,1));
+
+        switch (meet.getRoom()) {
+            case "A" :
+                viewHolder.tvIcon.setBackgroundResource(R.color.blue);
+                break;
+            case "B" :
+                viewHolder.tvIcon.setBackgroundResource(R.color.red);
+                break;
+            default:
+                viewHolder.tvIcon.setBackgroundResource(R.color.purple);
+                break;
+
+
+        }
+
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return listMeetings.size();

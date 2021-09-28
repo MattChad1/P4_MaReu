@@ -35,7 +35,7 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_sujet"
+        android:id="@+id/edit_topic"
         style="@style/edittext_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,7 +44,6 @@
         <!--        app:error="@{viewModel.topicValidator.error}"-->
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_sujet2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -53,7 +52,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_salle"
+        android:id="@+id/edit_room"
         style="@style/edittext_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,7 +80,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_heure_debut"
+        android:id="@+id/edit_start_time"
         style="@style/edittext_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,7 +99,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="30dp"
     android:layout_marginRight="25dp"
-    android:text="Sauvegarder"
+    android:text="@string/sauvegarder"
     android:layout_gravity="right"
     />
 
