@@ -11,7 +11,7 @@
 
 
 
-    <style name="edittext_add_reu">
+    <style name="field_add_reu">
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:layout_marginLeft">25dp</item>
         <item name="android:layout_marginRight">25dp</item>

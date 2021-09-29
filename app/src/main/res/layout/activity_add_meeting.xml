@@ -36,12 +36,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_topic"
-        style="@style/edittext_add_reu"
+        style="@style/field_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Sujet de la réunion">
-
-        <!--        app:error="@{viewModel.topicValidator.error}"-->
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -53,21 +51,34 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_room"
-        style="@style/edittext_add_reu"
+        style="@style/field_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Salle">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_room_child"
+            android:clickable="true"
+            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+<!--    <Spinner-->
+<!--        android:id="@+id/edit_room"-->
+<!--        style="@style/Widget.AppCompat.Spinner.Underlined"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Salle"-->
+<!--        tools:listitem="@layout/support_simple_spinner_dropdown_item"-->
+
+<!--        />-->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_participants"
-        style="@style/edittext_add_reu"
+        style="@style/field_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Participants">
@@ -81,12 +92,15 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_start_time"
-        style="@style/edittext_add_reu"
+        style="@style/field_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Débute à ...">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_start_time_child"
+            android:clickable="true"
+            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

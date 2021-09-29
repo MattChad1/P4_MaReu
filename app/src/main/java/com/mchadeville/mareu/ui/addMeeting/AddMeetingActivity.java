@@ -3,26 +3,35 @@ package com.mchadeville.mareu.ui.addMeeting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
 import com.mchadeville.mareu.databinding.ActivityAddMeetingBinding;
 import com.mchadeville.mareu.ui.main.MainActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
     private ActivityAddMeetingBinding binding;
+    private String TAG = "AddMeetingActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +43,43 @@ public class AddMeetingActivity extends AppCompatActivity {
         TextInputLayout editParticipants = binding.editParticipants;
         TextInputLayout editRoom = binding.editRoom;
         TextInputLayout editStartTime = binding.editStartTime;
+        TextInputEditText editStartTimeChild = binding.editStartTimeChild;
+        TextInputEditText editRoomChild = binding.editRoomChild;
         Button save = binding.btnSave;
 
 
-        // TODO : ne marche pas
-        editStartTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.rooms_array, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        editRoom.setAdapter(adapter);
+
+        editRoomChild.setOnClickListener(v -> {
+            Log.i(TAG, "onCreate: editRoom.setOnClickListener");
+            Dialog popupWindow = new Dialog(this);
+
+            Resources res = getResources();
+            String[] rooms = res.getStringArray(R.array.rooms_array);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,
+                    rooms);
+            ListView listView = new ListView(this);
+            listView.setOnItemClickListener((parent, view, position, id) -> {
+                editRoom.getEditText().setText(rooms[position]);
+                popupWindow.dismiss();
+            });
+
+            listView.setAdapter(adapter);
+
+            popupWindow.setContentView(listView);
+            popupWindow.show();
+
+        });
+
+
+        editStartTimeChild.setOnClickListener(v ->  {
                 final Calendar cldr = Calendar.getInstance();
                 int hour = cldr.get(Calendar.HOUR_OF_DAY);
                 int minutes = cldr.get(Calendar.MINUTE);
-                // time picker dialog
                 TimePickerDialog picker = new TimePickerDialog(AddMeetingActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
@@ -53,7 +88,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                             }
                         }, hour, minutes, true);
                 picker.show();
-            }
         });
 
         AddMeetingViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(AddMeetingViewModel.class);

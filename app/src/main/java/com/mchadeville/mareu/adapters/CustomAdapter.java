@@ -62,9 +62,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         MeetingsViewStateItem meet = listMeetings.get(position);
         viewHolder.tvTitle.setText(meet.getTitle());
         viewHolder.tvDetails.setText(meet.getDescription());
-        viewHolder.tvIcon.setText(meet.getRoom().substring(0,1));
+        String roomLetter = meet.getRoom().substring(meet.getRoom().length() - 1);
+        viewHolder.tvIcon.setText(roomLetter);
 
-        switch (meet.getRoom()) {
+        switch (roomLetter) {
             case "A" :
                 viewHolder.tvIcon.setBackgroundResource(R.color.blue);
                 break;

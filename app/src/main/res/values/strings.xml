@@ -6,4 +6,13 @@
     <string name="error_editParticipants_empty">Vous devez préciser qui participe</string>
     <string name="error_editTime_empty">Vous devez préciser l\'heure de la réunion</string>
     <string name="sauvegarder">Sauvegarder</string>
+
+
+
+
+    <string-array name="rooms_array">
+        <item>Salle A</item>
+        <item>Salle B</item>
+        <item>Salle C</item>
+    </string-array>
 </resources>
