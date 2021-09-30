@@ -3,6 +3,7 @@ package com.mchadeville.mareu;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
@@ -27,30 +28,32 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class FormTests {
 
+
     private AddMeetingViewModel viewModel;
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule =
             new InstantTaskExecutorRule();
-
-
+//
     @Mock
     private BuildConfigResolver buildConfigResolver;
+//
 
-    @Mock
     private MeetingRepository meetingRepository;
+
+   // MeetingRepository fakeRepo =
 
     @Before
     public void setUp() {
-
-        MockitoAnnotations.initMocks(this);
+        //given(buildConfigResolver.isDebug()).willReturn(true);
+        Mockito.when(buildConfigResolver.isDebug()).thenReturn(false);
         meetingRepository = new MeetingRepository(buildConfigResolver);
         //viewModel = new AddMeetingViewModel(new MeetingRepository(new BuildConfigResolver()));
         viewModel = new AddMeetingViewModel(meetingRepository);
     }
 
     @Test
-    public void testTopicEntry() {
+    public void testTopicEntry_withEmptyField() {
         String topic = "";
         String room = "Room Red";
         String participants = "bob@gmail.com";
@@ -58,6 +61,17 @@ public class FormTests {
         String date = "30/09/2021";
 
         assertFalse(viewModel.validForm(topic, room, participants, startTime, date));
+    }
+
+    @Test
+    public void testTopicEntry_withCorrectFields() {
+        String topic = "Topic de la réunion";
+        String room = "Room Red";
+        String participants = "bob@gmail.com";
+        String startTime = "12:00";
+        String date = "30/09/2021";
+
+        assertTrue(viewModel.validForm(topic, room, participants, startTime, date));
     }
 
 
