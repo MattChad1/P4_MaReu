@@ -1,22 +1,13 @@
 package com.mchadeville.mareu.ui.addMeeting;
 
 
-import android.util.Log;
-import android.view.View;
+import android.util.Patterns;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.mchadeville.mareu.data.model.Meeting;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
-import com.mchadeville.mareu.ui.main.MeetingsViewStateItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddMeetingViewModel extends ViewModel {
 
@@ -57,6 +48,10 @@ public class AddMeetingViewModel extends ViewModel {
             validPartipants.setValue(false);
             valid = false;
         }
+//        else if (!Patterns.EMAIL_ADDRESS.matcher(participants).matches()) {
+//            validPartipants.setValue(false);
+//            valid = false;
+//        }
         else validPartipants.setValue(true);
         if (beginningTime == null || beginningTime.isEmpty()){
             validTime.setValue(false);

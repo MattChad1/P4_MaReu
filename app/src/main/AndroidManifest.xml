@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ui.addMeeting.AddMeetingActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -21,6 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.addMeeting.AddMeetingActivity"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

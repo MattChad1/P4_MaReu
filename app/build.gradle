@@ -81,4 +81,8 @@ dependencies {
 
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$arch_version"
+
+    // Test Mockito
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+
 }

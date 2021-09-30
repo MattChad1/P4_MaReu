@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Log.i(TAG, "onCreate: ");
 
         FloatingActionButton fab = binding.fabMain;
         fab.setOnClickListener(v -> startActivity(new Intent(this, AddMeetingActivity.class)));
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             datas.clear();
             datas.addAll(meetingsViewStateItems);
             adapter.notifyDataSetChanged();
-            Log.i(TAG, "onCreate: view model");
         });
 
         ActionMenuItemView btnFilter = binding.appBar.findViewById(R.id.btn_filter);
@@ -66,5 +66,11 @@ public class MainActivity extends AppCompatActivity {
             );
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: ");
     }
 }

@@ -103,7 +103,11 @@ public class AddMeetingActivity extends AppCompatActivity {
                     viewModel.getValidTime().observe(this, vTime -> { if (!vTime) editStartTime.setError(getString(R.string.error_editTime_empty));else editStartTime.setError(null);});
                 }
                 else {
-                    startActivity(new Intent(this, MainActivity.class));
+                    onBackPressed();
+//                    Intent intent = new Intent(this, MainActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+
                 }
             });
         });

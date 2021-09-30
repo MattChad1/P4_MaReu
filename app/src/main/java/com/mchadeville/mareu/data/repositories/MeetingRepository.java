@@ -13,7 +13,6 @@ import java.util.List;
 
 public class MeetingRepository {
 
-
     private final MutableLiveData<List<Meeting>> meetingsLiveData = new MutableLiveData<>();
     private String TAG = "Meeting Repository";
 

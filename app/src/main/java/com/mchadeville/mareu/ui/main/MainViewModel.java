@@ -113,7 +113,6 @@ public class MainViewModel extends ViewModel {
     public LiveData<List<MeetingsViewStateItem>> getMeetingsFiltered() {
         return Transformations.map(meetingRepository.getMeetingsLiveData(), meetings -> {
             List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
-
             for (Meeting meeting : meetings) {
                 if (meeting.getRoom().equals("A")) {
                     meetingsViewStateItems.add(
