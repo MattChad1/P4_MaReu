@@ -5,7 +5,11 @@
     <string name="error_editRoom_empty">Vous devez préciser le lieu de la réunion</string>
     <string name="error_editParticipants_empty">Vous devez préciser qui participe</string>
     <string name="error_editTime_empty">Vous devez préciser l\'heure de la réunion</string>
+
+
     <string name="sauvegarder">Sauvegarder</string>
+    <string name="menu_update">Modifier</string>
+    <string name="menu_delete">Supprimer</string>
 
 
 

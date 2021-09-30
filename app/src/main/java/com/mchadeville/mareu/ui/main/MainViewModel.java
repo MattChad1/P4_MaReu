@@ -2,6 +2,7 @@ package com.mchadeville.mareu.ui.main;
 
 
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -33,22 +34,22 @@ public class MainViewModel extends ViewModel {
 
 
         /* Essai avec MediatorLiveData (ne marche pas) */
-        allMeetings = Transformations.map(meetingRepository.getMeetingsLiveData(), meetings -> {
-            List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
-
-            for (Meeting meeting : meetings) {
-                meetingsViewStateItems.add(
-                        new MeetingsViewStateItem(
-                                meeting.getTopic(),
-                                "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getStartTime(),
-                                meeting.getRoom()
-                        )
-                );
-            }
-            return meetingsViewStateItems;
-        });
-
-        med.addSource(allMeetings, value -> value.stream().filter(mt -> mt.getTitle().contains("Faut-il")));
+//        allMeetings = Transformations.map(meetingRepository.getMeetingsLiveData(), meetings -> {
+//            List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
+//
+//            for (Meeting meeting : meetings) {
+//                meetingsViewStateItems.add(
+//                        new MeetingsViewStateItem(
+//                                meeting.getTopic(),
+//                                "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getStartTime(),
+//                                meeting.getRoom()
+//                        )
+//                );
+//            }
+//            return meetingsViewStateItems;
+//        });
+//
+//        med.addSource(allMeetings, value -> value.stream().filter(mt -> mt.getTitle().contains("Faut-il")));
     }
 
 
@@ -89,21 +90,25 @@ public class MainViewModel extends ViewModel {
     }
 
 
+    public void deleteMeetingLiveData(int id) {
+        meetingRepository.deleteMeeting(id);
+    }
 
 
 
     public LiveData<List<MeetingsViewStateItem>> getMeetingViewStateItemsLiveData() {
         return Transformations.map(meetingRepository.getMeetingsLiveData(), meetings -> {
             List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
-
             for (Meeting meeting : meetings) {
                 meetingsViewStateItems.add(
                         new MeetingsViewStateItem(
+                                meeting.getId(),
                                 meeting.getTopic(),
                                 "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getStartTime(),
                                 meeting.getRoom()
                         )
                 );
+                Log.i("MeetingsViewStateItem", "Add : " + meeting.getId() + " " + meeting.getTopic() + " "+ "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getStartTime() + " "+ meeting.getRoom());
             }
             return meetingsViewStateItems;
         });
@@ -117,6 +122,7 @@ public class MainViewModel extends ViewModel {
                 if (meeting.getRoom().equals("A")) {
                     meetingsViewStateItems.add(
                             new MeetingsViewStateItem(
+                                    meeting.getId(),
                                     meeting.getTopic(),
                                     "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getStartTime(),
                                     meeting.getRoom()

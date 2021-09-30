@@ -43,18 +43,13 @@ public class AddMeetingActivity extends AppCompatActivity {
         TextInputLayout editParticipants = binding.editParticipants;
         TextInputLayout editRoom = binding.editRoom;
         TextInputLayout editStartTime = binding.editStartTime;
+        TextInputLayout editDate = binding.editDate;
         TextInputEditText editStartTimeChild = binding.editStartTimeChild;
         TextInputEditText editRoomChild = binding.editRoomChild;
         Button save = binding.btnSave;
 
 
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-//                R.array.rooms_array, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        editRoom.setAdapter(adapter);
-
         editRoomChild.setOnClickListener(v -> {
-            Log.i(TAG, "onCreate: editRoom.setOnClickListener");
             Dialog popupWindow = new Dialog(this);
 
             Resources res = getResources();
@@ -93,7 +88,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         AddMeetingViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(AddMeetingViewModel.class);
 
         save.setOnClickListener(v ->{
-            viewModel.addMeetingLiveData(textFromTextInputLayout(editTopic), textFromTextInputLayout(editRoom), textFromTextInputLayout(editParticipants), textFromTextInputLayout(editStartTime));
+            viewModel.addMeetingLiveData(textFromTextInputLayout(editTopic), textFromTextInputLayout(editRoom), textFromTextInputLayout(editParticipants), textFromTextInputLayout(editStartTime),textFromTextInputLayout(editDate));
             viewModel.getValidGeneral().observe(this, res -> {
                 Log.i("res ", res.toString());
                 if (!res) { // Test si au moins une erreur dans le formulaire

@@ -10,12 +10,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
 import com.mchadeville.mareu.adapters.CustomAdapter;
+import com.mchadeville.mareu.data.model.Meeting;
 import com.mchadeville.mareu.databinding.ActivityMainBinding;
 import com.mchadeville.mareu.ui.addMeeting.AddMeetingActivity;
 
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rv;
     private List<MeetingsViewStateItem> datas = new ArrayList();
     private String TAG = "MainActivity";
+    private CustomAdapter adapter;
+    private MainViewModel viewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -42,11 +46,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         rv = binding.listeMeetings;
-        MainViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(MainViewModel.class);
+        viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(MainViewModel.class);
 
-        CustomAdapter adapter = new CustomAdapter(this, datas);
+        adapter = new CustomAdapter(this, datas);
 
         rv.setAdapter(adapter);
+        registerForContextMenu(rv);
 
         viewModel.getMeetingViewStateItemsLiveData().observe(this, meetingsViewStateItems -> {
             datas.clear();
@@ -69,8 +74,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume: ");
+    public boolean onContextItemSelected(MenuItem item) {
+        int position = -1;
+        String title;
+        try {
+            //position = ((BackupRestoreListAdapter)getAdapter()).getPosition();
+            position = adapter.getPosition();
+//            title = adapter.getTopic();
+
+
+        } catch (Exception e) {
+            Log.d(TAG, e.getLocalizedMessage(), e);
+            return super.onContextItemSelected(item);
+        }
+        switch (item.getItemId()) {
+            case R.id.menu_update:
+                // do your stuff
+                break;
+            case R.id.menu_delete:
+                Log.i(TAG, "onContextItemSelected: position : " + position);
+                Log.i(TAG, "onContextItemSelected: datas.get(position).getId() : " + datas.get(position).getId());
+                viewModel.deleteMeetingLiveData(datas.get(position).getId());
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
+
+
 }

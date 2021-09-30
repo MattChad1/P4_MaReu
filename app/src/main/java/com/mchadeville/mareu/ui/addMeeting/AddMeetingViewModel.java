@@ -23,6 +23,7 @@ public class AddMeetingViewModel extends ViewModel {
     public MutableLiveData<Boolean> validPlace = new MutableLiveData<>();
     public MutableLiveData<Boolean> validPartipants = new MutableLiveData<>();
     public MutableLiveData<Boolean> validTime = new MutableLiveData<>();
+    public MutableLiveData<Boolean> validDate = new MutableLiveData<>();
     public MutableLiveData<Boolean> validGeneral = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> getValidTopic() {return validTopic;}
@@ -32,7 +33,7 @@ public class AddMeetingViewModel extends ViewModel {
     public MutableLiveData<Boolean> getValidGeneral() {return validGeneral;}
 
 
-    public Boolean validForm (String topic, String place, String participants, String beginningTime) {
+    public Boolean validForm (String topic, String place, String participants, String beginningTime, String date) {
         boolean valid = true;
         if (topic == null || topic.isEmpty()){
             validTopic.setValue(false);
@@ -58,15 +59,19 @@ public class AddMeetingViewModel extends ViewModel {
             valid = false;
         }
         else validTime.setValue(true);
+        if (date == null || date.isEmpty()){
+            validDate.setValue(false);
+            valid = false;
+        }
+        else validDate.setValue(true);
         validGeneral.setValue(valid);
         return valid;
 
     }
 
 
-
-    public void addMeetingLiveData(String topic, String place, String participants, String beginningTime) {
-        if (validForm(topic, place, participants, beginningTime)) meetingRepository.addMeeting(topic, place, participants, beginningTime );
+    public void addMeetingLiveData(String topic, String place, String participants, String beginningTime, String date) {
+        if (validForm(topic, place, participants, beginningTime, date)) meetingRepository.addMeeting(topic, place, participants, beginningTime, date);
     }
 
 

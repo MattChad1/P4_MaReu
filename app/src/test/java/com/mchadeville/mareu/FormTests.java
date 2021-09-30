@@ -55,10 +55,10 @@ public class FormTests {
         String room = "Room Red";
         String participants = "bob@gmail.com";
         String startTime = "12:00";
+        String date = "30/09/2021";
 
-        assertFalse(viewModel.validForm(topic, room, participants, startTime));
-
-
-
+        assertFalse(viewModel.validForm(topic, room, participants, startTime, date));
     }
+
+
 }

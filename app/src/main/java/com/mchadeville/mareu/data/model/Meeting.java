@@ -2,18 +2,35 @@ package com.mchadeville.mareu.data.model;
 
 
 public class Meeting {
+    int id;
     String topic;
     String room;
     String participants;
     String startTime;
+    String date;
 
-    public Meeting( String topic, String room,String participants, String startTime) {
+    public Meeting(int id, String topic, String room,String participants, String startTime, String date) {
+        this.id = id;
         this.topic = topic;
         this.room = room;
         this.participants = participants;
         this.startTime = startTime;
+        this.date = date;
     }
 
+
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getRoom() {
         return room;
