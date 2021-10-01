@@ -1,15 +1,17 @@
 package com.mchadeville.mareu.data.model;
 
 
+import java.util.List;
+
 public class Meeting {
     int id;
     String topic;
     String room;
-    String participants;
+    List<String> participants;
     String startTime;
     String date;
 
-    public Meeting(int id, String topic, String room,String participants, String startTime, String date) {
+    public Meeting(int id, String topic, String room,List<String> participants, String startTime, String date) {
         this.id = id;
         this.topic = topic;
         this.room = room;
@@ -48,11 +50,11 @@ public class Meeting {
         this.topic = topic;
     }
 
-    public String getParticipants() {
+    public List<String> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(String participants) {
+    public void setParticipants(List<String> participants) {
         this.participants = participants;
     }
 

@@ -10,9 +10,6 @@ public class MeetingsViewStateItem {
     private final String description;
     private final String room;
 
-
-
-
     public MeetingsViewStateItem(int id, String title, String description, String room) {
         this.id = id;
         this.title = title;

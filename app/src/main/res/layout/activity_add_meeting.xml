@@ -19,20 +19,10 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
+            app:title="Ajouter une réunion"
             />
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        android:text="Ajouter une réunion"
-        app:layout_constraintTop_toBottomOf="@id/appBar"
-        android:paddingHorizontal="15dp"
-        android:layout_marginTop="30dp"
-        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_topic"
@@ -76,19 +66,73 @@
 
 <!--        />-->
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_participants"
-        style="@style/field_add_reu"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Participants">
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="20dp"
+        >
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_participants"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_weight="0.85"
+        android:hint="Participants (email)"
+        >
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:layout_width="match_parent"
+            android:layout_height="60dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_add_participant"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="+"
+            android:textStyle="bold"
+            android:layout_weight="0.15"
             />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|center"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:id="@+id/liste_emails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.85"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                tools:text="bob@lamzone.com\nemily@lamzone.com"
+                />
+        <Button
+            android:id="@+id/btn_delete_participant"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/red"
+            android:textStyle="bold"
+            android:text="-"
+            android:layout_weight="0.15"
+            />
+    </LinearLayout>
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_start_time"

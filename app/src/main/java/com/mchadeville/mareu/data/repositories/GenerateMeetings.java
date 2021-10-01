@@ -15,33 +15,41 @@ abstract public class GenerateMeetings {
     public static List<Meeting> FAKE_MEETINGS = Arrays.asList(
             new Meeting(
                     1,
-                    "Faut-il changer la machine à café?",
+                    "Avantages du Kotlin",
                     "A",
-                    "Moi et toi",
+                    new ArrayList<>(Arrays.asList("arthur@lamzone.com", "bertrand@gmail.com", "claire@lamzone.com", "damien@live.fr", "jean.peuplus@gmail.com", "cecile.ourkessa@lamzone.com")),
                     "13:00",
                     "30/09/2021"
             ),
             new Meeting(
                     2,
-                    "Pour ou contre les PowerPoints",
+                    "Avantages du Java",
                     "B",
-                    "Lui et moi",
+                    new ArrayList<>(Arrays.asList("francis@lamzone.com")),
                     "16:00",
                     "30/09/2021"
             ),
             new Meeting(
-                    3,
-                    "Préparer la prochaine réunion",
+                    4,
+                    "Application Réunion ",
                     "C",
-                    "Qui veut",
+                    new ArrayList<>(Arrays.asList("matthieu@lamzone.com", "francis@lamzone.com", "cecile@gmail.com", "lea@lamzone.com")),
                     "09:00",
                     "30/09/2021"
             ),
             new Meeting(
-                    4,
+                    5,
+                    "Préparer la prochaine réunion",
+                    "C",
+                    new ArrayList<>(Arrays.asList("claire@lamzone.com", "karim@lamzone.com", "oscar@lamzone.com")),
+                    "09:00",
+                    "30/09/2021"
+            ),
+            new Meeting(
+                    6,
                     "Au fait, c'est qui le patron ici?",
                     "A",
-                    "Tout le monde",
+                    new ArrayList<>(Arrays.asList("francis@lamzone.com", "lesmentors@oc.com", "matthieu.nebra@oc.com")),
                     "08:00",
                     "30/09/2021"
             )

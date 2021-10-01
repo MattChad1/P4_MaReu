@@ -30,7 +30,7 @@ public class MeetingRepository {
     public void addMeeting (
             String topic,
             String room,
-            String participants,
+            List<String> participants,
             String startTime,
             String date
     ) {
@@ -75,39 +75,6 @@ public class MeetingRepository {
         return meetingsLiveData;
     }
 
-
-
-    private void generateRandomMeetings() {
-        addMeeting(
-                "Faut-il changer la machine à café?",
-                "A",
-                "Moi et toi",
-                "13:00",
-                "30/09/2021"
-        );
-        addMeeting(
-                "Pour ou contre les PowerPoints",
-                "B",
-                "Lui et moi",
-                "16:00",
-                "30/09/2021"
-        );
-        addMeeting(
-                "Préparer la prochaine réunion",
-                "C",
-                "Qui veut",
-                "09:00",
-                "30/09/2021"
-        );
-        addMeeting(
-                "Au fait, c'est qui le patron ici?",
-                "A",
-                "Tout le monde",
-                "08:00",
-                "30/09/2021"
-        );
-
-    }
 
 
 }

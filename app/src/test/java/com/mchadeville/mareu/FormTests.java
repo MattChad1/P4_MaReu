@@ -37,11 +37,8 @@ public class FormTests {
 //
     @Mock
     private BuildConfigResolver buildConfigResolver;
-//
 
     private MeetingRepository meetingRepository;
-
-   // MeetingRepository fakeRepo =
 
     @Before
     public void setUp() {
@@ -56,7 +53,7 @@ public class FormTests {
     public void testTopicEntry_withEmptyField() {
         String topic = "";
         String room = "Room Red";
-        String participants = "bob@gmail.com";
+        int participants = 4;
         String startTime = "12:00";
         String date = "30/09/2021";
 
@@ -67,7 +64,7 @@ public class FormTests {
     public void testTopicEntry_withCorrectFields() {
         String topic = "Topic de la réunion";
         String room = "Room Red";
-        String participants = "bob@gmail.com";
+        int participants = 4;
         String startTime = "12:00";
         String date = "30/09/2021";
 

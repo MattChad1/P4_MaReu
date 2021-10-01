@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.mchadeville.mareu.data.model.Meeting;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
+import com.mchadeville.mareu.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +105,7 @@ public class MainViewModel extends ViewModel {
                         new MeetingsViewStateItem(
                                 meeting.getId(),
                                 meeting.getTopic(),
-                                "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getStartTime(),
+                                Utils.listToStringRevert(meeting.getParticipants()) + "\n" + "A " + meeting.getStartTime(),
                                 meeting.getRoom()
                         )
                 );

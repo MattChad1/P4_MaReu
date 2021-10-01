@@ -1,32 +1,31 @@
 package com.mchadeville.mareu.ui.addMeeting;
 
+import static com.mchadeville.mareu.utils.Utils.textFromTextInputLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
 import com.mchadeville.mareu.databinding.ActivityAddMeetingBinding;
-import com.mchadeville.mareu.ui.main.MainActivity;
+import com.mchadeville.mareu.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Objects;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -39,14 +38,38 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         TextInputLayout editTopic = binding.editTopic;
         TextInputLayout editParticipants = binding.editParticipants;
+        Button btnAddParticipant = binding.btnAddParticipant;
+        TextView tvListeEmails = binding.listeEmails;
+        Button btnDeleteParticipant = binding.btnDeleteParticipant;
         TextInputLayout editRoom = binding.editRoom;
         TextInputLayout editStartTime = binding.editStartTime;
         TextInputLayout editDate = binding.editDate;
         TextInputEditText editStartTimeChild = binding.editStartTimeChild;
         TextInputEditText editRoomChild = binding.editRoomChild;
         Button save = binding.btnSave;
+
+        AddMeetingViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(AddMeetingViewModel.class);
+
+        /* Ajout de l'email d'un participant */
+        btnAddParticipant.setOnClickListener(v -> {
+            viewModel.addParticipantToTextView (textFromTextInputLayout(editParticipants));
+            editParticipants.getEditText().setText(null);
+        });
+
+        btnDeleteParticipant.setOnClickListener(v -> {
+            viewModel.deleteLastParticipantToTextView ();
+        });
+
+        viewModel.getLiveDataListeEmails().observe(this, listeEmails -> {
+            Log.i(TAG, "onCreate: modif viewModel.getLiveDataListeEmails");
+            tvListeEmails.setText(Utils.listToStringRevert(listeEmails));
+                });
+
+
+
 
 
         editRoomChild.setOnClickListener(v -> {
@@ -85,10 +108,10 @@ public class AddMeetingActivity extends AppCompatActivity {
                 picker.show();
         });
 
-        AddMeetingViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(AddMeetingViewModel.class);
+
 
         save.setOnClickListener(v ->{
-            viewModel.addMeetingLiveData(textFromTextInputLayout(editTopic), textFromTextInputLayout(editRoom), textFromTextInputLayout(editParticipants), textFromTextInputLayout(editStartTime),textFromTextInputLayout(editDate));
+            viewModel.addMeetingLiveData(textFromTextInputLayout(editTopic), textFromTextInputLayout(editRoom), textFromTextInputLayout(editStartTime),textFromTextInputLayout(editDate));
             viewModel.getValidGeneral().observe(this, res -> {
                 Log.i("res ", res.toString());
                 if (!res) { // Test si au moins une erreur dans le formulaire
@@ -109,7 +132,5 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
-    public String textFromTextInputLayout (TextInputLayout til) {
-        return Objects.requireNonNull(til.getEditText()).getText().toString();
-    }
+
 }
