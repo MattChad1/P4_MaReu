@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,7 +26,9 @@ import com.mchadeville.mareu.ViewModelFactory;
 import com.mchadeville.mareu.databinding.ActivityAddMeetingBinding;
 import com.mchadeville.mareu.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -41,6 +44,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         TextInputLayout editTopic = binding.editTopic;
         TextInputLayout editParticipants = binding.editParticipants;
+        AutoCompleteTextView editParticipantsChild = binding.editParticipantsChild;
         Button btnAddParticipant = binding.btnAddParticipant;
         TextView tvListeEmails = binding.listeEmails;
         Button btnDeleteParticipant = binding.btnDeleteParticipant;
@@ -68,6 +72,17 @@ public class AddMeetingActivity extends AppCompatActivity {
             tvListeEmails.setText(Utils.listToStringRevert(listeEmails));
                 });
 
+
+
+        /*Ajouts des emails déjà enregistrés sur le AutocompleteTextView
+        */
+        List<String> allEmails = new ArrayList<>();
+        viewModel.getLiveDataAllEmails().observe(this, allEmails::addAll);
+        Log.i(TAG, "Test emails: " +  allEmails.toString());
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, allEmails);
+
+        editParticipantsChild.setAdapter(adapter2);
 
 
 

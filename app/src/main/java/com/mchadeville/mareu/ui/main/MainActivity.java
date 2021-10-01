@@ -60,16 +60,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ActionMenuItemView btnFilter = binding.appBar.findViewById(R.id.btn_filter);
-        btnFilter.setOnClickListener (v -> {
-            Log.i("btnFilter", "ok1");
-            datas.clear();
-            viewModel.getMeetingsFiltered().observe(this, meetingsViewStateItems -> {
-                Log.i("btnFilter", "ok2");
-                        datas.addAll(meetingsViewStateItems);
-                        adapter.notifyDataSetChanged();
-                    }
-            );
-        });
+//        btnFilter.setOnClickListener (v -> {
+//            Log.i("btnFilter", "ok1");
+//            datas.clear();
+//            viewModel.getMeetingsFiltered().observe(this, meetingsViewStateItems -> {
+//                Log.i("btnFilter", "ok2");
+//                        datas.addAll(meetingsViewStateItems);
+//                        adapter.notifyDataSetChanged();
+//                    }
+//            );
+//        });
 
     }
 

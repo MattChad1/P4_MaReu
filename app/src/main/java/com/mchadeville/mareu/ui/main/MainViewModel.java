@@ -105,7 +105,7 @@ public class MainViewModel extends ViewModel {
                         new MeetingsViewStateItem(
                                 meeting.getId(),
                                 meeting.getTopic(),
-                                Utils.listToStringRevert(meeting.getParticipants()) + "\n" + "A " + meeting.getStartTime(),
+                                Utils.listToString(meeting.getParticipants()) + "\n" + "A " + meeting.getStartTime(),
                                 meeting.getRoom()
                         )
                 );
@@ -116,24 +116,24 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public LiveData<List<MeetingsViewStateItem>> getMeetingsFiltered() {
-        return Transformations.map(meetingRepository.getMeetingsLiveData(), meetings -> {
-            List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
-            for (Meeting meeting : meetings) {
-                if (meeting.getRoom().equals("A")) {
-                    meetingsViewStateItems.add(
-                            new MeetingsViewStateItem(
-                                    meeting.getId(),
-                                    meeting.getTopic(),
-                                    "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getStartTime(),
-                                    meeting.getRoom()
-                            )
-                    );
-                }
-            }
-            return meetingsViewStateItems;
-        });
-    }
+//    public LiveData<List<MeetingsViewStateItem>> getMeetingsFiltered() {
+//        return Transformations.map(meetingRepository.getMeetingsLiveData(), meetings -> {
+//            List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
+//            for (Meeting meeting : meetings) {
+//                if (meeting.getRoom().equals("A")) {
+//                    meetingsViewStateItems.add(
+//                            new MeetingsViewStateItem(
+//                                    meeting.getId(),
+//                                    meeting.getTopic(),
+//                                    "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getStartTime(),
+//                                    meeting.getRoom()
+//                            )
+//                    );
+//                }
+//            }
+//            return meetingsViewStateItems;
+//        });
+//    }
 
 
 }

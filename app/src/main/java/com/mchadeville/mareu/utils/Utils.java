@@ -11,11 +11,20 @@ public class Utils {
         return Objects.requireNonNull(til.getEditText()).getText().toString();
     }
 
-    public static String listToStringRevert(List<String> li) {
+    public static String listToStringRevert(List<String> list) {
         String re = "";
-        for (int i= li.size() -1 ; i>=0; i--) {
+        for (int i= list.size() -1 ; i>=0; i--) {
             if (!re.isEmpty()) re += "\n";
-            re += li.get(i);
+            re += list.get(i);
+        }
+        return re;
+    }
+
+    public static String listToString(List<String> list) {
+        String re = "";
+        for (String st: list) {
+            if (!re.isEmpty()) re += ", ";
+            re += st;
         }
         return re;
     }

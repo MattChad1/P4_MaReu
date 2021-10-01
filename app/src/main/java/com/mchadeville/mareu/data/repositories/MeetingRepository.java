@@ -1,6 +1,5 @@
 package com.mchadeville.mareu.data.repositories;
 
-
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -22,59 +21,47 @@ public class MeetingRepository {
     public MeetingRepository(BuildConfigResolver buildConfigResolver) {
         if (buildConfigResolver.isDebug()) {
             meetingsLiveData.setValue(GenerateMeetings.generateMeetings());
-            idMax = GenerateMeetings.FAKE_MEETINGS.size()+1;
+            idMax = GenerateMeetings.FAKE_MEETINGS.size() + 1;
         }
     }
 
-
-    public void addMeeting (
-            String topic,
-            String room,
-            List<String> participants,
-            String startTime,
-            String date
-    ) {
+    public void addMeeting(String topic, String room, List<String> participants, String startTime, String date) {
         List<Meeting> meetings = meetingsLiveData.getValue();
-
 
         if (meetings == null) {
             meetings = new ArrayList<>();
         }
 
-
-
-        meetings.add(
-                new Meeting(
-                        idMax,
-                        topic,
-                        room,
-                        participants,
-                        startTime,
-                        date
-                       )
-        );
-        Log.i(TAG, "addMeeting: "+ idMax + " " + topic + " "+ room + " "+ participants + " "+ startTime + " "+ date);
-        idMax ++;
+        meetings.add(new Meeting(idMax, topic, room, participants, startTime, date));
+        Log.i(TAG, "addMeeting: " + idMax + " " + topic + " " + room + " " + participants + " " + startTime + " " + date);
+        idMax++;
         meetingsLiveData.setValue(meetings);
     }
 
-
-    public void deleteMeeting (int id) {
-
+    public void deleteMeeting(int id) {
         List<Meeting> meetings = meetingsLiveData.getValue();
         Meeting meetingToDelete = null;
         for (Meeting m : meetings) {
-            if (m.getId()==id) meetingToDelete = m;
+            if (m.getId() == id) meetingToDelete = m;
         }
         if (meetingToDelete != null) meetings.remove(meetingToDelete);
         meetingsLiveData.setValue(meetings);
+    }
+
+    public List<String> getAllEmails() {
+        List<String> allEmails = new ArrayList<>();
+        List<Meeting> meetings = meetingsLiveData.getValue();
+        for (Meeting meet : meetings) {
+            for (String email : meet.getParticipants()) {
+                if (!allEmails.contains(email)) allEmails.add(email);
+            }
+        }
+
+        return allEmails;
     }
 
     @NonNull
     public LiveData<List<Meeting>> getMeetingsLiveData() {
         return meetingsLiveData;
     }
-
-
-
 }

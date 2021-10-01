@@ -84,6 +84,8 @@
         >
 
         <AutoCompleteTextView
+            android:id="@+id/edit_participants_child"
+            android:completionThreshold="1"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             />
