@@ -18,11 +18,12 @@ import com.mchadeville.mareu.data.FilterDate;
 import com.mchadeville.mareu.data.FilterRoom;
 import com.mchadeville.mareu.databinding.ActivityMainBinding;
 import com.mchadeville.mareu.ui.addMeeting.AddMeetingActivity;
+import com.mchadeville.mareu.ui.main.filter.SideSheetFilter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SideSheetFilter.onFormListener {
+public class MainActivity extends AppCompatActivity /*implements SideSheetFilter.onFormListener*/ {
 
     private ActivityMainBinding binding;
     private RecyclerView rv;
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements SideSheetFilter.o
         registerForContextMenu(rv);
 
 
-        //viewModel.getMeetingViewStateItemsLiveData().observe(this, meetingsViewStateItems -> {
         viewModel.getMeetingsViewStateItemMediatorLD().observe(this, meetingsViewStateItems -> {
             datas.clear();
             datas.addAll(meetingsViewStateItems);
@@ -93,14 +93,14 @@ public class MainActivity extends AppCompatActivity implements SideSheetFilter.o
         return super.onContextItemSelected(item);
     }
 
-    @Override
-    public void transfertChecks(List<FilterRoom> filterRoomSelected) {
-        Log.i(TAG, "transfertChecks: ");
-        viewModel.filterDatas (filterRoomSelected, FilterDate.DATE_30DAYS);
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
+//    @Override
+//    public void transfertChecks(List<FilterRoom> filterRoomSelected) {
+//        Log.i(TAG, "transfertChecks: ");
+//        viewModel.filterDatas (filterRoomSelected, FilterDate.DATE_30DAYS);
+//    }
+//
+//    @Override
+//    public void onPointerCaptureChanged(boolean hasCapture) {
+//
+//    }
 }

@@ -39,6 +39,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        AddMeetingViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(AddMeetingViewModel.class);
 
         TextInputLayout editTopic = binding.editTopic;
         TextInputLayout editParticipants = binding.editParticipants;
@@ -52,8 +53,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         TextInputEditText editStartTimeChild = binding.editStartTimeChild;
         TextInputEditText editRoomChild = binding.editRoomChild;
         Button save = binding.btnSave;
-
-        AddMeetingViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(AddMeetingViewModel.class);
 
         /* Ajout de l'email d'un participant */
         btnAddParticipant.setOnClickListener(v -> {

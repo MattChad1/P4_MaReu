@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ui.main.MeetingsViewStateItem;
+import com.mchadeville.mareu.util.Utils;
 
 import java.util.List;
 
@@ -37,7 +37,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         private final TextView tvIcon;
         private final TextView tvTitle;
-        private final TextView tvDetails;
+        private final TextView tvDateTime;
+        private final TextView tvParticipants;
 
 
         public ViewHolder(View view) {
@@ -45,26 +46,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
             tvIcon = (TextView) view.findViewById(R.id.item_meeting_tv_icon);
             tvTitle = (TextView) view.findViewById(R.id.item_meeting_tv_title);
-            tvDetails = (TextView) view.findViewById(R.id.item_meeting_tv_details);
+            tvDateTime = (TextView) view.findViewById(R.id.item_meeting_tv_date_time);
+            tvParticipants = (TextView) view.findViewById(R.id.item_meeting_tv_participants);
             view.setOnCreateContextMenuListener(this);
-
-
-//            view.setOnClickListener(v-> {
-//                        PopupMenu popupMenu = new PopupMenu(this, );
-//                        View menu = LayoutInflater.from(view.getContext())
-//                                .inflate(R.menu.context_menu_liste_meetings, view, false);
-//                        view.layout(new LayoutInflater(R.menu.context_menu_liste_meetings))
-//                    }
-//                val popupMenu = PopupMenu(context, holder.binding.layoutItemqa)
-//                popupMenu.inflate(R.menu.context_menu_myworkoutsactivity)
-//                popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
-//                    override fun onMenuItemClick(item: MenuItem?): Boolean {
-//
-//
-//                    }
-//
-//
-//            );
         }
 
         @Override
@@ -77,27 +61,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
 
     }
-
-//    public static class ViewHolder extends RecyclerView.ViewHolder {
-//        private final TextView tvIcon;
-//        private final TextView tvTitle;
-//        private final TextView tvDetails;
-//
-//
-//        public ViewHolder(View view) {
-//            super(view);
-//
-//            tvIcon = (TextView) view.findViewById(R.id.item_meeting_tv_icon);
-//            tvTitle = (TextView) view.findViewById(R.id.item_meeting_tv_title);
-//            tvDetails = (TextView) view.findViewById(R.id.item_meeting_tv_details);
-//            view.setOnCreateContextMenuListener(this);
-//
-//
-//        }
-//
-//    }
-
-
 
 
     @NonNull
@@ -114,8 +77,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         MeetingsViewStateItem meet = listMeetings.get(position);
-        viewHolder.tvTitle.setText(meet.getTitle());
-        viewHolder.tvDetails.setText(meet.getDescription());
+        viewHolder.tvTitle.setText(meet.getTopic());
+
+        viewHolder.tvParticipants.setText(Utils.listToString(meet.getParticipants()));
+        viewHolder.tvDateTime.setText(ctx.getString(R.string.date_time, meet.getDate(), meet.getTime()));
         String roomLetter = meet.getRoom().substring(meet.getRoom().length() - 1);
         viewHolder.tvIcon.setText(roomLetter);
 

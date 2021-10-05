@@ -1,31 +1,23 @@
 package com.mchadeville.mareu;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
-
-import android.util.Log;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.mchadeville.mareu.config.BuildConfigResolver;
 import com.mchadeville.mareu.data.repositories.GenerateMeetings;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
-import com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Any;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DataTests {

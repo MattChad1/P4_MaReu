@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.mchadeville.mareu.data.model.Meeting;
+import com.mchadeville.mareu.data.repositories.FilterRepository;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class AddMeetingViewModel extends ViewModel {
 
     @NonNull
     private final MeetingRepository meetingRepository;
+
+
     private String TAG = "AddMeetingViewModel";
 
     public AddMeetingViewModel(@NonNull MeetingRepository meetingRepository) {

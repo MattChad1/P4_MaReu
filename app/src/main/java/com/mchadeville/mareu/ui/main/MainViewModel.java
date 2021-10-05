@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.mchadeville.mareu.data.FilterDate;
 import com.mchadeville.mareu.data.FilterRoom;
 import com.mchadeville.mareu.data.model.Meeting;
+import com.mchadeville.mareu.data.repositories.FilterRepository;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
 import com.mchadeville.mareu.util.Utils;
 
@@ -26,6 +27,9 @@ public class MainViewModel extends ViewModel {
 
     @NonNull
     private final MeetingRepository meetingRepository;
+
+    @NonNull
+    private final FilterRepository filterRepository;
 
     Map<String, FilterRoom> filtersRoomsCheckboxes = new HashMap<String, FilterRoom>() {
         {
@@ -45,16 +49,18 @@ public class MainViewModel extends ViewModel {
         return meetingsViewStateItemMediatorLD;
     }
 
-    public MainViewModel(@NonNull MeetingRepository meetingRepository) {
+    public MainViewModel(@NonNull MeetingRepository meetingRepository, @NonNull FilterRepository filterRepository) {
 
         this.meetingRepository = meetingRepository;
+        this.filterRepository = filterRepository;
 
         meetingsViewStateItemMediatorLD.addSource(getAllMeetingsViewStateItemsLiveData(), value -> meetingsViewStateItemMediatorLD.setValue(value));
-        meetingsViewStateItemMediatorLD.addSource(filterRoomLiveData, filterRooms -> {
+        meetingsViewStateItemMediatorLD.addSource(getFilterRoomLiveData(), filterRooms -> {
             List<MeetingsViewStateItem> meetingsViewStateItems = allMeetingsViewStateItemsLiveData.getValue();
             List<MeetingsViewStateItem> newMeetings = new ArrayList<>();
 
             for (MeetingsViewStateItem meeting : meetingsViewStateItems) {
+                Log.i("MediatorLD", "filterRooms :" +filterRooms.toString());
                 if (filterRooms.contains(filtersRoomsCheckboxes.get(meeting.getRoom()))) {
                     newMeetings.add(meeting);
                 }
@@ -72,12 +78,33 @@ public class MainViewModel extends ViewModel {
             List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
             for (Meeting meeting : meetings) {
 
-                meetingsViewStateItems.add(new MeetingsViewStateItem(meeting.getId(), meeting.getTopic(), Utils.listToString(meeting.getParticipants()) + "\n" + "A " + meeting.getStartTime(), meeting.getRoom()));
-                Log.i("MeetingsViewStateItem", "Add : " + meeting.getId() + " " + meeting.getTopic() + " " + "Avec : " + meeting.getParticipants() + "\n" + "A " + meeting.getStartTime() + " " + meeting.getRoom());
+                meetingsViewStateItems.add(
+                        new MeetingsViewStateItem(
+                                meeting.getId(),
+                                meeting.getTopic(),
+                                meeting.getRoom(),
+                                meeting.getParticipants(),
+                                meeting.getDate(),
+                                meeting.getStartTime()
+                        ));
+                Log.i("MeetingsViewStateItem", "addMeeting : id : " + meeting.getId() + " /topic : " + meeting.getTopic());
             }
 
             allMeetingsViewStateItemsLiveData.setValue(meetingsViewStateItems);
             return meetingsViewStateItems;
+        });
+    }
+
+    public LiveData<List<FilterRoom>> getFilterRoomLiveData() {
+        return Transformations.map(filterRepository.getFilterRoomLD(), filters -> {
+            List<FilterRoom> fr = new ArrayList<>();
+            for (FilterRoom filter : filters) {
+                fr.add(filter);
+            }
+            Log.i("getFilterRoomLiveData()", fr.toString());
+
+            filterRoomLiveData.setValue(fr);
+            return fr;
         });
     }
 

@@ -11,6 +11,8 @@
     <string name="menu_update">Modifier</string>
     <string name="menu_delete">Supprimer</string>
 
+    <string name="date_time">Le %1$s à %2$s</string>
+
 
     <string-array name="rooms_array">
         <item>Salle A</item>

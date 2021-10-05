@@ -9,11 +9,13 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         >
         <com.google.android.material.appbar.MaterialToolbar
+            style="@style/styleToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/app_name"

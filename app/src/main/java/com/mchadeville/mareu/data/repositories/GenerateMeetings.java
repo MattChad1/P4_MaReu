@@ -31,7 +31,7 @@ abstract public class GenerateMeetings {
             ),
             new Meeting(
                     4,
-                    "Application Réunion ",
+                    "Progrès de l'application Réunion ",
                     "C",
                     new ArrayList<>(Arrays.asList("matthieu@lamzone.com", "francis@lamzone.com", "cecile@gmail.com", "lea@lamzone.com")),
                     "09:00",
@@ -39,7 +39,7 @@ abstract public class GenerateMeetings {
             ),
             new Meeting(
                     5,
-                    "Préparer la prochaine réunion",
+                    "Réunion pour préparer la prochaine réunion",
                     "C",
                     new ArrayList<>(Arrays.asList("claire@lamzone.com", "karim@lamzone.com", "oscar@lamzone.com")),
                     "09:00",
@@ -47,7 +47,7 @@ abstract public class GenerateMeetings {
             ),
             new Meeting(
                     6,
-                    "Au fait, c'est qui le patron ici?",
+                    "Faisons-nous trop de réunions?",
                     "A",
                     new ArrayList<>(Arrays.asList("francis@lamzone.com", "lesmentors@oc.com", "matthieu.nebra@oc.com")),
                     "08:00",

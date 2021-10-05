@@ -34,7 +34,7 @@ public class MeetingRepository {
 
         meetings.add(new Meeting(idMax, topic, room, participants, startTime, date));
 
-        Log.i(TAG, "addMeeting: " + idMax + " " + topic + " " + room + " " + participants + " " + startTime + " " + date);
+        //Log.i(TAG, "addMeeting: " + idMax + " " + topic + " " + room + " " + participants + " " + startTime + " " + date);
         idMax++;
         meetingsLiveData.setValue(meetings);
     }

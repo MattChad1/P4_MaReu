@@ -1,10 +1,10 @@
-package com.mchadeville.mareu.ui.main;
+package com.mchadeville.mareu.ui.main.filter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +15,10 @@ import android.widget.RadioButton;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.mchadeville.mareu.R;
+import com.mchadeville.mareu.ViewModelFactory;
 import com.mchadeville.mareu.data.FilterDate;
 import com.mchadeville.mareu.data.FilterRoom;
+import com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +34,7 @@ import java.util.Map;
 public class SideSheetFilter extends BottomSheetDialogFragment implements View.OnClickListener {
 
     String TAG = "SideSheetFilter";
+    SideSheetFilterViewModel viewModel;
 
     Map<Integer, FilterRoom> filtersRoomsCheckboxes = new HashMap<Integer, FilterRoom>() {
         {
@@ -54,21 +57,21 @@ public class SideSheetFilter extends BottomSheetDialogFragment implements View.O
     FilterDate filterDateSelected = FilterDate.DATE_ALL;
 
 
-    public interface onFormListener {
-        void transfertChecks(List<FilterRoom> filterRoomSelected);
-    }
+//    public interface onFormListener {
+//        void transfertChecks(List<FilterRoom> filterRoomSelected);
+//    }
+//
+//    onFormListener formListener;
 
-    onFormListener formListener;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            formListener = (onFormListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        try {
+//            formListener = (onFormListener) context;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
+//        }
+//    }
 
     public SideSheetFilter() {
         // Required empty public constructor
@@ -84,6 +87,9 @@ public class SideSheetFilter extends BottomSheetDialogFragment implements View.O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         filterRoomSelected.addAll(Arrays.asList(FilterRoom.values()));
+
+        viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(SideSheetFilterViewModel.class);
+
     }
 
     @Override
@@ -102,10 +108,11 @@ public class SideSheetFilter extends BottomSheetDialogFragment implements View.O
 
     @Override
     public void onClick(View v) {
-        if (v instanceof CheckBox && ((CheckBox) v).isChecked())
-            filterRoomSelected.add(filtersRoomsCheckboxes.get(v.getId()));
-        else if (filterRoomSelected.contains(filtersRoomsCheckboxes.get(v.getId())))
-            filterRoomSelected.remove(filtersRoomsCheckboxes.get(v.getId()));
+        if (v instanceof CheckBox && ((CheckBox) v).isChecked()) viewModel.addFilter(filtersRoomsCheckboxes.get(v.getId()));
+            //filterRoomSelected.add(filtersRoomsCheckboxes.get(v.getId()));
+        else if (v instanceof CheckBox && !((CheckBox) v).isChecked()) viewModel.deleteFilter(filtersRoomsCheckboxes.get(v.getId()));
+//        else if (filterRoomSelected.contains(filtersRoomsCheckboxes.get(v.getId())))
+//            filterRoomSelected.remove(filtersRoomsCheckboxes.get(v.getId()));
 
         if (v instanceof RadioButton && ((RadioButton) v).isChecked())
             filterDateSelected = filtersDatesRadioButtons.get(v.getId());
@@ -113,6 +120,6 @@ public class SideSheetFilter extends BottomSheetDialogFragment implements View.O
         Log.i(TAG, "onClick: filtersRoomSelected " + filterRoomSelected.toString());
         Log.i(TAG, "onClick: filtersDateSelected " + filterDateSelected.toString());
 
-        formListener.transfertChecks(filterRoomSelected);
+        //formListener.transfertChecks(filterRoomSelected);
     }
 }
