@@ -5,13 +5,10 @@ import android.util.Patterns;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.mchadeville.mareu.data.model.Meeting;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
-import com.mchadeville.mareu.ui.main.MeetingsViewStateItem;
-import com.mchadeville.mareu.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +57,6 @@ public class AddMeetingViewModel extends ViewModel {
     }
 
     public MutableLiveData<List<String>> getLiveDataAllEmails() {
-        //return Transformations.map(meetingRepository.getMeetingsLiveData(), meetings -> {
 
         List<String> allEmails = new ArrayList<>();
         List<Meeting> allMeetings = meetingRepository.getMeetingsLiveData().getValue();
@@ -125,7 +121,6 @@ public class AddMeetingViewModel extends ViewModel {
 
     public void addMeetingLiveData(String topic, String place, String beginningTime, String date) {
         List<String> participants = getLiveDataListeEmails().getValue();
-
         if (validForm(topic, place, participants.size(), beginningTime, date))
             meetingRepository.addMeeting(topic, place, participants, beginningTime, date);
     }

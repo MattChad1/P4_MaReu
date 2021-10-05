@@ -1,9 +1,8 @@
 package com.mchadeville.mareu.ui.addMeeting;
 
-import static com.mchadeville.mareu.utils.Utils.textFromTextInputLayout;
+import static com.mchadeville.mareu.util.Utils.textFromTextInputLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
@@ -18,13 +17,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
 import com.mchadeville.mareu.databinding.ActivityAddMeetingBinding;
-import com.mchadeville.mareu.utils.Utils;
+import com.mchadeville.mareu.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -144,6 +142,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 }
             });
         });
+
 
     }
 

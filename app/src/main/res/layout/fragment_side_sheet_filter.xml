@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".ui.main.SideSheetFilter">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="Filtres"
+        />
+
+    <TextView
+        style="@style/filter_subtitle"
+        android:text="Par salle"
+        />
+
+    <CheckBox
+        android:id="@+id/filter_salle_A"
+        style="@style/filter_checkbox"
+        android:text="Salle A"
+        android:checked="true"
+        />
+
+    <CheckBox
+        android:id="@+id/filter_salle_B"
+        style="@style/filter_checkbox"
+        android:text="Salle B"
+        android:checked="true"
+        />
+
+    <CheckBox
+        android:id="@+id/filter_salle_C"
+        style="@style/filter_checkbox"
+        android:text="Salle C"
+        android:checked="true"
+        />
+
+    <TextView
+        style="@style/filter_subtitle"
+        android:text="Par date"
+        />
+
+    <RadioGroup
+        android:id="@+id/filter_group_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <RadioButton
+        android:id="@+id/filter_date1"
+        style="@style/filter_checkbox"
+        android:text="Aujourd'hui"
+        />
+
+    <RadioButton
+        android:id="@+id/filter_date2"
+        style="@style/filter_checkbox"
+        android:text="Dans les 7 jours"
+        />
+
+    <RadioButton
+        android:id="@+id/filter_date3"
+        style="@style/filter_checkbox"
+        android:text="Dans les 30 jours"
+        />
+
+        <RadioButton
+        android:id="@+id/filter_date4"
+        style="@style/filter_checkbox"
+        android:text="Toutes les réunions"
+            android:checked="true"
+        />
+    </RadioGroup>
+
+
+
+
+
+
+
+
+</LinearLayout>

@@ -15,8 +15,8 @@ import java.util.List;
 public class MeetingRepository {
 
     private final MutableLiveData<List<Meeting>> meetingsLiveData = new MutableLiveData<>();
-    private String TAG = "Meeting Repository";
     private int idMax = 1;
+    String TAG = "Meeting Repository";
 
     public MeetingRepository(BuildConfigResolver buildConfigResolver) {
         if (buildConfigResolver.isDebug()) {
@@ -33,6 +33,7 @@ public class MeetingRepository {
         }
 
         meetings.add(new Meeting(idMax, topic, room, participants, startTime, date));
+
         Log.i(TAG, "addMeeting: " + idMax + " " + topic + " " + room + " " + participants + " " + startTime + " " + date);
         idMax++;
         meetingsLiveData.setValue(meetings);
@@ -56,7 +57,6 @@ public class MeetingRepository {
                 if (!allEmails.contains(email)) allEmails.add(email);
             }
         }
-
         return allEmails;
     }
 

@@ -1,4 +1,4 @@
-package com.mchadeville.mareu.utils;
+package com.mchadeville.mareu.util;
 
 import com.google.android.material.textfield.TextInputLayout;
 

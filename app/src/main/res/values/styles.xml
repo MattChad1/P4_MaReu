@@ -17,6 +17,18 @@
         <item name="android:layout_marginRight">25dp</item>
     </style>
 
+    <style name="filter_checkbox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="filter_subtitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 
 
 </resources>

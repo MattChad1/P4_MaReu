@@ -26,8 +26,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
                 }
             }
         }
-
-        return factory;
+       return factory;
     }
 
     // This field inherit the singleton property from the ViewModelFactory : it is scoped to the ViewModelFactory
