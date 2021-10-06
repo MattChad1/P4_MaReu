@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         >
         <com.google.android.material.appbar.MaterialToolbar
+            style="@style/styleToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Ajouter une réunion"
@@ -88,6 +89,7 @@
             android:completionThreshold="1"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:paddingLeft="12dp"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +119,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.85"
-                android:layout_marginHorizontal="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
                 android:textSize="16sp"
                 tools:text="bob@lamzone.com\nemily@lamzone.com"
@@ -130,6 +133,7 @@
             android:backgroundTint="@color/red"
             android:textStyle="bold"
             android:text="-"
+            android:visibility="gone"
             android:layout_weight="0.15"
             />
     </LinearLayout>

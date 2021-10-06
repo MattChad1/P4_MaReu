@@ -60,17 +60,8 @@ public class AddMeetingViewModel extends ViewModel {
     }
 
     public MutableLiveData<List<String>> getLiveDataAllEmails() {
-
-        List<String> allEmails = new ArrayList<>();
-        List<Meeting> allMeetings = meetingRepository.getMeetingsLiveData().getValue();
-        if (allMeetings != null) {
-            for (Meeting meeting : allMeetings) {
-                for (String email : meeting.getParticipants()) {
-                    if (!allEmails.contains(email)) allEmails.add(email);
-                }
-            }
-        }
-            liveDataAllEmails.setValue(allEmails);
+        List<String> allEmails = new ArrayList<>(meetingRepository.getAllEmails());
+        liveDataAllEmails.setValue(allEmails);
         return liveDataAllEmails;
     }
 
@@ -89,13 +80,13 @@ public class AddMeetingViewModel extends ViewModel {
 
     public void deleteLastParticipantToTextView() {
         List<String> listeEmails = getLiveDataListeEmails().getValue();
-        if (listeEmails != null) {
+        if (listeEmails != null && !listeEmails.isEmpty()) {
             listeEmails.remove(listeEmails.size() - 1);
             liveDataListeEmails.setValue(listeEmails);
         }
     }
 
-    public Boolean validForm(String topic, String place, int participants, String beginningTime, String date) {
+    public Boolean validForm(String topic, String place, List<String> participants, String beginningTime, String date) {
         boolean valid = true;
         if (topic == null || topic.isEmpty()) {
             validTopic.setValue(false);
@@ -105,7 +96,7 @@ public class AddMeetingViewModel extends ViewModel {
             validPlace.setValue(false);
             valid = false;
         } else validPlace.setValue(true);
-        if (participants < 1) {
+        if (participants == null || participants.size() < 1) {
             validPartipants.setValue(false);
             valid = false;
         }
@@ -124,7 +115,8 @@ public class AddMeetingViewModel extends ViewModel {
 
     public void addMeetingLiveData(String topic, String place, String beginningTime, String date) {
         List<String> participants = getLiveDataListeEmails().getValue();
-        if (validForm(topic, place, participants.size(), beginningTime, date))
+
+        if (validForm(topic, place, participants, beginningTime, date))
             meetingRepository.addMeeting(topic, place, participants, beginningTime, date);
     }
 }

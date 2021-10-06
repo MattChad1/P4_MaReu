@@ -17,6 +17,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @RunWith(MockitoJUnitRunner.class)
 public class FormTests {
 
@@ -41,7 +45,7 @@ public class FormTests {
     public void testTopicEntry_withEmptyField() {
         String topic = "";
         String room = "Salle A";
-        int participants = 4;
+        List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";
 
@@ -52,7 +56,7 @@ public class FormTests {
     public void testTopicEntry_withEmptyField2() {
         String topic = "Topic de la réunion";
         String room = "";
-        int participants = 4;
+        List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";
 
@@ -63,7 +67,7 @@ public class FormTests {
     public void testTopicEntry_withCorrectFields() {
         String topic = "Topic de la réunion";
         String room = "Salle A";
-        int participants = 4;
+        List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";
 
