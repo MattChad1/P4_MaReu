@@ -14,6 +14,8 @@
     <string name="date_time">Le %1$s à %2$s</string>
     <string name="time_for_timePicker">%1$d : %2$02d</string>
     <string name="date_for_datePicker">%1$02d/%2$02d/%3$d</string>
+    <string name="edit_participants_hint">Participants (email)</string>
+    <string name="edit_salle_hint">Salle</string>
 
 
     <string-array name="rooms_array">
