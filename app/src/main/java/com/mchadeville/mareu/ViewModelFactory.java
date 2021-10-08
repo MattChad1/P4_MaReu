@@ -1,6 +1,5 @@
 package com.mchadeville.mareu;
 
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,16 +19,11 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         if (factory == null) {
             synchronized (ViewModelFactory.class) {
                 if (factory == null) {
-                    factory = new ViewModelFactory(
-                            new MeetingRepository(
-                                    new BuildConfigResolver()
-                            ),
-                            new FilterRepository()
-                    );
+                    factory = new ViewModelFactory(new MeetingRepository(new BuildConfigResolver()), new FilterRepository());
                 }
             }
         }
-       return factory;
+        return factory;
     }
 
     // This field inherit the singleton property from the ViewModelFactory : it is scoped to the ViewModelFactory
@@ -45,27 +39,19 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         this.filterRepository = filterRepository;
     }
 
-
     @SuppressWarnings("unchecked")
     @NonNull
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
-            return (T) new MainViewModel(
-                    meetingRepository,
-                    filterRepository
-            );
+            return (T) new MainViewModel(meetingRepository, filterRepository);
         }
         else if (modelClass.isAssignableFrom(AddMeetingViewModel.class)) {
-            return (T) new AddMeetingViewModel(
-                    meetingRepository
-            );
+            return (T) new AddMeetingViewModel(meetingRepository);
         }
 
         else if (modelClass.isAssignableFrom(SideSheetFilterViewModel.class)) {
-            return (T) new SideSheetFilterViewModel(
-                    filterRepository
-            );
+            return (T) new SideSheetFilterViewModel(filterRepository);
         }
         else throw new IllegalArgumentException("Unknown ViewModel class");
     }

@@ -39,12 +39,11 @@ public class FilterRepository {
 
     public void deleteFilterRoom(Room filterRoomToDelete) {
         Filter filter = filterLiveData.getValue();
-        List<Room> filtersRooms = filter.getFiltersRooms();
+        List<Room> filtersRooms = new ArrayList<>();
+        filtersRooms = filter.getFiltersRooms();
         Log.i(TAG, "filtersRooms: " + filtersRooms.toString());
 
-        if (filtersRooms != null) {
-            filtersRooms.remove(filterRoomToDelete);
-        }
+        filtersRooms.remove(filterRoomToDelete);
         filterLiveData.setValue(new Filter(filtersRooms, filter.getFilterDate()));
 
         Log.i(TAG, "filterLiveData: " + filterLiveData.getValue().getFiltersRooms().toString());

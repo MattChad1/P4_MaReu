@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItemView;
@@ -13,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
-import com.mchadeville.mareu.ui.main.adapters.CustomAdapter;
 import com.mchadeville.mareu.databinding.ActivityMainBinding;
 import com.mchadeville.mareu.ui.addMeeting.AddMeetingActivity;
+import com.mchadeville.mareu.ui.main.adapters.CustomAdapter;
 import com.mchadeville.mareu.ui.main.filter.SideSheetFilterFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity /*implements SideSheetFilter.onFormListener*/ {
+public class MainActivity extends AppCompatActivity /*implements View.OnClickListener*/ /*implements SideSheetFilter.onFormListener*/ {
 
     private ActivityMainBinding binding;
     private RecyclerView rv;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity /*implements SideSheetFilter
 
         rv.setAdapter(adapter);
         registerForContextMenu(rv);
+        adapter.setOnCardClickListner(this);
 
 
         viewModel.getMeetingsViewStateItemMediatorLD().observe(this, meetingsViewStateItems -> {
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity /*implements SideSheetFilter
             adapter.notifyDataSetChanged();
         });
     }
+
+
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -90,6 +94,19 @@ public class MainActivity extends AppCompatActivity /*implements SideSheetFilter
         }
         return super.onContextItemSelected(item);
     }
+
+    @Override
+    public void OnCardClicked(View view, int position) {
+        Log.d("OnClick", "Card Position" + position);
+    }
+
+//    @Override
+//    public void onClick(View v) {
+//        Log.i(TAG, "onClick: ");
+//        int position = adapter.getPosition();
+//        viewModel.deleteMeetingLiveData(datas.get(position).getId());
+//
+//    }
 
 //    @Override
 //    public void transfertChecks(List<FilterRoom> filterRoomSelected) {
