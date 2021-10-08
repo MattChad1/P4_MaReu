@@ -3,12 +3,11 @@ package com.mchadeville.mareu.ui.main.filter;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.mchadeville.mareu.data.FilterRoom;
+import com.mchadeville.mareu.data.FilterDate;
+import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.data.repositories.FilterRepository;
 
 import java.util.List;
@@ -20,25 +19,25 @@ public class SideSheetFilterViewModel extends ViewModel {
     @NonNull
     private final FilterRepository filterRepository;
 
-    private MutableLiveData<List<FilterRoom>> filterRoomLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Room>> filterRoomLiveData = new MutableLiveData<>();
 
     public SideSheetFilterViewModel(@NonNull FilterRepository filterRepository) {
         this.filterRepository = filterRepository;
     }
 
-//    public LiveData<List<FilterRoom>> getFilterRoomLiveData() {
-//        return Transformations.map(filterRepository.getFilterRoomLD(), filters -> {
-//
-//        });
-//    }
 
-    public void addFilter(FilterRoom filter) {
-        filterRepository.addFilter(filter);
-        Log.i(TAG, "filterRepository.addFilter" + filter.toString());
+    public void addFilter(Room filter) {
+        filterRepository.addFilterRoom(filter);
+        Log.i(TAG, "SideSheetFilterViewModel.addFilter" + filter.toString());
     }
 
-    public void deleteFilter(FilterRoom filter) {
-        filterRepository.deleteFilter(filter);
-        Log.i(TAG, "filterRepository.deleteFilter" + filter.toString());
+    public void deleteFilter(Room filter) {
+        filterRepository.deleteFilterRoom(filter);
+        Log.i(TAG, "SideSheetFilterViewModel.deleteFilter" + filter.toString());
+    }
+
+    public void updateFilterDate (FilterDate filter) {
+        filterRepository.updateFilterDate(filter);
+        Log.i(TAG, "SideSheetFilterViewModel.updateFilterDate" + filter.toString());
     }
 }

@@ -5,8 +5,10 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mchadeville.mareu.data.FilterRoom;
-import com.mchadeville.mareu.data.model.Meeting;
+import com.mchadeville.mareu.data.FilterDate;
+import com.mchadeville.mareu.data.Room;
+import com.mchadeville.mareu.data.model.Filter;
+import com.mchadeville.mareu.data.model.Filter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,48 +16,44 @@ import java.util.List;
 
 public class FilterRepository {
 
-    private final MutableLiveData<List<FilterRoom>> filterRoomLD = new MutableLiveData<>();
+    String TAG = "FilterRepository";
 
-    public LiveData<List<FilterRoom>> getFilterRoomLD() {
-        return filterRoomLD;
+    private final MutableLiveData<Filter> filterLiveData = new MutableLiveData<>();
+
+    public LiveData<Filter> getFilterLiveData() {
+        return filterLiveData;
     }
 
     public FilterRepository () {
-        List<FilterRoom> filters = new ArrayList<>();
-        filters.addAll(Arrays.asList(FilterRoom.values()));
-        filterRoomLD.setValue(filters);
+        Filter filter = new Filter(new ArrayList<>(Arrays.asList(Room.values())), FilterDate.DATE_ALL);
+        filterLiveData.setValue(filter);
     }
 
 
-    public void addFilter(FilterRoom filter) {
-        List<FilterRoom> filters = filterRoomLD.getValue();
-            filters.add(filter);
-        filterRoomLD.setValue(filters);
+    public void addFilterRoom(Room newFilterRoom) {
+        Filter filter = filterLiveData.getValue();
+        List<Room> filtersRooms = filter.getFiltersRooms();
+        filtersRooms.add(newFilterRoom);
+        filterLiveData.setValue(new Filter(filtersRooms, filter.getFilterDate()));
     }
 
-    public void deleteFilter(FilterRoom filter) {
-        List<FilterRoom> filters = filterRoomLD.getValue();
+    public void deleteFilterRoom(Room filterRoomToDelete) {
+        Filter filter = filterLiveData.getValue();
+        List<Room> filtersRooms = filter.getFiltersRooms();
+        Log.i(TAG, "filtersRooms: " + filtersRooms.toString());
 
-
-        if (filters != null) {
-            Log.i("deleteFilter()", "filter " + filter.toString());
-            Log.i("deleteFilter()", "filterRoomLD.getValue() " + filterRoomLD.getValue());
-            filters.remove(filter);
+        if (filtersRooms != null) {
+            filtersRooms.remove(filterRoomToDelete);
         }
-        filterRoomLD.setValue(filters);
+        filterLiveData.setValue(new Filter(filtersRooms, filter.getFilterDate()));
+
+        Log.i(TAG, "filterLiveData: " + filterLiveData.getValue().getFiltersRooms().toString());
     }
 
-//    public void deleteMeeting(int id) {
-//        List<Meeting> meetings = meetingsLiveData.getValue();
-//        Meeting meetingToDelete = null;
-//        for (Meeting m : meetings) {
-//            if (m.getId() == id) meetingToDelete = m;
-//        }
-//        if (meetingToDelete != null) meetings.remove(meetingToDelete);
-//        meetingsLiveData.setValue(meetings);
-//    }
-
-
+    public void updateFilterDate(FilterDate newFilterDate) {
+        Filter filter = filterLiveData.getValue();
+        filterLiveData.setValue(new Filter(filter.getFiltersRooms(), newFilterDate));
+    }
 
 
 

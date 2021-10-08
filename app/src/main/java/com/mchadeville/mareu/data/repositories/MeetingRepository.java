@@ -1,15 +1,15 @@
 package com.mchadeville.mareu.data.repositories;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.mchadeville.mareu.config.BuildConfigResolver;
+import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.data.model.Meeting;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MeetingRepository {
@@ -25,12 +25,10 @@ public class MeetingRepository {
         }
     }
 
-    public void addMeeting(String topic, String room, List<String> participants, String startTime, String date) {
+    public void addMeeting(String topic, Room room, List<String> participants, String startTime, Calendar date) {
         List<Meeting> meetings = meetingsLiveData.getValue();
 
-        if (meetings == null) {
-            meetings = new ArrayList<>();
-        }
+        if (meetings == null) {meetings = new ArrayList<>();}
 
         meetings.add(new Meeting(idMax, topic, room, participants, startTime, date));
 

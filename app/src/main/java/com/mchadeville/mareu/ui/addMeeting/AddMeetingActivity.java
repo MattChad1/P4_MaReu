@@ -6,8 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -24,10 +27,13 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
 import com.mchadeville.mareu.databinding.ActivityAddMeetingBinding;
+import com.mchadeville.mareu.ui.main.MainActivity;
 import com.mchadeville.mareu.util.Utils;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -44,16 +50,17 @@ public class AddMeetingActivity extends AppCompatActivity {
         AddMeetingViewModel viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(AddMeetingViewModel.class);
 
         TextInputLayout editTopic = binding.editTopic;
+        TextInputLayout editRoom = binding.editRoom;
+        TextInputEditText editRoomChild = binding.editRoomChild;
         TextInputLayout editParticipants = binding.editParticipants;
         AutoCompleteTextView editParticipantsChild = binding.editParticipantsChild;
         Button btnAddParticipant = binding.btnAddParticipant;
-        TextView tvListeEmails = binding.listeEmails;
         Button btnDeleteParticipant = binding.btnDeleteParticipant;
-        TextInputLayout editRoom = binding.editRoom;
+        TextView tvListeEmails = binding.listeEmails;
         TextInputLayout editStartTime = binding.editStartTime;
         TextInputLayout editDate = binding.editDate;
+        TextInputEditText editDateChild = binding.editDateChild;
         TextInputEditText editStartTimeChild = binding.editStartTimeChild;
-        TextInputEditText editRoomChild = binding.editRoomChild;
         Button save = binding.btnSave;
 
 
@@ -70,14 +77,13 @@ public class AddMeetingActivity extends AppCompatActivity {
         viewModel.getLiveDataListeEmails().observe(this, listeEmails -> {
             Log.i(TAG, "onCreate: modif viewModel.getLiveDataListeEmails");
             tvListeEmails.setText(Utils.listToStringRevert(listeEmails));
-            if (btnDeleteParticipant.getVisibility()== View.GONE && listeEmails.size()>0) btnDeleteParticipant.setVisibility(View.VISIBLE);
-            else if (btnDeleteParticipant.getVisibility()== View.VISIBLE && listeEmails.size()==0) btnDeleteParticipant.setVisibility(View.GONE);
+            if (btnDeleteParticipant.getVisibility() == View.GONE && listeEmails.size() > 0) btnDeleteParticipant.setVisibility(View.VISIBLE);
+            else if (btnDeleteParticipant.getVisibility() == View.VISIBLE && listeEmails.size() == 0) btnDeleteParticipant.setVisibility(View.GONE);
         });
 
 
 
-        /*Ajouts des emails déjà enregistrés sur le AutocompleteTextView
-         */
+        /*Ajouts des emails déjà enregistrés sur le AutocompleteTextView*/
         List<String> allEmails = new ArrayList<>();
         viewModel.getLiveDataAllEmails().observe(this, allEmails::addAll);
         Log.i(TAG, "Test emails: " + allEmails.toString());
@@ -108,14 +114,32 @@ public class AddMeetingActivity extends AppCompatActivity {
             final Calendar cldr = Calendar.getInstance();
             int hour = cldr.get(Calendar.HOUR_OF_DAY);
             int minutes = cldr.get(Calendar.MINUTE);
-            TimePickerDialog picker = new TimePickerDialog(this, R.style.AppTheme_Dialog , new TimePickerDialog.OnTimeSetListener() {
+            TimePickerDialog picker = new TimePickerDialog(this, R.style.AppTheme_Dialog, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                    editStartTime.getEditText().setText(sHour + ":" + sMinute);
+                    editStartTime.getEditText().setText(getString(R.string.time_for_timePicker, sHour, sMinute));
                 }
             }, hour, minutes, true);
             picker.show();
         });
+
+
+        /*DatePickerDialog */
+        editDateChild.setOnClickListener(v -> {
+
+            DatePickerDialog.OnDateSetListener dpd = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear,int dayOfMonth) {
+                    editDateChild.setText(getString(R.string.date_for_datePicker, dayOfMonth, monthOfYear+1, year));
+                }
+            };
+
+            Calendar currentDate = Calendar.getInstance();
+            DatePickerDialog d = new DatePickerDialog(this, R.style.AppTheme_Dialog, dpd, currentDate.get(Calendar.YEAR) ,currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH));
+            d.show();
+        });
+
+
 
         /* Validation du formulaire */
         save.setOnClickListener(v -> {
@@ -141,13 +165,11 @@ public class AddMeetingActivity extends AppCompatActivity {
                     });
                 }
                 else {
-                    onBackPressed();
-//                    Intent intent = new Intent(this, MainActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(intent);
-
+                    finish();
                 }
             });
         });
     }
+
+
 }

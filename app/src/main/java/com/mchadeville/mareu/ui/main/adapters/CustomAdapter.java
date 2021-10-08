@@ -1,5 +1,7 @@
-package com.mchadeville.mareu.adapters;
+package com.mchadeville.mareu.ui.main.adapters;
 
+
+import static com.mchadeville.mareu.util.Utils.calendarToString;
 
 import android.content.Context;
 import android.view.ContextMenu;
@@ -80,8 +82,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         viewHolder.tvTitle.setText(meet.getTopic());
 
         viewHolder.tvParticipants.setText(Utils.listToString(meet.getParticipants()));
-        viewHolder.tvDateTime.setText(ctx.getString(R.string.date_time, meet.getDate(), meet.getTime()));
-        String roomLetter = meet.getRoom().substring(meet.getRoom().length() - 1);
+        viewHolder.tvDateTime.setText(ctx.getString(R.string.date_time, calendarToString(meet.getDate()), meet.getTime()));
+        String roomLetter = meet.getRoom().getName().substring(meet.getRoom().getName().length() - 1);
         viewHolder.tvIcon.setText(roomLetter);
 
 //        viewHolder.itemView.setTag(meet.getTitle());

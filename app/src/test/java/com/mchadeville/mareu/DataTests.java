@@ -41,8 +41,6 @@ public class DataTests {
         Mockito.when(buildConfigResolver.isDebug()).thenReturn(true);
         meetingRepository = new MeetingRepository(buildConfigResolver);
         repoSize = GenerateMeetings.FAKE_MEETINGS.size();
-
-
     }
 
 
@@ -65,10 +63,12 @@ public class DataTests {
         assertEquals(meetingRepository.getMeetingsLiveData().getValue().size(), (repoSize - 1));
     }
 
-//    @Test
-//    public void getAllEmailsTest () {
-//        meetingRepository.
-//    }
+    @Test
+    public void getAllEmailsTest () {
+        assertEquals(16, meetingRepository.getAllEmails().size());
+    }
+
+
 
 
 

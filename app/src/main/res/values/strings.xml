@@ -12,6 +12,8 @@
     <string name="menu_delete">Supprimer</string>
 
     <string name="date_time">Le %1$s à %2$s</string>
+    <string name="time_for_timePicker">%1$d : %2$02d</string>
+    <string name="date_for_datePicker">%1$02d/%2$02d/%3$d</string>
 
 
     <string-array name="rooms_array">
@@ -19,6 +21,7 @@
         <item>Salle B</item>
         <item>Salle C</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
+

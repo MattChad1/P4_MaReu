@@ -27,59 +27,43 @@ public class AddMeetingActivityTest {
     private AddMeetingActivity activity;
 
     @Rule
-    public ActivityTestRule<AddMeetingActivity> activityRule =
-            new ActivityTestRule(AddMeetingActivity.class);
-
-
+    public ActivityTestRule<AddMeetingActivity> activityRule = new ActivityTestRule(AddMeetingActivity.class);
 
     @Before
     public void setUp() throws Exception {
         activity = activityRule.getActivity();
-
     }
 
     @Test
-    public void addMeeting_WithFormOK () {
+    public void addMeeting_WithFormOK() {
         String topicOK = "Sujet Réunion test";
         String placeOK = "Salle rouge";
         String participantsOK = "ok@gmail.com, oki@live.fr";
         String beginningHourOK = "13:00";
 
-
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_topic))))
-                .perform(replaceText(topicOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_room))))
-                .perform(replaceText(placeOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_participants))))
-                .perform(replaceText(participantsOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_start_time))))
-                .perform(replaceText(beginningHourOK));
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_topic)))).perform(replaceText(topicOK));
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_room)))).perform(replaceText(placeOK));
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_participants)))).perform(replaceText(participantsOK));
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_start_time)))).perform(replaceText(beginningHourOK));
 
         onView(withId(R.id.btn_save)).perform(click());
 
         onView(allOf(withId(R.id.item_meeting_tv_title), withText(topicOK))).check(matches(isDisplayed()));
-
     }
 
     @Test
-    public void addMeeting_WithFormIncomplete () {
+    public void addMeeting_WithFormIncomplete() {
         String topicOK = "";
         String placeOK = "Salle rouge";
         String participantsOK = "ok@gmail.com, oki@live.fr";
         String beginningHourOK = "13:00";
 
-
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_topic))))
-                .perform(replaceText(topicOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_room))))
-                .perform(replaceText(placeOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_participants))))
-                .perform(replaceText(participantsOK));
-        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_start_time))))
-                .perform(replaceText(beginningHourOK));
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_topic)))).perform(replaceText(topicOK));
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_room)))).perform(replaceText(placeOK));
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_participants)))).perform(replaceText(participantsOK));
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.edit_start_time)))).perform(replaceText(beginningHourOK));
 
         onView(withId(R.id.btn_save)).perform(click());
         onView(withText(activity.getString(R.string.error_empty_topic))).check(matches(isDisplayed()));
-
     }
 }

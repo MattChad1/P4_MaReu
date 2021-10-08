@@ -1,12 +1,14 @@
 package com.mchadeville.mareu.ui.addMeeting;
 
-
+import java.util.Calendar;
 
 public class AddMeetingViewStateItem {
     private String room;
     private String topic;
     private String participants;
+    private Calendar date;
     private String startTime;
+
 
 
     public String getRoom() {
@@ -21,14 +23,19 @@ public class AddMeetingViewStateItem {
         return participants;
     }
 
+    public Calendar getDate() {
+        return date;
+    }
+
     public String getStartTime() {
         return startTime;
     }
 
-    public AddMeetingViewStateItem(String room, String topic, String participants, String startTime) {
+    public AddMeetingViewStateItem(String room, String topic, String participants, Calendar date, String startTime) {
         this.room = room;
         this.topic = topic;
         this.participants = participants;
+        this.date = date;
         this.startTime = startTime;
     }
 

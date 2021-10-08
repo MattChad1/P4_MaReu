@@ -4,6 +4,9 @@ package com.mchadeville.mareu.util;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.test.espresso.UiController;
+import androidx.test.espresso.ViewAction;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -26,6 +29,27 @@ public class TestUtils {
                 return parentMatcher.matches(parent)
                         && parent.getChildCount() > childPosition
                         && parent.getChildAt(childPosition).equals(view);
+            }
+        };
+    }
+
+    public static ViewAction clickInItemView(final int id) {
+        return new ViewAction() {
+
+            @Override
+            public Matcher<View> getConstraints() {
+                return null;
+            }
+
+            @Override
+            public String getDescription() {
+                return "Click on specific button";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                View v = view.findViewById(id);
+                v.performClick();
             }
         };
     }

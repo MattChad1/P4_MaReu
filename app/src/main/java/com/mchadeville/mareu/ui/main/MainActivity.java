@@ -13,12 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
-import com.mchadeville.mareu.adapters.CustomAdapter;
-import com.mchadeville.mareu.data.FilterDate;
-import com.mchadeville.mareu.data.FilterRoom;
+import com.mchadeville.mareu.ui.main.adapters.CustomAdapter;
 import com.mchadeville.mareu.databinding.ActivityMainBinding;
 import com.mchadeville.mareu.ui.addMeeting.AddMeetingActivity;
-import com.mchadeville.mareu.ui.main.filter.SideSheetFilter;
+import com.mchadeville.mareu.ui.main.filter.SideSheetFilterFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity /*implements SideSheetFilter
         fab.setOnClickListener(v -> startActivity(new Intent(this, AddMeetingActivity.class)));
 
         ActionMenuItemView btnFilter = binding.appBar.findViewById(R.id.btn_filter);
-        SideSheetFilter ssf = new SideSheetFilter();
+        SideSheetFilterFragment ssf = new SideSheetFilterFragment();
         btnFilter.setOnClickListener(v -> {
             ssf.show(getSupportFragmentManager(), "");
         });

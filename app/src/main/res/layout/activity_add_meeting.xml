@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginBottom="40dp"
     tools:context=".ui.addMeeting.AddMeetingActivity">
-
-
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <com.google.android.material.appbar.MaterialToolbar
             style="@style/styleToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Ajouter une réunion"
-            />
+            app:title="Ajouter une réunion" />
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -34,8 +31,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,95 +45,106 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_room_child"
-            android:clickable="true"
-            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:clickable="true"
+            android:focusable="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <Spinner-->
-<!--        android:id="@+id/edit_room"-->
-<!--        style="@style/Widget.AppCompat.Spinner.Underlined"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Salle"-->
-<!--        tools:listitem="@layout/support_simple_spinner_dropdown_item"-->
+    <!--    <Spinner-->
+    <!--        android:id="@+id/edit_room"-->
+    <!--        style="@style/Widget.AppCompat.Spinner.Underlined"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="Salle"-->
+    <!--        tools:listitem="@layout/support_simple_spinner_dropdown_item"-->
 
-<!--        />-->
+    <!--        />-->
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="20dp"
-        >
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_participants"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_weight="0.85"
-        android:hint="Participants (email)"
-        >
+        android:orientation="horizontal">
 
-        <AutoCompleteTextView
-            android:id="@+id/edit_participants_child"
-            android:completionThreshold="1"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_participants"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:paddingLeft="12dp"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0.85"
+            android:hint="Participants (email)">
+
+            <AutoCompleteTextView
+                android:id="@+id/edit_participants_child"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:completionThreshold="1"
+                android:paddingLeft="12dp"
+                android:textSize="16sp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_add_participant"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="+"
-            android:textStyle="bold"
             android:layout_weight="0.15"
-            />
+            android:text="+"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="5dp"
+        android:gravity="top|center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/liste_emails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="top|center"
-            android:layout_marginHorizontal="25dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            >
+            android:layout_marginRight="10dp"
+            android:layout_weight="0.85"
+            android:textSize="16sp"
+            tools:text="bob@lamzone.com\nemily@lamzone.com" />
 
-            <TextView
-                android:id="@+id/liste_emails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.85"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:textSize="16sp"
-                tools:text="bob@lamzone.com\nemily@lamzone.com"
-                />
         <Button
             android:id="@+id/btn_delete_participant"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="@color/red"
-            android:textStyle="bold"
-            android:text="-"
-            android:visibility="gone"
             android:layout_weight="0.15"
-            />
+            android:backgroundTint="@color/red"
+            android:text="-"
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_date"
+        style="@style/field_add_reu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date de la réunion">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_date_child"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -149,36 +156,21 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_start_time_child"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:focusable="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_date"
-        style="@style/field_add_reu"
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Date de la réunion">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-<Button
-    android:id="@+id/btn_save"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="30dp"
-    android:layout_marginRight="25dp"
-    android:text="@string/sauvegarder"
-    android:layout_gravity="right"
-    />
+        android:layout_gravity="right"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="25dp"
+        android:text="@string/sauvegarder" />
 
 </LinearLayout>

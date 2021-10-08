@@ -1,5 +1,7 @@
 package com.mchadeville.mareu.ui.addMeeting;
 
+import static com.mchadeville.mareu.util.Utils.dateStringToCalendar;
+
 import android.util.Log;
 import android.util.Patterns;
 
@@ -7,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.mchadeville.mareu.data.model.Meeting;
-import com.mchadeville.mareu.data.repositories.FilterRepository;
+import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AddMeetingViewModel extends ViewModel {
@@ -113,10 +115,15 @@ public class AddMeetingViewModel extends ViewModel {
         return valid;
     }
 
-    public void addMeetingLiveData(String topic, String place, String beginningTime, String date) {
+    public void addMeetingLiveData(String topic, String roomString, String beginningTime, String date) {
         List<String> participants = getLiveDataListeEmails().getValue();
 
-        if (validForm(topic, place, participants, beginningTime, date))
-            meetingRepository.addMeeting(topic, place, participants, beginningTime, date);
+        if (validForm(topic, roomString, participants, beginningTime, date)) {
+            Log.i(TAG, "addMeetingLiveData: roomString: " + roomString);
+            Room room = Room.fromString(roomString);
+
+            Calendar dateFormatted = dateStringToCalendar(date);
+            meetingRepository.addMeeting(topic, room, participants, beginningTime, dateFormatted);
+        }
     }
 }

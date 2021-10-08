@@ -1,5 +1,7 @@
 package com.mchadeville.mareu.ui.main;
 
+import static com.mchadeville.mareu.util.Utils.daysBetween;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -9,17 +11,20 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.mchadeville.mareu.data.FilterDate;
-import com.mchadeville.mareu.data.FilterRoom;
+import com.mchadeville.mareu.data.Room;
+import com.mchadeville.mareu.data.model.Filter;
 import com.mchadeville.mareu.data.model.Meeting;
 import com.mchadeville.mareu.data.repositories.FilterRepository;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
-import com.mchadeville.mareu.util.Utils;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
+
+import javax.security.auth.login.LoginException;
 
 public class MainViewModel extends ViewModel {
 
@@ -31,20 +36,13 @@ public class MainViewModel extends ViewModel {
     @NonNull
     private final FilterRepository filterRepository;
 
-    Map<String, FilterRoom> filtersRoomsCheckboxes = new HashMap<String, FilterRoom>() {
-        {
-            put("A", FilterRoom.SALLE_A);
-            put("B", FilterRoom.SALLE_B);
-            put("C", FilterRoom.SALLE_C);
-        }
-    };
-
     private MutableLiveData<List<MeetingsViewStateItem>> allMeetingsViewStateItemsLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<FilterRoom>> filterRoomLiveData = new MutableLiveData<>();
+    private MutableLiveData<Filter> filterLiveData = new MutableLiveData<>();
     public MediatorLiveData<List<MeetingsViewStateItem>> meetingsViewStateItemMediatorLD = new MediatorLiveData<>();
 
-    //public MutableLiveData<List<FilterRoom>> getFilterRoomLiveData() {return filterRoomLiveData;}
-
+    public LiveData<Filter> getFilterLiveData() {
+        return filterRepository.getFilterLiveData();
+    }
     public MediatorLiveData<List<MeetingsViewStateItem>> getMeetingsViewStateItemMediatorLD() {
         return meetingsViewStateItemMediatorLD;
     }
@@ -54,39 +52,48 @@ public class MainViewModel extends ViewModel {
         this.meetingRepository = meetingRepository;
         this.filterRepository = filterRepository;
 
+        /* Mediator : meetings à afficher selon les filtres */
         meetingsViewStateItemMediatorLD.addSource(getAllMeetingsViewStateItemsLiveData(), value -> meetingsViewStateItemMediatorLD.setValue(value));
-        meetingsViewStateItemMediatorLD.addSource(getFilterRoomLiveData(), filterRooms -> {
+        meetingsViewStateItemMediatorLD.addSource(getFilterLiveData(), filter -> {
+            Log.i(TAG, "MainViewModel: getFilterLiveData MAJ");
             List<MeetingsViewStateItem> meetingsViewStateItems = allMeetingsViewStateItemsLiveData.getValue();
             List<MeetingsViewStateItem> newMeetings = new ArrayList<>();
 
+            if (meetingsViewStateItems!= null && !meetingsViewStateItems.isEmpty()) {
             for (MeetingsViewStateItem meeting : meetingsViewStateItems) {
-                Log.i("MediatorLD", "filterRooms :" +filterRooms.toString());
-                if (filterRooms.contains(filtersRoomsCheckboxes.get(meeting.getRoom()))) {
-                    newMeetings.add(meeting);
+                Log.i("MediatorLD", "filter :" + filter.toString());
+
+                if (filter.getFiltersRooms().contains(meeting.getRoom())) {
+
+                    // Si Salle ok, vérification du filtre date
+                    Calendar dateNow = Calendar.getInstance(Locale.FRANCE);
+                    Calendar dateMeeting = meeting.getDate();
+
+                    Log.i(TAG, "MainViewModel: dateMeeting" + dateMeeting.toString());
+                    Log.i(TAG, "MainViewModel: dateNow" + dateNow.toString());
+
+                    long daysBetween = daysBetween(dateMeeting, dateNow);
+
+                    if (daysBetween >= 0 && daysBetween <= filter.getFilterDate().getMaxDays()) {
+                        newMeetings.add(meeting);
+                    }
                 }
+                meetingsViewStateItemMediatorLD.setValue(newMeetings);
             }
-            meetingsViewStateItemMediatorLD.setValue(newMeetings);
-        });
-    } // Fin constructeur
+        }
+    });
+    }// Fin constructeur
 
     public void deleteMeetingLiveData(int id) {
         meetingRepository.deleteMeeting(id);
     }
 
+    /* Live Data All Meetings => récupération des données du repository*/
     public LiveData<List<MeetingsViewStateItem>> getAllMeetingsViewStateItemsLiveData() {
         return Transformations.map(meetingRepository.getMeetingsLiveData(), meetings -> {
             List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
             for (Meeting meeting : meetings) {
-
-                meetingsViewStateItems.add(
-                        new MeetingsViewStateItem(
-                                meeting.getId(),
-                                meeting.getTopic(),
-                                meeting.getRoom(),
-                                meeting.getParticipants(),
-                                meeting.getDate(),
-                                meeting.getStartTime()
-                        ));
+                meetingsViewStateItems.add(new MeetingsViewStateItem(meeting.getId(), meeting.getTopic(), meeting.getRoom(), meeting.getParticipants(), meeting.getDate(), meeting.getStartTime()));
                 Log.i("MeetingsViewStateItem", "addMeeting : id : " + meeting.getId() + " /topic : " + meeting.getTopic());
             }
 
@@ -95,21 +102,6 @@ public class MainViewModel extends ViewModel {
         });
     }
 
-    public LiveData<List<FilterRoom>> getFilterRoomLiveData() {
-        return Transformations.map(filterRepository.getFilterRoomLD(), filters -> {
-            List<FilterRoom> fr = new ArrayList<>();
-            for (FilterRoom filter : filters) {
-                fr.add(filter);
-            }
-            Log.i("getFilterRoomLiveData()", fr.toString());
 
-            filterRoomLiveData.setValue(fr);
-            return fr;
-        });
-    }
 
-    public void filterDatas(List<FilterRoom> filterRoomInput, FilterDate filterDateInput) {
-        filterRoomLiveData.setValue(filterRoomInput);
-        Log.i(TAG, "filterDatas: " + filterRoomLiveData.getValue().toString());
-    }
 }
