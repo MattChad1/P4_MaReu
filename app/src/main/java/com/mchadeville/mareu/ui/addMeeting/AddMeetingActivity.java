@@ -171,5 +171,4 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-
 }

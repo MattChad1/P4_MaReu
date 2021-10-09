@@ -22,9 +22,9 @@ import java.util.Arrays;
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FormTests {
+public class AddMeetingViewModelTests {
 
-    private AddMeetingViewModel viewModel;
+    private com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel viewModel;
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -38,7 +38,7 @@ public class FormTests {
     public void setUp() {
         Mockito.when(buildConfigResolver.isDebug()).thenReturn(false);
         meetingRepository = new MeetingRepository(buildConfigResolver);
-        viewModel = new AddMeetingViewModel(meetingRepository);
+        viewModel = new com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel(meetingRepository);
     }
 
     @Test
