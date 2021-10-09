@@ -64,6 +64,18 @@
 
     <ImageView
         android:id="@+id/item_btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="12dp"
+        android:src="@drawable/ic_delete"
+        app:tint="@color/colorAccent" />
+
+
+    <ImageView
+        android:id="@+id/item_btn_delete"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
