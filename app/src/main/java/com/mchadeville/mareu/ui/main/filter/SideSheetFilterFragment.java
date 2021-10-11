@@ -24,11 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SideSheetFilterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class SideSheetFilterFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
     String TAG = "SideSheetFilter";
@@ -51,12 +47,8 @@ public class SideSheetFilterFragment extends BottomSheetDialogFragment implement
         }
     };
 
-    private List<Room> filterRoomSelected = new ArrayList<>();
-    FilterDate filterDateSelected = FilterDate.DATE_ALL;
-
 
     public SideSheetFilterFragment() {
-        // Required empty public constructor
     }
 
     public static SideSheetFilterFragment newInstance() {
@@ -68,8 +60,6 @@ public class SideSheetFilterFragment extends BottomSheetDialogFragment implement
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        filterRoomSelected.addAll(Arrays.asList(Room.values()));
-
         viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(SideSheetFilterViewModel.class);
 
     }
@@ -91,16 +81,8 @@ public class SideSheetFilterFragment extends BottomSheetDialogFragment implement
     @Override
     public void onClick(View v) {
         if (v instanceof CheckBox && ((CheckBox) v).isChecked()) viewModel.addFilter(filtersRoomsCheckboxes.get(v.getId()));
-            //filterRoomSelected.add(filtersRoomsCheckboxes.get(v.getId()));
         else if (v instanceof CheckBox && !((CheckBox) v).isChecked()) viewModel.deleteFilter(filtersRoomsCheckboxes.get(v.getId()));
-//        else if (filterRoomSelected.contains(filtersRoomsCheckboxes.get(v.getId())))
-//            filterRoomSelected.remove(filtersRoomsCheckboxes.get(v.getId()));
 
         if (v instanceof RadioButton && ((RadioButton) v).isChecked()) viewModel.updateFilterDate(filtersDatesRadioButtons.get(v.getId()));
-
-        Log.i(TAG, "onClick: filtersRoomSelected " + filterRoomSelected.toString());
-        Log.i(TAG, "onClick: filtersDateSelected " + filterDateSelected.toString());
-
-        //formListener.transfertChecks(filterRoomSelected);
     }
 }

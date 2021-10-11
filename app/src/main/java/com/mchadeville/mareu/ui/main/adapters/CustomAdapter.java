@@ -5,15 +5,14 @@ import static com.mchadeville.mareu.util.Utils.calendarToString;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mchadeville.mareu.R;
@@ -95,18 +94,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         viewHolder.tvParticipants.setText(Utils.listToString(meet.getParticipants()));
         viewHolder.tvDateTime.setText(ctx.getString(R.string.date_time, calendarToString(meet.getDate()), meet.getTime()));
-        String roomLetter = meet.getRoom().getName().substring(meet.getRoom().getName().length() - 1);
-        viewHolder.tvIcon.setText(roomLetter);
+        viewHolder.tvIcon.setText(meet.getRoom().getName().substring(meet.getRoom().getName().length() - 1));
 
-        switch (roomLetter) {
-            case "A":
-                viewHolder.tvIcon.setBackgroundResource(R.color.blue);
+
+        switch (meet.getRoom()) {
+            case SALLE_A:
+                viewHolder.tvIcon.setBackground(AppCompatResources.getDrawable(ctx,R.drawable.icon_room_a));
                 break;
-            case "B":
-                viewHolder.tvIcon.setBackgroundResource(R.color.red);
+            case SALLE_B:
+                viewHolder.tvIcon.setBackground(AppCompatResources.getDrawable(ctx,R.drawable.icon_room_b));
+                break;
+            case SALLE_C:
+                viewHolder.tvIcon.setBackground(AppCompatResources.getDrawable(ctx,R.drawable.icon_room_c));
                 break;
             default:
-                viewHolder.tvIcon.setBackgroundResource(R.color.purple);
                 break;
         }
 

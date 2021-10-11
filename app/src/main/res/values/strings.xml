@@ -16,7 +16,6 @@
     <string name="date_for_datePicker">%1$02d/%2$02d/%3$d</string>
     <string name="edit_participants_hint">Participants (email)</string>
     <string name="edit_salle_hint">Salle</string>
-    <string name="supprimer_cette_reunion">Supprimer cette réunion</string>
 
 
     <string-array name="rooms_array">

@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginBottom="40dp"
+    android:orientation="vertical"
     tools:context=".ui.addMeeting.AddMeetingActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             style="@style/styleToolbar"
@@ -26,10 +26,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_topic"
         style="@style/field_add_reu"
-        app:layout_constraintTop_toBottomOf="@id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Sujet de la réunion">
+        android:hint="Sujet de la réunion"
+        app:layout_constraintTop_toBottomOf="@id/appBar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -41,10 +41,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_room"
         style="@style/field_add_reu"
-        app:layout_constraintTop_toBottomOf="@id/edit_topic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_salle_hint">
+        android:hint="@string/edit_salle_hint"
+        app:layout_constraintTop_toBottomOf="@id/edit_topic">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_room_child"
@@ -66,88 +66,87 @@
     <!--        />-->
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_participants"
-            style="@style/field_add_reu"
-            app:layout_constraintTop_toBottomOf="@id/edit_room"
-            app:layout_constraintRight_toLeftOf="@id/btn_add_participant"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            >
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_participants"
+        style="@style/field_add_reu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_add_participant"
+        app:layout_constraintTop_toBottomOf="@id/edit_room">
 
-            <AutoCompleteTextView
-                android:id="@+id/edit_participants_child"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:completionThreshold="1"
-                android:paddingLeft="12dp"
-                android:textSize="16sp"
-                android:hint="@string/edit_participants_hint"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_add_participant"
-            style="@style/field_add_reu"
-            app:layout_constraintTop_toBottomOf="@id/edit_room"
-            app:layout_constraintLeft_toRightOf="@id/edit_participants"
-            app:layout_constraintRight_toRightOf="parent"
-
-            app:layout_constraintHorizontal_weight="0.15"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="0dp"
-            android:text="+"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/liste_emails"
-            style="@style/field_add_reu"
-            app:layout_constraintTop_toBottomOf="@id/edit_participants"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/btn_delete_participant"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <AutoCompleteTextView
+            android:id="@+id/edit_participants_child"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:completionThreshold="1"
+            android:hint="@string/edit_participants_hint"
             android:paddingLeft="12dp"
-            android:textSize="16sp"
-            tools:text="bob@lamzone.com\nemily@lamzone.com" />
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btn_delete_participant"
-            style="@style/field_add_reu"
-            app:layout_constraintTop_toBottomOf="@id/edit_participants"
-            app:layout_constraintLeft_toRightOf="@id/liste_emails"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="0dp"
-            android:layout_width="70dp"
+    <Button
+        android:id="@+id/btn_add_participant"
+        style="@style/field_add_reu"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
 
-            android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:text="+"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_weight="0.15"
+        app:layout_constraintLeft_toRightOf="@id/edit_participants"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_room" />
 
-            android:layout_gravity="center"
+    <TextView
+        android:id="@+id/liste_emails"
+        style="@style/field_add_reu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="55dp"
+        android:paddingLeft="12dp"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_delete_participant"
+        app:layout_constraintTop_toBottomOf="@id/edit_participants"
+        tools:text="bob@lamzone.com\nemily@lamzone.com" />
 
-            android:backgroundTint="@color/red"
-            android:text="-"
-            android:textStyle="bold"
-            android:visibility="gone"
-            tools:visibility="visible"
-            />
+    <Button
+        android:id="@+id/btn_delete_participant"
+        style="@style/field_add_reu"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="0dp"
+        android:backgroundTint="@color/red"
+
+        android:text="-"
+
+        android:textStyle="bold"
+
+        android:visibility="gone"
+        app:layout_constraintLeft_toRightOf="@id/liste_emails"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_participants"
+        tools:visibility="visible" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_date"
-        app:layout_constraintTop_toBottomOf="@id/liste_emails"
         style="@style/field_add_reu"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Date de la réunion">
+        android:hint="Date de la réunion"
+        app:layout_constraintTop_toBottomOf="@id/liste_emails">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_date_child"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="false"/>
+            android:focusable="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,10 +154,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_start_time"
         style="@style/field_add_reu"
-        app:layout_constraintTop_toBottomOf="@id/edit_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Débute à ...">
+        android:hint="Débute à ..."
+        app:layout_constraintTop_toBottomOf="@id/edit_date">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_start_time_child"
@@ -172,13 +171,13 @@
 
     <Button
         android:id="@+id/btn_save"
-        app:layout_constraintTop_toBottomOf="@id/edit_start_time"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="30dp"
         android:layout_marginRight="25dp"
-        android:text="@string/sauvegarder" />
+
+        android:text="@string/sauvegarder"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_start_time" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
