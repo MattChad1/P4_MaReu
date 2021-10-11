@@ -1,44 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     tools:context=".ui.main.filter.SideSheetFilterFragment">
 
     <TextView
+        android:id="@+id/titre_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:text="Filtres"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:textSize="@dimen/size_text_title"
+        android:text="@string/filtres"
         />
+
+    <LinearLayout
+        android:id="@+id/filtres_salles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/titre_bottom_sheet"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/filtres_dates"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        android:orientation="vertical"
+        >
+
+
 
     <TextView
         style="@style/filter_subtitle"
-        android:text="Par salle"
+        android:text="@string/par_salle"
         />
 
     <CheckBox
         android:id="@+id/filter_salle_A"
         style="@style/filter_checkbox"
-        android:text="Salle A"
         android:checked="true"
+        tools:text="Salle A"
         />
 
     <CheckBox
         android:id="@+id/filter_salle_B"
         style="@style/filter_checkbox"
-        android:text="Salle B"
         android:checked="true"
+        tools:text="Salle B"
         />
 
     <CheckBox
         android:id="@+id/filter_salle_C"
         style="@style/filter_checkbox"
-        android:text="Salle C"
         android:checked="true"
+        tools:text="Salle C"
         />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/filtres_dates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/titre_bottom_sheet"
+        app:layout_constraintLeft_toRightOf="@id/filtres_salles"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:orientation="vertical"
+        >
 
     <TextView
         style="@style/filter_subtitle"
@@ -76,11 +114,12 @@
         />
     </RadioGroup>
 
+    </LinearLayout>
 
 
 
 
 
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

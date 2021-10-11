@@ -3,7 +3,6 @@ package com.mchadeville.mareu.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
-import com.mchadeville.mareu.ui.main.adapters.CustomAdapter;
 import com.mchadeville.mareu.databinding.ActivityMainBinding;
 import com.mchadeville.mareu.ui.addMeeting.AddMeetingActivity;
+import com.mchadeville.mareu.ui.main.adapters.CustomAdapter;
 import com.mchadeville.mareu.ui.main.filter.SideSheetFilterFragment;
 
 import java.util.ArrayList;

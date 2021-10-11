@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="40dp"
     android:orientation="vertical"
     tools:context=".ui.addMeeting.AddMeetingActivity">
 
@@ -19,8 +18,19 @@
             style="@style/styleToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:titleTextAppearance="@style/toolbar_title"
             app:title="Ajouter une réunion" />
     </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -28,10 +38,11 @@
         style="@style/field_add_reu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Sujet de la réunion"
-        app:layout_constraintTop_toBottomOf="@id/appBar">
+        android:hint="@string/sujet_de_la_reunion"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            style="@style/field_add_reu_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -48,22 +59,13 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_room_child"
+            style="@style/field_add_reu_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-    <!--    <Spinner-->
-    <!--        android:id="@+id/edit_room"-->
-    <!--        style="@style/Widget.AppCompat.Spinner.Underlined"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:hint="Salle"-->
-    <!--        tools:listitem="@layout/support_simple_spinner_dropdown_item"-->
-
-    <!--        />-->
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -77,12 +79,12 @@
 
         <AutoCompleteTextView
             android:id="@+id/edit_participants_child"
+            style="@style/field_add_reu_edittext"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
             android:completionThreshold="1"
             android:hint="@string/edit_participants_hint"
             android:paddingLeft="12dp"
-            android:textSize="16sp" />
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -91,7 +93,6 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         android:layout_marginLeft="0dp"
         android:text="+"
         android:textStyle="bold"
@@ -123,9 +124,7 @@
         android:backgroundTint="@color/red"
 
         android:text="-"
-
         android:textStyle="bold"
-
         android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@id/liste_emails"
         app:layout_constraintRight_toRightOf="parent"
@@ -135,7 +134,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_date"
         style="@style/field_add_reu"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Date de la réunion"
@@ -143,6 +141,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_date_child"
+            style="@style/field_add_reu_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -161,6 +160,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_start_time_child"
+            style="@style/field_add_reu_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -175,9 +175,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginRight="25dp"
-
+        android:padding="@dimen/padding_button"
+        android:textSize="@dimen/size_text_titre2"
         android:text="@string/sauvegarder"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_start_time" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

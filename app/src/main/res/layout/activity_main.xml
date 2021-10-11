@@ -12,43 +12,38 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
+
         <com.google.android.material.appbar.MaterialToolbar
             style="@style/styleToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
             app:menu="@menu/menu_toolbar"
-            />
+            app:title="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-
-
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/liste_meetings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/appBar"
         app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/item_meet"
-        />
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        tools:listitem="@layout/item_meet" />
 
 
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/fab_main"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    android:layout_margin="16dp"
-    android:src="@drawable/ic_add"
-    android:backgroundTint="@color/colorAccent"
-    app:tint="@android:color/white"
-    android:contentDescription="@string/ajouter_une_reunion" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/colorAccent"
+        android:contentDescription="@string/ajouter_une_reunion"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:tint="@android:color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

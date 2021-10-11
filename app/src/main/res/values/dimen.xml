@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_text_title">18sp</dimen>
+    <dimen name="size_text_titre2">16sp</dimen>
+    <dimen name="size_text_classic">15sp</dimen>
+
+    <dimen name="padding_button">6dp</dimen>
+    <dimen name="height_field_form">60dp</dimen>
+
+
+    <dimen name="margin_big">15dp</dimen>
+    <dimen name="max_width_bottomSheet">640dp</dimen>
+
+</resources>

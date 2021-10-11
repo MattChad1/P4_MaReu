@@ -1,13 +1,7 @@
 package com.mchadeville.mareu.data;
 
-import android.os.Environment;
-import android.util.Log;
-
-//public enum Room {
-//    SALLE_A,
-//    SALLE_B,
-//    SALLE_C
-//}
+import java.util.ArrayList;
+import java.util.List;
 
 public enum Room {
     SALLE_A("Salle A"), SALLE_B("Salle B"), SALLE_C("Salle C");
@@ -21,13 +15,19 @@ public enum Room {
     }
 
     public static Room fromString(String str) {
-        Log.i("Room", "fromString: appel");
         for (Room r : Room.values()) {
             if (r.getName().equals(str)) {
-                Log.i("Room", "fromString: match" + r.toString());
                 return r;
             }
         }
         return null;
+    }
+
+    public static List<String> getAllNames() {
+        List<String> re = new ArrayList<>();
+        for (Room r : Room.values()) {
+            re.add(r.getName());
+            }
+        return re;
     }
     }

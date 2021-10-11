@@ -3,9 +3,10 @@
     <string name="ajouter_une_reunion">Ajouter une réunion</string>
     <string name="error_empty_topic">Vous devez préciser le sujet de la réunion</string>
     <string name="error_editRoom_empty">Vous devez préciser le lieu de la réunion</string>
-    <string name="error_editParticipants_empty">Vous devez préciser qui participe</string>
+    <string name="error_editParticipants_empty">Vous devez indiquer l\'adresse mail d\'un participant</string>
+    <string name="error_editParticipants_not_valid">Cette adresse n\'est pas valide</string>
     <string name="error_editTime_empty">Vous devez préciser l\'heure de la réunion</string>
-
+    <string name="error_editDate_empty">Vous devez préciser la date de la réunion</string>
 
     <string name="sauvegarder">Sauvegarder</string>
     <string name="menu_update">Modifier</string>
@@ -16,14 +17,9 @@
     <string name="date_for_datePicker">%1$02d/%2$02d/%3$d</string>
     <string name="edit_participants_hint">Participants (email)</string>
     <string name="edit_salle_hint">Salle</string>
-
-
-    <string-array name="rooms_array">
-        <item>Salle A</item>
-        <item>Salle B</item>
-        <item>Salle C</item>
-    </string-array>
-
+    <string name="sujet_de_la_reunion">Sujet de la réunion</string>
+    <string name="filtres">Filtres</string>
+    <string name="par_salle">Par salle</string>
 
 </resources>
 

@@ -33,7 +33,7 @@
         app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
         app:layout_constraintRight_toLeftOf="@id/item_btn_delete"
         android:layout_marginLeft="10dp"
-        android:textSize="20sp"
+        android:textSize="@dimen/size_text_titre2"
         android:textStyle="bold"
         tools:text="Titre réunion"
         />
@@ -46,6 +46,7 @@
         app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
         app:layout_constraintRight_toLeftOf="@id/item_btn_delete"
         android:layout_marginLeft="10dp"
+        android:textSize="@dimen/size_text_classic"
         tools:text="Le 23/10/2021 à 13h00"
         />
 
@@ -59,6 +60,7 @@
         android:layout_marginLeft="10dp"
         android:maxLines="1"
         android:ellipsize="end"
+        android:textSize="@dimen/size_text_classic"
         tools:text="mike@lamzone.fr, mike@lamzone.fr, mike@lamzone.fr,  mike@lamzone.fr, mike@lamzone.fr,"
         />
 
@@ -71,7 +73,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginHorizontal="12dp"
         android:src="@drawable/ic_delete"
-        app:tint="@color/colorAccent" />
+        app:tint="#3F445E" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
