@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
 
         viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(MainViewModel.class);
 
-        Log.i(TAG, "onCreate: ");
-
         FloatingActionButton fab = binding.fabMain;
         fab.setOnClickListener(v -> startActivity(new Intent(this, AddMeetingActivity.class)));
 

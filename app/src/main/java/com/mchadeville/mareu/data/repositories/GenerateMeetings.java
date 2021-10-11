@@ -1,7 +1,5 @@
 package com.mchadeville.mareu.data.repositories;
 
-import static com.mchadeville.mareu.util.Utils.dateStringToCalendar;
-
 import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.data.model.Meeting;
 
@@ -9,12 +7,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 abstract public class GenerateMeetings {
 
     static List<Meeting> generateMeetings() {
         return new ArrayList<>(FAKE_MEETINGS);
     }
+
+    static Calendar today = Calendar.getInstance(Locale.FRANCE);
+    static Calendar day1 = Calendar.getInstance(Locale.FRANCE);
+    static Calendar day2 = Calendar.getInstance(Locale.FRANCE);
+
+    static Calendar getJ2() {
+        day1.add(5,2);
+        return day1;
+    }
+
+    static Calendar getJ10() {
+        day2.add(5,10);
+        return day2;
+    }
+
+
+
+
 
     public static List<Meeting> FAKE_MEETINGS = Arrays.asList(
             new Meeting(
@@ -23,7 +40,7 @@ abstract public class GenerateMeetings {
                     Room.SALLE_A,
                     new ArrayList<>(Arrays.asList("arthur@lamzone.com", "bertrand@gmail.com", "claire@lamzone.com", "damien@live.fr", "jean.peuplus@gmail.com", "cecile.ourkessa@lamzone.com")),
                     "08:00",
-                    dateStringToCalendar("08/10/2021")
+                    today
             ),
             new Meeting(
                     2,
@@ -31,7 +48,7 @@ abstract public class GenerateMeetings {
                     Room.SALLE_A,
                     new ArrayList<>(Arrays.asList("francis@lamzone.com")),
                     "16:00",
-                    dateStringToCalendar("08/10/2021")
+                    getJ2()
             ),
             new Meeting(
                     4,
@@ -39,7 +56,7 @@ abstract public class GenerateMeetings {
                     Room.SALLE_B,
                     new ArrayList<>(Arrays.asList("matthieu@lamzone.com", "francis@lamzone.com", "cecile@gmail.com", "lea@lamzone.com")),
                     "09:00",
-                    dateStringToCalendar("20/10/2021")
+                    today
             ),
             new Meeting(
                     5,
@@ -47,7 +64,7 @@ abstract public class GenerateMeetings {
                     Room.SALLE_B,
                     new ArrayList<>(Arrays.asList("sarah.fraichi@lamzone.com", "jacques.selere@gmail.com","claire@lamzone.com", "karim@lamzone.com", "oscar@lamzone.com")),
                     "09:00",
-                    dateStringToCalendar("22/10/2021")
+                    getJ10()
             ),
             new Meeting(
                     6,
@@ -55,7 +72,7 @@ abstract public class GenerateMeetings {
                     Room.SALLE_C,
                     new ArrayList<>(Arrays.asList("francis@lamzone.com", "lesmentors@oc.com", "matthieu.nebra@oc.com")),
                     "08:00",
-                    dateStringToCalendar("12/10/2021")
+                    today
             )
     );
 }

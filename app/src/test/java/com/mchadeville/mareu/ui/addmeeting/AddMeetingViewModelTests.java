@@ -7,6 +7,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.mchadeville.mareu.config.BuildConfigResolver;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
+import com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,7 +24,7 @@ import java.util.List;
 @RunWith(MockitoJUnitRunner.class)
 public class AddMeetingViewModelTests {
 
-    private com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel viewModel;
+    private AddMeetingViewModel viewModel;
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -37,7 +38,7 @@ public class AddMeetingViewModelTests {
     public void setUp() {
         Mockito.when(buildConfigResolver.isDebug()).thenReturn(false);
         meetingRepository = new MeetingRepository(buildConfigResolver);
-        viewModel = new com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel(meetingRepository);
+        viewModel = new AddMeetingViewModel(meetingRepository);
     }
 
     @Test

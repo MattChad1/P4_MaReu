@@ -1,25 +1,17 @@
 package com.mchadeville.mareu.data.repositories;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.mchadeville.mareu.data.FilterDate;
 import com.mchadeville.mareu.data.Room;
-import com.mchadeville.mareu.data.model.Filter;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FilterRepositoryTest {

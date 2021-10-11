@@ -11,20 +11,15 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.data.model.Filter;
 import com.mchadeville.mareu.data.model.Meeting;
 import com.mchadeville.mareu.data.repositories.FilterRepository;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-
-import javax.security.auth.login.LoginException;
 
 public class MainViewModel extends ViewModel {
 
@@ -39,6 +34,7 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<List<MeetingsViewStateItem>> allMeetingsViewStateItemsLiveData = new MutableLiveData<>();
     private MutableLiveData<Filter> filterLiveData = new MutableLiveData<>();
     public MediatorLiveData<List<MeetingsViewStateItem>> meetingsViewStateItemMediatorLD = new MediatorLiveData<>();
+
 
     public LiveData<Filter> getFilterLiveData() {
         return filterRepository.getFilterLiveData();
@@ -68,9 +64,6 @@ public class MainViewModel extends ViewModel {
                     // Si Salle ok, vérification du filtre date
                     Calendar dateNow = Calendar.getInstance(Locale.FRANCE);
                     Calendar dateMeeting = meeting.getDate();
-
-                    Log.i(TAG, "MainViewModel: dateMeeting" + dateMeeting.toString());
-                    Log.i(TAG, "MainViewModel: dateNow" + dateNow.toString());
 
                     long daysBetween = daysBetween(dateMeeting, dateNow);
 

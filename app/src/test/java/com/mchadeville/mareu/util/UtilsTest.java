@@ -24,7 +24,7 @@ public class UtilsTest {
         date1.set(2021, 10, 10);
         String res = Utils.calendarToString(date1);
 
-        assertEquals("10/10/2021", res);
+        assertEquals("10/11/2021", res);
     }
 
     @Test
