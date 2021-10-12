@@ -3,7 +3,6 @@ package com.mchadeville.mareu.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,7 @@ import com.mchadeville.mareu.ui.main.filter.SideSheetFilterFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity /*implements View.OnClickListener*/ /*implements SideSheetFilter.onFormListener*/ {
+public class MainActivity extends AppCompatActivity implements ItemClickListener /*implements SideSheetFilter.onFormListener*/ {
 
     private ActivityMainBinding binding;
     private RecyclerView rv;
@@ -39,8 +38,6 @@ public class MainActivity extends AppCompatActivity /*implements View.OnClickLis
 
         viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(MainViewModel.class);
 
-        Log.i(TAG, "onCreate: ");
-
         FloatingActionButton fab = binding.fabMain;
         fab.setOnClickListener(v -> startActivity(new Intent(this, AddMeetingActivity.class)));
 
@@ -52,11 +49,9 @@ public class MainActivity extends AppCompatActivity /*implements View.OnClickLis
 
 
         rv = binding.listeMeetings;
-        adapter = new CustomAdapter(this, datas);
-
-        rv.setAdapter(adapter);
-        registerForContextMenu(rv);
-        adapter.setOnCardClickListner(this);
+        adapter = new CustomAdapter(this, datas, this);
+                rv.setAdapter(adapter);
+        adapter.setClickListener(this);
 
 
         viewModel.getMeetingsViewStateItemMediatorLD().observe(this, meetingsViewStateItems -> {
@@ -66,47 +61,38 @@ public class MainActivity extends AppCompatActivity /*implements View.OnClickLis
         });
     }
 
-
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        int position = -1;
-        String title;
-        try {
-            //position = ((BackupRestoreListAdapter)getAdapter()).getPosition();
-            position = adapter.getPosition();
-//            title = adapter.getTopic();
-
-
-        } catch (Exception e) {
-            Log.d(TAG, e.getLocalizedMessage(), e);
-            return super.onContextItemSelected(item);
-        }
-        switch (item.getItemId()) {
-            case R.id.menu_update:
-                // do your stuff
-                break;
-            case R.id.menu_delete:
-                Log.i(TAG, "onContextItemSelected: position : " + position);
-                Log.i(TAG, "onContextItemSelected: datas.get(position).getId() : " + datas.get(position).getId());
-                viewModel.deleteMeetingLiveData(datas.get(position).getId());
-                break;
-        }
-        return super.onContextItemSelected(item);
-    }
-
-    @Override
-    public void OnCardClicked(View view, int position) {
-        Log.d("OnClick", "Card Position" + position);
-    }
-
 //    @Override
-//    public void onClick(View v) {
-//        Log.i(TAG, "onClick: ");
-//        int position = adapter.getPosition();
-//        viewModel.deleteMeetingLiveData(datas.get(position).getId());
+//    public boolean onContextItemSelected(MenuItem item) {
+//        int position = -1;
+//        String title;
+//        try {
+//            //position = ((BackupRestoreListAdapter)getAdapter()).getPosition();
+//            position = adapter.getPosition();
+////            title = adapter.getTopic();
 //
+//
+//        } catch (Exception e) {
+//            Log.d(TAG, e.getLocalizedMessage(), e);
+//            return super.onContextItemSelected(item);
+//        }
+//        switch (item.getItemId()) {
+//            case R.id.menu_update:
+//                // do your stuff
+//                break;
+//            case R.id.menu_delete:
+//                Log.i(TAG, "onContextItemSelected: position : " + position);
+//                Log.i(TAG, "onContextItemSelected: datas.get(position).getId() : " + datas.get(position).getId());
+//                viewModel.deleteMeetingLiveData(datas.get(position).getId());
+//                break;
+//        }
+//        return super.onContextItemSelected(item);
 //    }
+
+    @Override
+    public void onClick(View view, int position) {
+        Log.i(TAG, "onClick: position" +  position);
+        viewModel.deleteMeetingLiveData(datas.get(position).getId());
+    }
 
 //    @Override
 //    public void transfertChecks(List<FilterRoom> filterRoomSelected) {

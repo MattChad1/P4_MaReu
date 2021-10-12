@@ -1,11 +1,13 @@
-package com.mchadeville.mareu;
+package com.mchadeville.mareu.ui.addmeeting;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.MutableLiveData;
 
 import com.mchadeville.mareu.config.BuildConfigResolver;
+import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
 import com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel;
 
@@ -22,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FormTests {
+public class AddMeetingViewModelTests {
 
     private AddMeetingViewModel viewModel;
 
@@ -33,18 +35,22 @@ public class FormTests {
     private BuildConfigResolver buildConfigResolver;
 
     private MeetingRepository meetingRepository;
+    private MutableLiveData<List<String>> mockLiveDataAllEmails = new MutableLiveData<>();
+
+
 
     @Before
     public void setUp() {
         Mockito.when(buildConfigResolver.isDebug()).thenReturn(false);
         meetingRepository = new MeetingRepository(buildConfigResolver);
         viewModel = new AddMeetingViewModel(meetingRepository);
+
     }
 
     @Test
     public void testTopicEntry_withEmptyField() {
         String topic = "";
-        String room = "Salle A";
+        String room = Room.SALLE_A.getName();
         List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";
@@ -66,11 +72,12 @@ public class FormTests {
     @Test
     public void testTopicEntry_withCorrectFields() {
         String topic = "Topic de la réunion";
-        String room = "Salle A";
+        String room = Room.SALLE_A.getName();
         List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";
 
         assertTrue(viewModel.validForm(topic, room, participants, startTime, date));
     }
+
 }

@@ -1,38 +1,34 @@
 package com.mchadeville.mareu.ui.main.filter;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
 import com.mchadeville.mareu.data.FilterDate;
 import com.mchadeville.mareu.data.Room;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SideSheetFilterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class SideSheetFilterFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
     String TAG = "SideSheetFilter";
     SideSheetFilterViewModel viewModel;
+
 
     Map<Integer, Room> filtersRoomsCheckboxes = new HashMap<Integer, Room>() {
         {
@@ -51,12 +47,8 @@ public class SideSheetFilterFragment extends BottomSheetDialogFragment implement
         }
     };
 
-    private List<Room> filterRoomSelected = new ArrayList<>();
-    FilterDate filterDateSelected = FilterDate.DATE_ALL;
-
 
     public SideSheetFilterFragment() {
-        // Required empty public constructor
     }
 
     public static SideSheetFilterFragment newInstance() {
@@ -68,8 +60,6 @@ public class SideSheetFilterFragment extends BottomSheetDialogFragment implement
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        filterRoomSelected.addAll(Arrays.asList(Room.values()));
-
         viewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(SideSheetFilterViewModel.class);
 
     }
@@ -77,6 +67,22 @@ public class SideSheetFilterFragment extends BottomSheetDialogFragment implement
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_side_sheet_filter, container, false);
+
+        /* Pour régler le problème sur tablette du SideSheet non visible en entier */
+        getDialog().setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                BottomSheetDialog d = (BottomSheetDialog) dialog;
+                View bottomSheetInternal = d.findViewById(R.id.design_bottom_sheet);
+                BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
+                BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(0);
+            }
+        });
+
+
+        for (Map.Entry<Integer, Room> pair : filtersRoomsCheckboxes.entrySet()) {
+            ((CheckBox) v.findViewById(pair.getKey())).setText(pair.getValue().getName());
+        }
 
         for (Integer id : filtersRoomsCheckboxes.keySet()) {
             v.findViewById(id).setOnClickListener(this);
@@ -89,18 +95,36 @@ public class SideSheetFilterFragment extends BottomSheetDialogFragment implement
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        view.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet));
+        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        behavior.setPeekHeight(0);
+            behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                @Override
+                public void onStateChanged(@NonNull View view1, int i) {
+                    if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED || behavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
+                        if (!isStateSaved())
+                            dismissAllowingStateLoss();
+                    }
+                }
+
+                @Override
+                public void onSlide(@NonNull View view1, float v) {
+                }
+            });
+
+
+});
+    }
+
+    @Override
     public void onClick(View v) {
         if (v instanceof CheckBox && ((CheckBox) v).isChecked()) viewModel.addFilter(filtersRoomsCheckboxes.get(v.getId()));
-            //filterRoomSelected.add(filtersRoomsCheckboxes.get(v.getId()));
         else if (v instanceof CheckBox && !((CheckBox) v).isChecked()) viewModel.deleteFilter(filtersRoomsCheckboxes.get(v.getId()));
-//        else if (filterRoomSelected.contains(filtersRoomsCheckboxes.get(v.getId())))
-//            filterRoomSelected.remove(filtersRoomsCheckboxes.get(v.getId()));
 
         if (v instanceof RadioButton && ((RadioButton) v).isChecked()) viewModel.updateFilterDate(filtersDatesRadioButtons.get(v.getId()));
-
-        Log.i(TAG, "onClick: filtersRoomSelected " + filterRoomSelected.toString());
-        Log.i(TAG, "onClick: filtersDateSelected " + filterDateSelected.toString());
-
-        //formListener.transfertChecks(filterRoomSelected);
     }
 }

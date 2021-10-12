@@ -2,15 +2,9 @@ package com.mchadeville.mareu.ui.addMeeting;
 
 import static com.mchadeville.mareu.util.Utils.textFromTextInputLayout;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,19 +15,21 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.ViewModelFactory;
+import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.databinding.ActivityAddMeetingBinding;
-import com.mchadeville.mareu.ui.main.MainActivity;
 import com.mchadeville.mareu.util.Utils;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -56,6 +52,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         AutoCompleteTextView editParticipantsChild = binding.editParticipantsChild;
         Button btnAddParticipant = binding.btnAddParticipant;
         Button btnDeleteParticipant = binding.btnDeleteParticipant;
+        TextView tvTitreListeMails = binding.titreListeEmails;
         TextView tvListeEmails = binding.listeEmails;
         TextInputLayout editStartTime = binding.editStartTime;
         TextInputLayout editDate = binding.editDate;
@@ -68,6 +65,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         btnAddParticipant.setOnClickListener(v -> {
             viewModel.addParticipantToTextView(textFromTextInputLayout(editParticipants));
             editParticipants.getEditText().setText(null);
+            Toast.makeText(this, "Participant ajouté", Toast.LENGTH_SHORT).show();
         });
 
         btnDeleteParticipant.setOnClickListener(v -> {
@@ -75,15 +73,20 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
 
         viewModel.getLiveDataListeEmails().observe(this, listeEmails -> {
-            Log.i(TAG, "onCreate: modif viewModel.getLiveDataListeEmails");
             tvListeEmails.setText(Utils.listToStringRevert(listeEmails));
-            if (btnDeleteParticipant.getVisibility() == View.GONE && listeEmails.size() > 0) btnDeleteParticipant.setVisibility(View.VISIBLE);
-            else if (btnDeleteParticipant.getVisibility() == View.VISIBLE && listeEmails.size() == 0) btnDeleteParticipant.setVisibility(View.GONE);
+            if (btnDeleteParticipant.getVisibility() == View.GONE && listeEmails.size() > 0) {
+                btnDeleteParticipant.setVisibility(View.VISIBLE);
+                tvTitreListeMails.setVisibility(View.VISIBLE);
+            }
+            else if (btnDeleteParticipant.getVisibility() == View.VISIBLE && listeEmails.size() == 0) {
+                btnDeleteParticipant.setVisibility(View.GONE);
+                tvTitreListeMails.setVisibility(View.GONE);
+            }
         });
 
 
 
-        /*Ajouts des emails déjà enregistrés sur le AutocompleteTextView*/
+        /*Ajouts des emails déjà enregistrés dans le AutocompleteTextView*/
         List<String> allEmails = new ArrayList<>();
         viewModel.getLiveDataAllEmails().observe(this, allEmails::addAll);
         Log.i(TAG, "Test emails: " + allEmails.toString());
@@ -94,13 +97,12 @@ public class AddMeetingActivity extends AppCompatActivity {
         /* Pop-up pour les salles  */
         editRoomChild.setOnClickListener(v -> {
             Dialog popupWindow = new Dialog(this);
-            Resources res = getResources();
-            String[] rooms = res.getStringArray(R.array.rooms_array);
+            List<String> rooms = Room.getAllNames();
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, rooms);
             ListView listView = new ListView(this);
             listView.setOnItemClickListener((parent, view, position, id) -> {
-                editRoom.getEditText().setText(rooms[position]);
+                editRoom.getEditText().setText(rooms.get(position));
                 popupWindow.dismiss();
             });
             listView.setAdapter(adapter);
@@ -163,6 +165,10 @@ public class AddMeetingActivity extends AppCompatActivity {
                         if (!vTime) editStartTime.setError(getString(R.string.error_editTime_empty));
                         else editStartTime.setError(null);
                     });
+                    viewModel.getValidDate().observe(this, vDate -> {
+                        if (!vDate) editDate.setError(getString(R.string.error_editDate_empty));
+                        else editDate.setError(null);
+                    });
                 }
                 else {
                     finish();
@@ -170,6 +176,5 @@ public class AddMeetingActivity extends AppCompatActivity {
             });
         });
     }
-
 
 }

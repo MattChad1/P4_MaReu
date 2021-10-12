@@ -3,21 +3,21 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:dialogTheme">@style/AppTheme.Dialog</item> <!-- TimePicker dialog -->
         <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item> <!-- Alert dialog -->
-
-
     </style>
 
 
     <style name="styleToolbar">
         <item name="titleTextColor">@color/white</item>
+        <item name="android:textSize">@dimen/size_text_title</item>
     </style>
+
+
 
     <style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorOnPrimary">@color/colorPrimary</item>
@@ -30,21 +30,29 @@
 
 
     <style name="field_add_reu">
-        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_big</item>
         <item name="android:layout_marginLeft">25dp</item>
         <item name="android:layout_marginRight">25dp</item>
+        <item name="height">@dimen/height_field_form</item>
+        <item name="android:textSize">@dimen/size_text_classic</item>
+    </style>
+
+    <style name="field_add_reu_edittext">
+        <item name="android:layout_height">@dimen/height_field_form</item>
+        <item name="android:textSize">@dimen/size_text_titre2</item>
     </style>
 
     <style name="filter_checkbox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/size_text_classic</item>
     </style>
 
     <style name="filter_subtitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">25dp</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/size_text_titre2</item>
     </style>
 
 

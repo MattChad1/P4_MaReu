@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="2px"
+    
     android:background="@drawable/shape_border"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
@@ -17,9 +17,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/icon_room"
+        android:background="@drawable/icon_room_a"
         android:textSize="24sp"
-        android:layout_margin="12dp"
+        android:layout_marginHorizontal="@dimen/margin_big"
         android:text="A"
         android:gravity="center"
         android:importantForAccessibility="no" />
@@ -32,8 +32,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
         app:layout_constraintRight_toLeftOf="@id/item_btn_delete"
-        android:layout_marginLeft="10dp"
-        android:textSize="20sp"
+        android:layout_marginLeft="@dimen/margin_big"
+        android:textSize="@dimen/size_text_titre2"
         android:textStyle="bold"
         tools:text="Titre réunion"
         />
@@ -45,7 +45,8 @@
         app:layout_constraintTop_toBottomOf="@id/item_meeting_tv_title"
         app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
         app:layout_constraintRight_toLeftOf="@id/item_btn_delete"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="@dimen/margin_big"
+        android:textSize="@dimen/size_text_classic"
         tools:text="Le 23/10/2021 à 13h00"
         />
 
@@ -56,23 +57,23 @@
         app:layout_constraintTop_toBottomOf="@id/item_meeting_tv_date_time"
         app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
         app:layout_constraintRight_toLeftOf="@id/item_btn_delete"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="@dimen/margin_big"
         android:maxLines="1"
         android:ellipsize="end"
+        android:textSize="@dimen/size_text_classic"
         tools:text="mike@lamzone.fr, mike@lamzone.fr, mike@lamzone.fr,  mike@lamzone.fr, mike@lamzone.fr,"
         />
 
     <ImageView
         android:id="@+id/item_btn_delete"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="@dimen/margin_big"
         android:src="@drawable/ic_delete"
-        app:tint="@color/colorAccent"
-        android:background="@null"
-        android:contentDescription="@string/supprimer_cette_reunion" />
+        app:tint="#3F445E" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

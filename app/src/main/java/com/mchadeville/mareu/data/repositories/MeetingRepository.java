@@ -18,7 +18,7 @@ public class MeetingRepository {
     private int idMax = 1;
     String TAG = "Meeting Repository";
 
-    public MeetingRepository(BuildConfigResolver buildConfigResolver) {
+    public MeetingRepository(@NonNull BuildConfigResolver buildConfigResolver) {
         if (buildConfigResolver.isDebug()) {
             meetingsLiveData.setValue(GenerateMeetings.generateMeetings());
             idMax = GenerateMeetings.FAKE_MEETINGS.size() + 1;
