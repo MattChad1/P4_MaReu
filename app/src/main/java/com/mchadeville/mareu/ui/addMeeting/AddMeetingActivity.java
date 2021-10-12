@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -51,6 +52,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         AutoCompleteTextView editParticipantsChild = binding.editParticipantsChild;
         Button btnAddParticipant = binding.btnAddParticipant;
         Button btnDeleteParticipant = binding.btnDeleteParticipant;
+        TextView tvTitreListeMails = binding.titreListeEmails;
         TextView tvListeEmails = binding.listeEmails;
         TextInputLayout editStartTime = binding.editStartTime;
         TextInputLayout editDate = binding.editDate;
@@ -63,6 +65,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         btnAddParticipant.setOnClickListener(v -> {
             viewModel.addParticipantToTextView(textFromTextInputLayout(editParticipants));
             editParticipants.getEditText().setText(null);
+            Toast.makeText(this, "Participant ajouté", Toast.LENGTH_SHORT).show();
         });
 
         btnDeleteParticipant.setOnClickListener(v -> {
@@ -71,8 +74,14 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         viewModel.getLiveDataListeEmails().observe(this, listeEmails -> {
             tvListeEmails.setText(Utils.listToStringRevert(listeEmails));
-            if (btnDeleteParticipant.getVisibility() == View.GONE && listeEmails.size() > 0) btnDeleteParticipant.setVisibility(View.VISIBLE);
-            else if (btnDeleteParticipant.getVisibility() == View.VISIBLE && listeEmails.size() == 0) btnDeleteParticipant.setVisibility(View.GONE);
+            if (btnDeleteParticipant.getVisibility() == View.GONE && listeEmails.size() > 0) {
+                btnDeleteParticipant.setVisibility(View.VISIBLE);
+                tvTitreListeMails.setVisibility(View.VISIBLE);
+            }
+            else if (btnDeleteParticipant.getVisibility() == View.VISIBLE && listeEmails.size() == 0) {
+                btnDeleteParticipant.setVisibility(View.GONE);
+                tvTitreListeMails.setVisibility(View.GONE);
+            }
         });
 
 

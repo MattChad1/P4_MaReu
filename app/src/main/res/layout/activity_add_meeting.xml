@@ -100,17 +100,37 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_room" />
 
+     <TextView
+         android:id="@+id/titre_liste_emails"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintRight_toLeftOf="@id/btn_delete_participant"
+         app:layout_constraintTop_toBottomOf="@id/edit_participants"
+
+         android:layout_marginTop="10dp"
+         android:layout_marginLeft="20dp"
+         android:layout_marginRight="20dp"
+         android:layout_marginBottom="0dp"
+         android:text="Participant(s) enregistré(s) :"
+         tools:visibility="visible"
+         android:textStyle="bold"
+         android:textSize="@dimen/size_text_classic"
+         android:visibility="gone"
+         />
+
     <TextView
         android:id="@+id/liste_emails"
         style="@style/field_add_reu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="55dp"
-        android:paddingLeft="12dp"
-        android:textSize="16sp"
+        android:minHeight="45dp"
+        android:layout_marginTop="0dp"
+
+        android:textSize="@dimen/size_text_classic"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btn_delete_participant"
-        app:layout_constraintTop_toBottomOf="@id/edit_participants"
+        app:layout_constraintTop_toBottomOf="@id/titre_liste_emails"
         tools:text="bob@lamzone.com\nemily@lamzone.com" />
 
     <Button
