@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/icon_room_a"
         android:textSize="24sp"
-        android:layout_margin="12dp"
+        android:layout_marginHorizontal="@dimen/margin_big"
         android:text="A"
         android:gravity="center"
         android:importantForAccessibility="no" />
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
         app:layout_constraintRight_toLeftOf="@id/item_btn_delete"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="@dimen/margin_big"
         android:textSize="@dimen/size_text_titre2"
         android:textStyle="bold"
         tools:text="Titre réunion"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@id/item_meeting_tv_title"
         app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
         app:layout_constraintRight_toLeftOf="@id/item_btn_delete"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="@dimen/margin_big"
         android:textSize="@dimen/size_text_classic"
         tools:text="Le 23/10/2021 à 13h00"
         />
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/item_meeting_tv_date_time"
         app:layout_constraintLeft_toRightOf="@id/item_meeting_tv_icon"
         app:layout_constraintRight_toLeftOf="@id/item_btn_delete"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="@dimen/margin_big"
         android:maxLines="1"
         android:ellipsize="end"
         android:textSize="@dimen/size_text_classic"
@@ -71,7 +71,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="@dimen/margin_big"
         android:src="@drawable/ic_delete"
         app:tint="#3F445E" />
 

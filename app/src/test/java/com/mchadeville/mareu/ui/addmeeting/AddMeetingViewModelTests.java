@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.mchadeville.mareu.config.BuildConfigResolver;
+import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
 import com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel;
 
@@ -44,7 +45,7 @@ public class AddMeetingViewModelTests {
     @Test
     public void testTopicEntry_withEmptyField() {
         String topic = "";
-        String room = "Salle A";
+        String room = Room.SALLE_A.getName();
         List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";
@@ -66,7 +67,7 @@ public class AddMeetingViewModelTests {
     @Test
     public void testTopicEntry_withCorrectFields() {
         String topic = "Topic de la réunion";
-        String room = "Salle A";
+        String room = Room.SALLE_A.getName();
         List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";

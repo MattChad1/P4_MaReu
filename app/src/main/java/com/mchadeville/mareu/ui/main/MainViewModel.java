@@ -87,7 +87,7 @@ public class MainViewModel extends ViewModel {
             List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
             for (Meeting meeting : meetings) {
                 meetingsViewStateItems.add(new MeetingsViewStateItem(meeting.getId(), meeting.getTopic(), meeting.getRoom(), meeting.getParticipants(), meeting.getDate(), meeting.getStartTime()));
-                Log.i("MeetingsViewStateItem", "addMeeting : id : " + meeting.getId() + " /topic : " + meeting.getTopic());
+                //Log.i("MeetingsViewStateItem", "addMeeting : id : " + meeting.getId() + " /topic : " + meeting.getTopic());
             }
 
             allMeetingsViewStateItemsLiveData.setValue(meetingsViewStateItems);
