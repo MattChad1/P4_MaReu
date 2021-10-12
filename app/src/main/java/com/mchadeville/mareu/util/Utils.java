@@ -3,7 +3,6 @@ package com.mchadeville.mareu.util;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -42,8 +41,7 @@ public class Utils {
 
     public static String calendarToString(Calendar cal) {
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-        String formatted = format1.format(cal.getTime());
-        return formatted;
+        return format1.format(cal.getTime());
     }
 
     public static long daysBetween(Calendar startDate, Calendar endDate) {

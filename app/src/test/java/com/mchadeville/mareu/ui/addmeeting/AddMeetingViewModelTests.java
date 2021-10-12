@@ -2,14 +2,19 @@ package com.mchadeville.mareu.ui.addmeeting;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doReturn;
+
+import android.app.Application;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import androidx.lifecycle.MutableLiveData;
 
 import com.mchadeville.mareu.config.BuildConfigResolver;
 import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
 import com.mchadeville.mareu.ui.addMeeting.AddMeetingViewModel;
+import com.mchadeville.mareu.ui.addMeeting.AddMeetingViewStateItem;
+import com.mchadeville.mareu.util.LiveDataTestUtils;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -34,8 +39,15 @@ public class AddMeetingViewModelTests {
     @Mock
     private BuildConfigResolver buildConfigResolver;
 
+    @Mock
+    private Application application;
+
+    @Mock
+    List<String> participants;
+
+    private static final String ERROR_MESSAGE = "ERROR MESSAGE";
+
     private MeetingRepository meetingRepository;
-    private MutableLiveData<List<String>> mockLiveDataAllEmails = new MutableLiveData<>();
 
 
 
@@ -43,41 +55,50 @@ public class AddMeetingViewModelTests {
     public void setUp() {
         Mockito.when(buildConfigResolver.isDebug()).thenReturn(false);
         meetingRepository = new MeetingRepository(buildConfigResolver);
-        viewModel = new AddMeetingViewModel(meetingRepository);
+        viewModel = new AddMeetingViewModel(application, meetingRepository);
+        doReturn(ERROR_MESSAGE)
+                .when(application)
+                .getString(anyInt());
 
     }
 
     @Test
-    public void testTopicEntry_withEmptyField() {
+    public void testTopicEntry_withEmptyField() throws InterruptedException {
         String topic = "";
         String room = Room.SALLE_A.getName();
-        List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
+        participants = new ArrayList<>(Arrays.asList("francis@lamzone.com", "david@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";
 
-        assertFalse(viewModel.validForm(topic, room, participants, startTime, date));
+        viewModel.addMeetingLiveData(topic, room, participants, date, startTime);
+        AddMeetingViewStateItem viewstate = LiveDataTestUtils.getOrAwaitValue(viewModel.getViewStateLiveData());
+        assertFalse(viewstate.getValidGeneral());
     }
 
     @Test
-    public void testTopicEntry_withEmptyField2() {
+    public void testTopicEntry_withEmptyField2() throws InterruptedException {
         String topic = "Topic de la réunion";
         String room = "";
-        List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
+        participants = new ArrayList<>(Arrays.asList("francis@lamzone.com", "david@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";
 
-        assertFalse(viewModel.validForm(topic, room, participants, startTime, date));
+        viewModel.addMeetingLiveData(topic, room, participants, date, startTime);
+        AddMeetingViewStateItem viewstate = LiveDataTestUtils.getOrAwaitValue(viewModel.getViewStateLiveData());
+        assertFalse(viewstate.getValidGeneral());
     }
 
     @Test
-    public void testTopicEntry_withCorrectFields() {
+    public void testTopicEntry_withCorrectFields() throws InterruptedException {
         String topic = "Topic de la réunion";
         String room = Room.SALLE_A.getName();
-        List<String> participants = new ArrayList<>(Arrays.asList("francis@lamzone.com"));
+        participants = new ArrayList<>(Arrays.asList("francis@lamzone.com", "david@lamzone.com"));
         String startTime = "12:00";
         String date = "30/09/2021";
 
-        assertTrue(viewModel.validForm(topic, room, participants, startTime, date));
+        viewModel.addMeetingLiveData(topic, room, participants, date, startTime);
+        AddMeetingViewStateItem viewstate = LiveDataTestUtils.getOrAwaitValue(viewModel.getViewStateLiveData());
+        assertTrue(viewstate.getValidGeneral());
     }
 
 }

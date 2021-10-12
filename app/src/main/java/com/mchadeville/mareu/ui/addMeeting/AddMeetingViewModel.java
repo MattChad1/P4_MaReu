@@ -2,12 +2,14 @@ package com.mchadeville.mareu.ui.addMeeting;
 
 import static com.mchadeville.mareu.util.Utils.dateStringToCalendar;
 
+import android.app.Application;
 import android.util.Patterns;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.data.Room;
 import com.mchadeville.mareu.data.repositories.MeetingRepository;
 
@@ -20,52 +22,25 @@ public class AddMeetingViewModel extends ViewModel {
     @NonNull
     private final MeetingRepository meetingRepository;
 
+    @NonNull
+    private final Application application;
+
+
     private String TAG = "AddMeetingViewModel";
+    AddMeetingViewStateItem addMeetingViewState;
+    private final MutableLiveData<AddMeetingViewStateItem> viewStateLiveData = new MutableLiveData();
+    private final MutableLiveData<List<String>> liveDataListeEmails = new MutableLiveData();
+    private final MutableLiveData<List<String>> liveDataAllEmails = new MutableLiveData(); //Mails de toutes les réunions pour AutocompleteTextView
 
-    public AddMeetingViewModel(@NonNull MeetingRepository meetingRepository) {
+
+    public AddMeetingViewModel(@NonNull Application application, @NonNull MeetingRepository meetingRepository) {
+        this.application = application;
         this.meetingRepository = meetingRepository;
-    }
-
-    public MutableLiveData<Boolean> validTopic = new MutableLiveData<>();
-    public MutableLiveData<Boolean> validPlace = new MutableLiveData<>();
-    public MutableLiveData<Boolean> validPartipants = new MutableLiveData<>();
-    public MutableLiveData<Boolean> validTime = new MutableLiveData<>();
-    public MutableLiveData<Boolean> validDate = new MutableLiveData<>();
-    public MutableLiveData<Boolean> validGeneral = new MutableLiveData<>();
-    public MutableLiveData<List<String>> liveDataListeEmails = new MutableLiveData<>();
-    public MutableLiveData<List<String>> liveDataAllEmails = new MutableLiveData<>();
-
-    public MutableLiveData<Boolean> getValidTopic() {
-        return validTopic;
-    }
-    public MutableLiveData<Boolean> getValidPlace() {
-        return validPlace;
-    }
-    public MutableLiveData<Boolean> getValidParticipants() {
-        return validPartipants;
-    }
-    public MutableLiveData<Boolean> getValidTime() {
-        return validTime;
-    }
-    public MutableLiveData<Boolean> getValidDate() {
-        return validDate;
-    }
-    public MutableLiveData<Boolean> getValidGeneral() {
-        return validGeneral;
-    }
-    public MutableLiveData<List<String>> getLiveDataListeEmails() {
-        return liveDataListeEmails;
-    }
-
-    public MutableLiveData<List<String>> getLiveDataAllEmails() {
-        List<String> allEmails = new ArrayList<>(meetingRepository.getAllEmails());
-        liveDataAllEmails.setValue(allEmails);
-        return liveDataAllEmails;
     }
 
     public void addParticipantToTextView(String email) {
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            validPartipants.setValue(false);
+            // error
         }
         else {
             List<String> listeEmails = getLiveDataListeEmails().getValue();
@@ -83,44 +58,78 @@ public class AddMeetingViewModel extends ViewModel {
         }
     }
 
-    public Boolean validForm(String topic, String place, List<String> participants, String beginningTime, String date) {
-        boolean valid = true;
+    private String validTopic(String topic) {
         if (topic == null || topic.isEmpty()) {
-            validTopic.setValue(false);
-            valid = false;
+            return application.getString(R.string.error_empty_topic);
         }
-        else validTopic.setValue(true);
-        if (place == null || place.isEmpty()) {
-            validPlace.setValue(false);
-            valid = false;
-        }
-        else validPlace.setValue(true);
-        if (participants == null || participants.size() < 1) {
-            validPartipants.setValue(false);
-            valid = false;
-        }
-        else validPartipants.setValue(true);
-        if (beginningTime == null || beginningTime.isEmpty()) {
-            validTime.setValue(false);
-            valid = false;
-        }
-        else validTime.setValue(true);
-        if (date == null || date.isEmpty()) {
-            validDate.setValue(false);
-            valid = false;
-        }
-        else validDate.setValue(true);
-        validGeneral.setValue(valid);
-        return valid;
+        else return null;
     }
 
-    public void addMeetingLiveData(String topic, String roomString, String beginningTime, String date) {
-        List<String> participants = getLiveDataListeEmails().getValue();
-
-        if (validForm(topic, roomString, participants, beginningTime, date)) {
-            Room room = Room.fromString(roomString);
-            Calendar dateFormatted = dateStringToCalendar(date);
-            meetingRepository.addMeeting(topic, room, participants, beginningTime, dateFormatted);
+    private String validRoom(String roomString) {
+        if (roomString == null || roomString.isEmpty()) {
+            return application.getString(R.string.error_editRoom_empty);
         }
+        else return null;
+    }
+
+    private String validParticipants(List<String> participants) {
+        if (participants.isEmpty()) {
+            return application.getString(R.string.error_editParticipants_empty);
+        }
+        else return null;
+    }
+
+    private String validDate(String date) {
+        if (date == null || date.isEmpty()) {
+            return application.getString(R.string.error_editDate_empty);
+        }
+        else return null;
+    }
+
+    private String validTime(String time) {
+        if (time == null || time.isEmpty()) {
+            return application.getString(R.string.error_editTime_empty);
+        }
+        else return null;
+    }
+
+
+
+    public void addMeetingLiveData(String topic, String roomString, List<String> participants, String date, String time) {
+        boolean validGeneral = false;
+        Room room = null;
+        Calendar dateFormatted;
+
+        if (validTopic(topic)==null && validRoom(roomString)==null && validParticipants(participants)==null && validDate(date)==null && validTime(time)==null) validGeneral=true;
+
+        if (validRoom(roomString)== null)  room = Room.fromString(roomString);
+        if (validDate(date) == null) dateFormatted = dateStringToCalendar(date);
+        else dateFormatted=null;
+
+        addMeetingViewState = new AddMeetingViewStateItem(
+                topic,
+                room,
+                participants,
+                dateFormatted,
+                time,
+                validTopic(topic),
+                validRoom(roomString),
+                validParticipants(participants),
+                validDate(date),
+                validTime(time),
+                validGeneral
+        );
+        viewStateLiveData.setValue(addMeetingViewState);
+
+        if (validGeneral) meetingRepository.addMeeting(topic, room, participants, time, dateFormatted);
+    }
+
+    public MutableLiveData<List<String>> getLiveDataListeEmails() {return liveDataListeEmails;}
+    public MutableLiveData<AddMeetingViewStateItem> getViewStateLiveData() {return viewStateLiveData;}
+
+    public MutableLiveData<List<String>> getLiveDataAllEmails() {
+        List<String> allEmails = new ArrayList<>(meetingRepository.getAllEmails());
+        liveDataAllEmails.setValue(allEmails);
+        return liveDataAllEmails;
     }
 }

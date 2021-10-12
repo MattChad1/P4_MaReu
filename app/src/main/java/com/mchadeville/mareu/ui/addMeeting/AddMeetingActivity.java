@@ -11,10 +11,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +27,7 @@ import com.mchadeville.mareu.databinding.ActivityAddMeetingBinding;
 import com.mchadeville.mareu.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         TextInputLayout editDate = binding.editDate;
         TextInputEditText editDateChild = binding.editDateChild;
         TextInputEditText editStartTimeChild = binding.editStartTimeChild;
-        Button save = binding.btnSave;
+        Button btnSave = binding.btnSave;
 
 
         /* Ajout de l'email d'un participant */
@@ -68,9 +67,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             Toast.makeText(this, "Participant ajouté", Toast.LENGTH_SHORT).show();
         });
 
-        btnDeleteParticipant.setOnClickListener(v -> {
-            viewModel.deleteLastParticipantToTextView();
-        });
+        btnDeleteParticipant.setOnClickListener(v -> viewModel.deleteLastParticipantToTextView());
 
         viewModel.getLiveDataListeEmails().observe(this, listeEmails -> {
             tvListeEmails.setText(Utils.listToStringRevert(listeEmails));
@@ -85,12 +82,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
 
 
-
         /*Ajouts des emails déjà enregistrés dans le AutocompleteTextView*/
         List<String> allEmails = new ArrayList<>();
         viewModel.getLiveDataAllEmails().observe(this, allEmails::addAll);
         Log.i(TAG, "Test emails: " + allEmails.toString());
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, allEmails);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, allEmails);
         editParticipantsChild.setAdapter(adapter2);
 
 
@@ -99,7 +95,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             Dialog popupWindow = new Dialog(this);
             List<String> rooms = Room.getAllNames();
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, rooms);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, rooms);
             ListView listView = new ListView(this);
             listView.setOnItemClickListener((parent, view, position, id) -> {
                 editRoom.getEditText().setText(rooms.get(position));
@@ -116,12 +112,8 @@ public class AddMeetingActivity extends AppCompatActivity {
             final Calendar cldr = Calendar.getInstance();
             int hour = cldr.get(Calendar.HOUR_OF_DAY);
             int minutes = cldr.get(Calendar.MINUTE);
-            TimePickerDialog picker = new TimePickerDialog(this, R.style.AppTheme_Dialog, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                    editStartTime.getEditText().setText(getString(R.string.time_for_timePicker, sHour, sMinute));
-                }
-            }, hour, minutes, true);
+            TimePickerDialog picker = new TimePickerDialog(this, R.style.AppTheme_Dialog, (tp, sHour, sMinute) ->
+                    editStartTime.getEditText().setText(getString(R.string.time_for_timePicker, sHour, sMinute)), hour, minutes, true);
             picker.show();
         });
 
@@ -129,52 +121,31 @@ public class AddMeetingActivity extends AppCompatActivity {
         /*DatePickerDialog */
         editDateChild.setOnClickListener(v -> {
 
-            DatePickerDialog.OnDateSetListener dpd = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear,int dayOfMonth) {
+            DatePickerDialog.OnDateSetListener dpd = (view, year, monthOfYear, dayOfMonth) ->
                     editDateChild.setText(getString(R.string.date_for_datePicker, dayOfMonth, monthOfYear+1, year));
-                }
-            };
 
             Calendar currentDate = Calendar.getInstance();
             DatePickerDialog d = new DatePickerDialog(this, R.style.AppTheme_Dialog, dpd, currentDate.get(Calendar.YEAR) ,currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH));
             d.show();
         });
 
+        viewModel.getViewStateLiveData().observe(this, viewState -> {
+            editTopic.setError(viewState.getTopicError());
+            editParticipants.setError(viewState.getParticipantsError());
+            editRoom.setError(viewState.getRoomError());
+            editDate.setError(viewState.getDateError());
+            editStartTime.setError(viewState.getTimeError());
 
-
-        /* Validation du formulaire */
-        save.setOnClickListener(v -> {
-            viewModel.addMeetingLiveData(textFromTextInputLayout(editTopic), textFromTextInputLayout(editRoom), textFromTextInputLayout(editStartTime), textFromTextInputLayout(editDate));
-            viewModel.getValidGeneral().observe(this, res -> {
-                Log.i("res ", res.toString());
-                if (!res) { // Test si au moins une erreur dans le formulaire
-                    viewModel.getValidTopic().observe(this, vTopic -> {
-                        if (!vTopic) editTopic.setError(getString(R.string.error_empty_topic));
-                        else editTopic.setError(null);
-                    });
-                    viewModel.getValidPlace().observe(this, vPlace -> {
-                        if (!vPlace) editRoom.setError(getString(R.string.error_editRoom_empty));
-                        else editRoom.setError(null);
-                    });
-                    viewModel.getValidParticipants().observe(this, vParticipants -> {
-                        if (!vParticipants) editParticipants.setError(getString(R.string.error_editParticipants_empty));
-                        else editParticipants.setError(null);
-                    });
-                    viewModel.getValidTime().observe(this, vTime -> {
-                        if (!vTime) editStartTime.setError(getString(R.string.error_editTime_empty));
-                        else editStartTime.setError(null);
-                    });
-                    viewModel.getValidDate().observe(this, vDate -> {
-                        if (!vDate) editDate.setError(getString(R.string.error_editDate_empty));
-                        else editDate.setError(null);
-                    });
-                }
-                else {
-                    finish();
-                }
-            });
+            if (viewState.getValidGeneral()) finish();
         });
+
+        btnSave.setOnClickListener(v -> {
+            List<String> participantsInput = new ArrayList();
+            if (!tvListeEmails.getText().toString().equals("")) participantsInput = Arrays.asList(tvListeEmails.getText().toString().split("\n"));
+            viewModel.addMeetingLiveData(textFromTextInputLayout(editTopic), textFromTextInputLayout(editRoom), participantsInput, textFromTextInputLayout(editDate), textFromTextInputLayout(editStartTime));
+        });
+
+
     }
 
 }

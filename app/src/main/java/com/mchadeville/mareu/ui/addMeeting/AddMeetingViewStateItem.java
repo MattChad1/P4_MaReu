@@ -1,26 +1,73 @@
 package com.mchadeville.mareu.ui.addMeeting;
 
+import androidx.annotation.Nullable;
+
+import com.mchadeville.mareu.data.Room;
+
 import java.util.Calendar;
+import java.util.List;
 
 public class AddMeetingViewStateItem {
-    private String room;
     private String topic;
-    private String participants;
+    private Room room;
+    private List<String> participants;
     private Calendar date;
     private String startTime;
 
+    @Nullable private String topicError;
+    @Nullable private String roomError;
+    @Nullable private String participantsError;
+    @Nullable private String timeError;
+    @Nullable private String dateError;
 
+    private Boolean validGeneral;
 
-    public String getRoom() {
-        return room;
+    public AddMeetingViewStateItem(String topic, Room room, List<String> participants, Calendar date, String time, @Nullable String topicError, @Nullable String roomError, @Nullable String participantsError, @Nullable String dateError, @Nullable String timeError, Boolean validGeneral) {
+        this.topic = topic;
+        this.room = room;
+        this.participants = participants;
+        this.date = date;
+        this.startTime = time;
+        this.topicError = topicError;
+        this.roomError = roomError;
+        this.participantsError = participantsError;
+        this.timeError = timeError;
+        this.dateError = dateError;
+        this.validGeneral = validGeneral;
     }
+
+    public void setDate(Calendar date) {
+        this.date = date;
+    }
+
+    @Nullable
+    public String getTopicError() {
+        return topicError;
+    }
+
+    @Nullable
+    public String getRoomError() {
+        return roomError;
+    }
+
+    @Nullable
+    public String getParticipantsError() {
+        return participantsError;
+    }
+
+    @Nullable
+    public String getTimeError() {
+        return timeError;
+    }
+
+    @Nullable
+    public String getDateError() {
+        return dateError;
+    }
+
 
     public String getTopic() {
         return topic;
-    }
-
-    public String getParticipants() {
-        return participants;
     }
 
     public Calendar getDate() {
@@ -31,27 +78,31 @@ public class AddMeetingViewStateItem {
         return startTime;
     }
 
-    public AddMeetingViewStateItem(String room, String topic, String participants, Calendar date, String startTime) {
-        this.room = room;
-        this.topic = topic;
-        this.participants = participants;
-        this.date = date;
-        this.startTime = startTime;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
     public void setTopic(String topic) {
         this.topic = topic;
     }
 
-    public void setParticipants(String participants) {
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public List<String> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<String> participants) {
         this.participants = participants;
     }
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    public Boolean getValidGeneral() {
+        return validGeneral;
     }
 }

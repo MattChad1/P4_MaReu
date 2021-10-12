@@ -47,7 +47,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new MainViewModel(meetingRepository, filterRepository);
         }
         else if (modelClass.isAssignableFrom(AddMeetingViewModel.class)) {
-            return (T) new AddMeetingViewModel(meetingRepository);
+            return (T) new AddMeetingViewModel(MyApplication.getInstance(), meetingRepository);
         }
 
         else if (modelClass.isAssignableFrom(SideSheetFilterViewModel.class)) {

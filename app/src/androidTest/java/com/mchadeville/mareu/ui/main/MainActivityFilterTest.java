@@ -8,10 +8,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.mchadeville.mareu.util.RecyclerViewItemCountAssertion.withItemCount;
-import static com.mchadeville.mareu.util.TestUtils.clickInItemView;
 
 import androidx.test.core.app.ActivityScenario;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 
 import com.mchadeville.mareu.R;
 import com.mchadeville.mareu.data.Room;
@@ -23,7 +21,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class MainActivityTest {
+public class MainActivityFilterTest {
 
     private MainActivity activityRef;
     List<Meeting> meetings = GenerateMeetings.FAKE_MEETINGS;
@@ -36,20 +34,6 @@ public class MainActivityTest {
         activityScenario.onActivity(activity -> activityRef = activity);
 
         for (Meeting m : meetings) {if (m.getRoom() == Room.SALLE_A) meetingsInA++;}
-    }
-
-    /* Vérifie le nombre de réunions affichées */
-    @Test
-    public void checkNumRows_InRecyclerView() {
-        onView(withId(R.id.liste_meetings)).check(withItemCount(numRows));
-
-    }
-
-    /* Vérifie la suppression d'une réunion avec l'icône corbeille */
-    @Test
-    public void deleteRowTest() {
-        onView(withId(R.id.liste_meetings)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickInItemView(R.id.item_btn_delete)));
-        onView(withId(R.id.liste_meetings)).check(withItemCount(numRows - 1));
     }
 
 
