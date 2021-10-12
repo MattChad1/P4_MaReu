@@ -1,6 +1,5 @@
 package com.mchadeville.mareu.data.model;
 
-
 import com.mchadeville.mareu.data.Room;
 
 import java.util.Calendar;
@@ -14,7 +13,7 @@ public class Meeting {
     String startTime;
     Calendar date;
 
-    public Meeting(int id, String topic, Room room,List<String> participants, String startTime, Calendar date) {
+    public Meeting(int id, String topic, Room room, List<String> participants, String startTime, Calendar date) {
         this.id = id;
         this.topic = topic;
         this.room = room;
@@ -22,8 +21,6 @@ public class Meeting {
         this.startTime = startTime;
         this.date = date;
     }
-
-
 
     public int getId() {
         return id;

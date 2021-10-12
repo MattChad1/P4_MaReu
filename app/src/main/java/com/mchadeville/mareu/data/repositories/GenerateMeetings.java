@@ -30,9 +30,6 @@ abstract public class GenerateMeetings {
     }
 
 
-
-
-
     public static List<Meeting> FAKE_MEETINGS = Arrays.asList(
             new Meeting(
                     1,

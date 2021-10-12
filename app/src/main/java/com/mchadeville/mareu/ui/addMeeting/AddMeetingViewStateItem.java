@@ -14,11 +14,16 @@ public class AddMeetingViewStateItem {
     private Calendar date;
     private String startTime;
 
-    @Nullable private String topicError;
-    @Nullable private String roomError;
-    @Nullable private String participantsError;
-    @Nullable private String timeError;
-    @Nullable private String dateError;
+    @Nullable
+    private String topicError;
+    @Nullable
+    private String roomError;
+    @Nullable
+    private String participantsError;
+    @Nullable
+    private String timeError;
+    @Nullable
+    private String dateError;
 
     private Boolean validGeneral;
 
@@ -65,7 +70,6 @@ public class AddMeetingViewStateItem {
         return dateError;
     }
 
-
     public String getTopic() {
         return topic;
     }
@@ -78,10 +82,6 @@ public class AddMeetingViewStateItem {
         return startTime;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
     public Room getRoom() {
         return room;
     }
@@ -92,14 +92,6 @@ public class AddMeetingViewStateItem {
 
     public List<String> getParticipants() {
         return participants;
-    }
-
-    public void setParticipants(List<String> participants) {
-        this.participants = participants;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
     }
 
     public Boolean getValidGeneral() {

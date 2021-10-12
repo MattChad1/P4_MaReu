@@ -25,13 +25,12 @@ public class AddMeetingViewModel extends ViewModel {
     @NonNull
     private final Application application;
 
-
     private String TAG = "AddMeetingViewModel";
     AddMeetingViewStateItem addMeetingViewState;
     private final MutableLiveData<AddMeetingViewStateItem> viewStateLiveData = new MutableLiveData();
     private final MutableLiveData<List<String>> liveDataListeEmails = new MutableLiveData();
     private final MutableLiveData<List<String>> liveDataAllEmails = new MutableLiveData(); //Mails de toutes les réunions pour AutocompleteTextView
-
+    private final MutableLiveData<String> erreurMailLD = new MutableLiveData();
 
     public AddMeetingViewModel(@NonNull Application application, @NonNull MeetingRepository meetingRepository) {
         this.application = application;
@@ -40,7 +39,7 @@ public class AddMeetingViewModel extends ViewModel {
 
     public void addParticipantToTextView(String email) {
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            // error
+            erreurMailLD.setValue(application.getString(R.string.error_editParticipants_not_valid));
         }
         else {
             List<String> listeEmails = getLiveDataListeEmails().getValue();
@@ -93,43 +92,35 @@ public class AddMeetingViewModel extends ViewModel {
         else return null;
     }
 
-
-
     public void addMeetingLiveData(String topic, String roomString, List<String> participants, String date, String time) {
         boolean validGeneral = false;
         Room room = null;
         Calendar dateFormatted;
 
-        if (validTopic(topic)==null && validRoom(roomString)==null && validParticipants(participants)==null && validDate(date)==null && validTime(time)==null) validGeneral=true;
+        if (validTopic(topic) == null && validRoom(roomString) == null && validParticipants(participants) == null && validDate(date) == null && validTime(time) == null)
+            validGeneral = true;
 
-        if (validRoom(roomString)== null)  room = Room.fromString(roomString);
+        if (validRoom(roomString) == null) room = Room.fromString(roomString);
         if (validDate(date) == null) dateFormatted = dateStringToCalendar(date);
-        else dateFormatted=null;
+        else dateFormatted = null;
 
-        addMeetingViewState = new AddMeetingViewStateItem(
-                topic,
-                room,
-                participants,
-                dateFormatted,
-                time,
-                validTopic(topic),
-                validRoom(roomString),
-                validParticipants(participants),
-                validDate(date),
-                validTime(time),
-                validGeneral
-        );
+        addMeetingViewState = new AddMeetingViewStateItem(topic, room, participants, dateFormatted, time, validTopic(topic), validRoom(roomString), validParticipants(participants), validDate(date), validTime(time), validGeneral);
         viewStateLiveData.setValue(addMeetingViewState);
 
         if (validGeneral) meetingRepository.addMeeting(topic, room, participants, time, dateFormatted);
     }
 
     public MutableLiveData<List<String>> getLiveDataListeEmails() {return liveDataListeEmails;}
+
     public MutableLiveData<AddMeetingViewStateItem> getViewStateLiveData() {return viewStateLiveData;}
 
     public MutableLiveData<List<String>> getLiveDataAllEmails() {
         List<String> allEmails = new ArrayList<>(meetingRepository.getAllEmails());
         liveDataAllEmails.setValue(allEmails);
         return liveDataAllEmails;
+    }
+
+    public MutableLiveData<String> getErreurMailLD() {
+        return erreurMailLD;
     }
 }

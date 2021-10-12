@@ -1,6 +1,5 @@
 package com.mchadeville.mareu.ui.main.adapters;
 
-
 import static com.mchadeville.mareu.util.Utils.calendarToString;
 
 import android.content.Context;
@@ -22,7 +21,6 @@ import com.mchadeville.mareu.util.Utils;
 
 import java.util.List;
 
-
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
     private final Context ctx;
@@ -40,16 +38,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         this.clickListener = itemClickListener;
     }
 
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvIcon;
         private final TextView tvTitle;
         private final TextView tvDateTime;
         private final TextView tvParticipants;
         private final ImageView ivDelete;
-
 
         public ViewHolder(View view) {
             super(view);
@@ -63,21 +57,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                 Log.i("Adapter", "onClick: ");
                 clickListener.onClick(view, getAdapterPosition());
             });
-            //view.setOnCreateContextMenuListener(this);
-
-
         }
-
     }
-
-//        @Override
-//        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//            //menuInfo is null
-//            menu.add(Menu.NONE, R.id.menu_update,
-//                    Menu.NONE, R.string.menu_update);
-//            menu.add(Menu.NONE, R.id.menu_delete,
-//                    Menu.NONE, R.string.menu_delete);
-//        }
 
     @NonNull
     @Override
@@ -96,28 +77,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         viewHolder.tvDateTime.setText(ctx.getString(R.string.date_time, calendarToString(meet.getDate()), meet.getTime()));
         viewHolder.tvIcon.setText(meet.getRoom().getName().substring(meet.getRoom().getName().length() - 1));
 
-
         switch (meet.getRoom()) {
             case SALLE_A:
-                viewHolder.tvIcon.setBackground(AppCompatResources.getDrawable(ctx,R.drawable.icon_room_a));
+                viewHolder.tvIcon.setBackground(AppCompatResources.getDrawable(ctx, R.drawable.icon_room_a));
                 break;
             case SALLE_B:
-                viewHolder.tvIcon.setBackground(AppCompatResources.getDrawable(ctx,R.drawable.icon_room_b));
+                viewHolder.tvIcon.setBackground(AppCompatResources.getDrawable(ctx, R.drawable.icon_room_b));
                 break;
             case SALLE_C:
-                viewHolder.tvIcon.setBackground(AppCompatResources.getDrawable(ctx,R.drawable.icon_room_c));
+                viewHolder.tvIcon.setBackground(AppCompatResources.getDrawable(ctx, R.drawable.icon_room_c));
                 break;
             default:
                 break;
         }
-
-//        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                setPosition(viewHolder.getAdapterPosition());
-//                return false;
-//            }
-//        });
     }
 
     @Override
@@ -126,22 +98,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         super.onViewRecycled(viewHolder);
     }
 
-    public int getPosition() {
-        return position;
-    }
-
-
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
     @Override
     public int getItemCount() {
         return listMeetings.size();
     }
-
-
-
 }
 

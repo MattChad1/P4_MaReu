@@ -16,7 +16,6 @@ public class MeetingRepository {
 
     private final MutableLiveData<List<Meeting>> meetingsLiveData = new MutableLiveData<>();
     private int idMax = 1;
-    String TAG = "Meeting Repository";
 
     public MeetingRepository(@NonNull BuildConfigResolver buildConfigResolver) {
         if (buildConfigResolver.isDebug()) {
@@ -32,7 +31,6 @@ public class MeetingRepository {
 
         meetings.add(new Meeting(idMax, topic, room, participants, startTime, date));
 
-        //Log.i(TAG, "addMeeting: " + idMax + " " + topic + " " + room + " " + participants + " " + startTime + " " + date);
         idMax++;
         meetingsLiveData.setValue(meetings);
     }

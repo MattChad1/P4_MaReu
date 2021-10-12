@@ -12,15 +12,14 @@ import java.util.List;
 
 public class UtilsTest {
 
-
     @Test
-    public void listToStringRevertTest () {
+    public void listToStringRevertTest() {
         List<String> test = Arrays.asList("a", "b", "c");
         assertEquals("c\nb\na", listToStringRevert(test));
     }
 
     @Test
-    public void listToStringTest () {
+    public void listToStringTest() {
         List<String> test = Arrays.asList("a", "b", "c");
         assertEquals("a, b, c", listToString(test));
     }

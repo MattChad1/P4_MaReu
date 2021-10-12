@@ -1,7 +1,5 @@
 package com.mchadeville.mareu.data.model;
 
-import androidx.annotation.NonNull;
-
 import com.mchadeville.mareu.data.FilterDate;
 import com.mchadeville.mareu.data.Room;
 
@@ -24,6 +22,4 @@ public class Filter {
     public FilterDate getFilterDate() {
         return filterDate;
     }
-
-
 }

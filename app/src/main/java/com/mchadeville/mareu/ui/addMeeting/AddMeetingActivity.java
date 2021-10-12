@@ -81,6 +81,8 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.getErreurMailLD().observe(this, editParticipants::setError);
+
 
         /*Ajouts des emails déjà enregistrés dans le AutocompleteTextView*/
         List<String> allEmails = new ArrayList<>();
@@ -88,6 +90,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         Log.i(TAG, "Test emails: " + allEmails.toString());
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, allEmails);
         editParticipantsChild.setAdapter(adapter2);
+
+
 
 
         /* Pop-up pour les salles  */
@@ -112,8 +116,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             final Calendar cldr = Calendar.getInstance();
             int hour = cldr.get(Calendar.HOUR_OF_DAY);
             int minutes = cldr.get(Calendar.MINUTE);
-            TimePickerDialog picker = new TimePickerDialog(this, R.style.AppTheme_Dialog, (tp, sHour, sMinute) ->
-                    editStartTime.getEditText().setText(getString(R.string.time_for_timePicker, sHour, sMinute)), hour, minutes, true);
+            TimePickerDialog picker = new TimePickerDialog(this, R.style.AppTheme_Dialog, (tp, sHour, sMinute) -> editStartTime.getEditText().setText(getString(R.string.time_for_timePicker, sHour, sMinute)), hour, minutes, true);
             picker.show();
         });
 
@@ -121,11 +124,10 @@ public class AddMeetingActivity extends AppCompatActivity {
         /*DatePickerDialog */
         editDateChild.setOnClickListener(v -> {
 
-            DatePickerDialog.OnDateSetListener dpd = (view, year, monthOfYear, dayOfMonth) ->
-                    editDateChild.setText(getString(R.string.date_for_datePicker, dayOfMonth, monthOfYear+1, year));
+            DatePickerDialog.OnDateSetListener dpd = (view, year, monthOfYear, dayOfMonth) -> editDateChild.setText(getString(R.string.date_for_datePicker, dayOfMonth, monthOfYear + 1, year));
 
             Calendar currentDate = Calendar.getInstance();
-            DatePickerDialog d = new DatePickerDialog(this, R.style.AppTheme_Dialog, dpd, currentDate.get(Calendar.YEAR) ,currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH));
+            DatePickerDialog d = new DatePickerDialog(this, R.style.AppTheme_Dialog, dpd, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH));
             d.show();
         });
 
@@ -144,8 +146,5 @@ public class AddMeetingActivity extends AppCompatActivity {
             if (!tvListeEmails.getText().toString().equals("")) participantsInput = Arrays.asList(tvListeEmails.getText().toString().split("\n"));
             viewModel.addMeetingLiveData(textFromTextInputLayout(editTopic), textFromTextInputLayout(editRoom), participantsInput, textFromTextInputLayout(editDate), textFromTextInputLayout(editStartTime));
         });
-
-
     }
-
 }

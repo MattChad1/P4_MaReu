@@ -33,10 +33,10 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<Filter> filterLiveData = new MutableLiveData<>();
     public MediatorLiveData<List<MeetingsViewStateItem>> meetingsViewStateItemMediatorLD = new MediatorLiveData<>();
 
-
     public LiveData<Filter> getFilterLiveData() {
         return filterRepository.getFilterLiveData();
     }
+
     public MediatorLiveData<List<MeetingsViewStateItem>> getMeetingsViewStateItemMediatorLD() {
         return meetingsViewStateItemMediatorLD;
     }
@@ -52,27 +52,26 @@ public class MainViewModel extends ViewModel {
             List<MeetingsViewStateItem> meetingsViewStateItems = allMeetingsViewStateItemsLiveData.getValue();
             List<MeetingsViewStateItem> newMeetings = new ArrayList<>();
 
-            if (meetingsViewStateItems!= null && !meetingsViewStateItems.isEmpty()) {
-            for (MeetingsViewStateItem meeting : meetingsViewStateItems) {
+            if (meetingsViewStateItems != null && !meetingsViewStateItems.isEmpty()) {
+                for (MeetingsViewStateItem meeting : meetingsViewStateItems) {
 
-                if (filter.getFiltersRooms().contains(meeting.getRoom())) {
+                    if (filter.getFiltersRooms().contains(meeting.getRoom())) {
 
-                    // Si Salle ok, vérification du filtre date
-                    Calendar dateNow = Calendar.getInstance(Locale.FRANCE);
-                    Calendar dateMeeting = meeting.getDate();
+                        // Si Salle ok, vérification du filtre date
+                        Calendar dateNow = Calendar.getInstance(Locale.FRANCE);
+                        Calendar dateMeeting = meeting.getDate();
 
-                    long daysBetween = daysBetween(dateMeeting, dateNow);
+                        long daysBetween = daysBetween(dateMeeting, dateNow);
 
-                    if (daysBetween >= 0 && daysBetween <= filter.getFilterDate().getMaxDays()) {
-                        newMeetings.add(meeting);
+                        if (daysBetween >= 0 && daysBetween <= filter.getFilterDate().getMaxDays()) {
+                            newMeetings.add(meeting);
+                        }
                     }
+                    meetingsViewStateItemMediatorLD.setValue(newMeetings);
                 }
-                meetingsViewStateItemMediatorLD.setValue(newMeetings);
             }
-        }
-    });
+        });
     }// Fin constructeur
-
 
     /* Live Data All Meetings => récupération des données du repository*/
     public LiveData<List<MeetingsViewStateItem>> getAllMeetingsViewStateItemsLiveData() {
@@ -80,7 +79,6 @@ public class MainViewModel extends ViewModel {
             List<MeetingsViewStateItem> meetingsViewStateItems = new ArrayList<>();
             for (Meeting meeting : meetings) {
                 meetingsViewStateItems.add(new MeetingsViewStateItem(meeting.getId(), meeting.getTopic(), meeting.getRoom(), meeting.getParticipants(), meeting.getDate(), meeting.getStartTime()));
-                //Log.i("MeetingsViewStateItem", "addMeeting : id : " + meeting.getId() + " /topic : " + meeting.getTopic());
             }
 
             allMeetingsViewStateItemsLiveData.setValue(meetingsViewStateItems);
@@ -91,7 +89,4 @@ public class MainViewModel extends ViewModel {
     public void deleteMeetingLiveData(int id) {
         meetingRepository.deleteMeeting(id);
     }
-
-
-
 }

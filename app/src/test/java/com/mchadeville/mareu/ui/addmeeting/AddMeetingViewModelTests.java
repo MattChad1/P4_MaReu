@@ -49,17 +49,12 @@ public class AddMeetingViewModelTests {
 
     private MeetingRepository meetingRepository;
 
-
-
     @Before
     public void setUp() {
         Mockito.when(buildConfigResolver.isDebug()).thenReturn(false);
         meetingRepository = new MeetingRepository(buildConfigResolver);
         viewModel = new AddMeetingViewModel(application, meetingRepository);
-        doReturn(ERROR_MESSAGE)
-                .when(application)
-                .getString(anyInt());
-
+        doReturn(ERROR_MESSAGE).when(application).getString(anyInt());
     }
 
     @Test
@@ -100,5 +95,4 @@ public class AddMeetingViewModelTests {
         AddMeetingViewStateItem viewstate = LiveDataTestUtils.getOrAwaitValue(viewModel.getViewStateLiveData());
         assertTrue(viewstate.getValidGeneral());
     }
-
 }
