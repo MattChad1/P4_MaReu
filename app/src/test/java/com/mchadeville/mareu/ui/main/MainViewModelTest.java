@@ -26,7 +26,6 @@ public class MainViewModelTest {
     private MainViewModel viewModel;
 
     private MeetingRepository meetingRepository;
-    @Mock
     private FilterRepository filterRepository;
     int meetingsInit;
 
@@ -52,23 +51,12 @@ public class MainViewModelTest {
         List<MeetingsViewStateItem> meetingsLiveDataValues;
         meetingsLiveDataValues = LiveDataTestUtils.getOrAwaitValue(viewModel.getAllMeetingsViewStateItemsLiveData());
         assertEquals (meetingsInit, meetingsLiveDataValues != null ? meetingsLiveDataValues.size() : 0);
-
     }
 
     @Test
-    public void getMeetingsViewStateItemMediatorLD() {
-
-    }
-
-    @Test
-    public void deleteMeetingLiveData() throws InterruptedException {
-
-
-    }
-
-    @Test
-    public void getAllMeetingsViewStateItemsLiveData() {
-
-
+    public void getMeetingsViewStateItemMediatorLDTest() throws InterruptedException {
+        List<MeetingsViewStateItem> meetingsLiveDataValues;
+        meetingsLiveDataValues = LiveDataTestUtils.getOrAwaitValue(viewModel.getMeetingsViewStateItemMediatorLD());
+        assertEquals (meetingsInit, meetingsLiveDataValues != null ? meetingsLiveDataValues.size() : 0);
     }
 }

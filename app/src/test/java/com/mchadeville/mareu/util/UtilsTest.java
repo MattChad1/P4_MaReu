@@ -1,12 +1,29 @@
 package com.mchadeville.mareu.util;
 
-import static org.junit.Assert.*;
+import static com.mchadeville.mareu.util.Utils.listToString;
+import static com.mchadeville.mareu.util.Utils.listToStringRevert;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class UtilsTest {
+
+
+    @Test
+    public void listToStringRevertTest () {
+        List<String> test = Arrays.asList("a", "b", "c");
+        assertEquals("c\nb\na", listToStringRevert(test));
+    }
+
+    @Test
+    public void listToStringTest () {
+        List<String> test = Arrays.asList("a", "b", "c");
+        assertEquals("a, b, c", listToString(test));
+    }
 
     @Test
     public void dateStringToCalendar() {

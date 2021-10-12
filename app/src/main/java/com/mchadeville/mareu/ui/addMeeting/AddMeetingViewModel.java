@@ -70,7 +70,7 @@ public class AddMeetingViewModel extends ViewModel {
         else {
             List<String> listeEmails = getLiveDataListeEmails().getValue();
             if (listeEmails == null) listeEmails = new ArrayList<>();
-            listeEmails.add(email);
+            if (!listeEmails.contains(email)) listeEmails.add(email);
             liveDataListeEmails.setValue(listeEmails);
         }
     }

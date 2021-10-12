@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.MutableLiveData;
 
 import com.mchadeville.mareu.config.BuildConfigResolver;
 import com.mchadeville.mareu.data.Room;
@@ -34,12 +35,16 @@ public class AddMeetingViewModelTests {
     private BuildConfigResolver buildConfigResolver;
 
     private MeetingRepository meetingRepository;
+    private MutableLiveData<List<String>> mockLiveDataAllEmails = new MutableLiveData<>();
+
+
 
     @Before
     public void setUp() {
         Mockito.when(buildConfigResolver.isDebug()).thenReturn(false);
         meetingRepository = new MeetingRepository(buildConfigResolver);
         viewModel = new AddMeetingViewModel(meetingRepository);
+
     }
 
     @Test
@@ -74,4 +79,5 @@ public class AddMeetingViewModelTests {
 
         assertTrue(viewModel.validForm(topic, room, participants, startTime, date));
     }
+
 }

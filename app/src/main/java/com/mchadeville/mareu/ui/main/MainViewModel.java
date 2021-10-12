@@ -2,8 +2,6 @@ package com.mchadeville.mareu.ui.main;
 
 import static com.mchadeville.mareu.util.Utils.daysBetween;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -51,13 +49,11 @@ public class MainViewModel extends ViewModel {
         /* Mediator : meetings à afficher selon les filtres */
         meetingsViewStateItemMediatorLD.addSource(getAllMeetingsViewStateItemsLiveData(), value -> meetingsViewStateItemMediatorLD.setValue(value));
         meetingsViewStateItemMediatorLD.addSource(getFilterLiveData(), filter -> {
-            Log.i(TAG, "MainViewModel: getFilterLiveData MAJ");
             List<MeetingsViewStateItem> meetingsViewStateItems = allMeetingsViewStateItemsLiveData.getValue();
             List<MeetingsViewStateItem> newMeetings = new ArrayList<>();
 
             if (meetingsViewStateItems!= null && !meetingsViewStateItems.isEmpty()) {
             for (MeetingsViewStateItem meeting : meetingsViewStateItems) {
-                Log.i("MediatorLD", "filter :" + filter.toString());
 
                 if (filter.getFiltersRooms().contains(meeting.getRoom())) {
 
@@ -77,9 +73,6 @@ public class MainViewModel extends ViewModel {
     });
     }// Fin constructeur
 
-    public void deleteMeetingLiveData(int id) {
-        meetingRepository.deleteMeeting(id);
-    }
 
     /* Live Data All Meetings => récupération des données du repository*/
     public LiveData<List<MeetingsViewStateItem>> getAllMeetingsViewStateItemsLiveData() {
@@ -93,6 +86,10 @@ public class MainViewModel extends ViewModel {
             allMeetingsViewStateItemsLiveData.setValue(meetingsViewStateItems);
             return meetingsViewStateItems;
         });
+    }
+
+    public void deleteMeetingLiveData(int id) {
+        meetingRepository.deleteMeeting(id);
     }
 
 
