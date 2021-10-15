@@ -37,23 +37,18 @@ public class MainActivityFilterTest {
     int meetingsToday = 0;
     Calendar today = Calendar.getInstance(Locale.FRANCE);
 
-
     @Before
     public void setUp() throws Exception {
         ActivityScenario<MainActivity> activityScenario = ActivityScenario.launch(MainActivity.class);
         activityScenario.onActivity(activity -> activityRef = activity);
         //meetings = GenerateMeetings.FAKE_MEETINGS;
-        vm =  new ViewModelProvider(activityRef, ViewModelFactory.getInstance()).get(MainViewModel.class);
+        vm = new ViewModelProvider(activityRef, ViewModelFactory.getInstance()).get(MainViewModel.class);
         meetings = vm.getMeetingsViewStateItemMediatorLD().getValue();
         numRows = meetings.size();
         for (MeetingsViewStateItem m : meetings) {if (m.getRoom() == Room.SALLE_A) meetingsInA++;}
         for (MeetingsViewStateItem m : meetings) {
-            if (m.getDate().get(Calendar.DATE) == Calendar.getInstance(Locale.FRANCE).get(Calendar.DATE)
-                    && m.getDate().get(Calendar.MONTH) == Calendar.getInstance(Locale.FRANCE).get(Calendar.MONTH)
-                    && m.getDate().get(Calendar.YEAR) == Calendar.getInstance(Locale.FRANCE).get(Calendar.YEAR)
-            )
+            if (m.getDate().get(Calendar.DATE) == Calendar.getInstance(Locale.FRANCE).get(Calendar.DATE) && m.getDate().get(Calendar.MONTH) == Calendar.getInstance(Locale.FRANCE).get(Calendar.MONTH) && m.getDate().get(Calendar.YEAR) == Calendar.getInstance(Locale.FRANCE).get(Calendar.YEAR))
                 meetingsToday++;
-
         }
     }
 
@@ -65,7 +60,6 @@ public class MainActivityFilterTest {
     @Test
     public void checkNumRows_InRecyclerView() {
         onView(withId(R.id.liste_meetings)).check(withItemCount(numRows));
-
     }
 
     /* Vérifie la suppression d'une réunion avec l'icône corbeille */
@@ -74,7 +68,6 @@ public class MainActivityFilterTest {
         onView(withId(R.id.liste_meetings)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickInItemView(R.id.item_btn_delete)));
         onView(withId(R.id.liste_meetings)).check(withItemCount(numRows - 1));
     }
-
 
     /* Vérification des filtres de salle */
     @Test
@@ -101,11 +94,11 @@ public class MainActivityFilterTest {
 
     /* Vérification des filtres de date */
     @Test
-    public void filterRowsByDate() {
+    public void filterRowsByDate() throws InterruptedException {
 
         // Sélection des réunions du jour
         onView(withId(R.id.btn_filter)).perform(click());
-        onView(withId(R.id.filter_date3)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.filter_date1)).perform(click());
         onView(withId(R.id.filter_date1)).check(matches(isChecked()));
 
@@ -114,7 +107,7 @@ public class MainActivityFilterTest {
 
         // Réactivation des réunions dans la première salle, on retrouve numRows
         onView(withId(R.id.btn_filter)).perform(click());
-        onView(withId(R.id.filter_date2)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.filter_date4)).perform(click());
         onView(withId(R.id.filter_date1)).check(matches(isNotChecked()));
 
