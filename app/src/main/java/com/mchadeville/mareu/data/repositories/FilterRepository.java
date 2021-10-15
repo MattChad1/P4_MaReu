@@ -26,7 +26,6 @@ public class FilterRepository {
         filterLiveData.setValue(filter);
     }
 
-
     public void addFilterRoom(Room newFilterRoom) {
         Filter filter = filterLiveData.getValue();
         List<Room> filtersRooms = filter.getFiltersRooms();

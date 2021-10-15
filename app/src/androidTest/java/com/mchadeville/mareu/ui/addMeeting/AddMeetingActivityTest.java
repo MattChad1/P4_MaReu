@@ -31,7 +31,6 @@ public class AddMeetingActivityTest {
 
     @Before
     public void setUp() throws Exception {
-        //activity = activityRule.getActivity();
         ActivityScenario<MainActivity> activityScenario = ActivityScenario.launch(MainActivity.class);
         activityScenario.onActivity(activity -> activityRef = activity);
         onView(withId(R.id.fab_main)).perform(click());

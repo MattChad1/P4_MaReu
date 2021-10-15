@@ -131,6 +131,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             d.show();
         });
 
+        /* Messages d'erreur */
         viewModel.getViewStateLiveData().observe(this, viewState -> {
             editTopic.setError(viewState.getTopicError());
             editParticipants.setError(viewState.getParticipantsError());
